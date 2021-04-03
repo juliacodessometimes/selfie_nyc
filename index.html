@@ -46,7 +46,7 @@ var map = new mapboxgl.Map({
 });
 
 var geojson = null
-fetch('./data/data.geojson', {method: 'get'}).then(function(response){
+fetch('./data.geojson', {method: 'get'}).then(function(response){
     console.log(response)
     geojson = JSON.parse(response) // link to the geojson file
 }).catch(function(err) {
