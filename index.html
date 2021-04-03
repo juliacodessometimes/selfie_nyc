@@ -45,7 +45,6 @@ var map = new mapboxgl.Map({
     zoom: 9.8 // starting zoom
 });
 
-var geojson = null
 fetch('./data.geojson', {method: 'get'})
 .then(res => res.json())
 .then(geojson => {
