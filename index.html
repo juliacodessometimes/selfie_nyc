@@ -46,7 +46,7 @@ var map = new mapboxgl.Map({
 });
 
 var geojson = null
-fetch('./data.geojson', {method: 'get'}).then(function(response){
+await fetch('./data.geojson', {method: 'get'}).then(function(response){
     return response.json();
 }).then(function(data) {
     geojson = data
@@ -55,7 +55,6 @@ fetch('./data.geojson', {method: 'get'}).then(function(response){
     console.log(err)
 });
 
-console.log(geojson)
 
 // adding markers
 map.on('load', function() {
