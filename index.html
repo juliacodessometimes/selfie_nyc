@@ -52,6 +52,8 @@ fetch('./data.geojson', {method: 'get'})
 .catch(err => console.log(err));
 
 
+while (geojson == null) {}
+
 // adding markers
 map.on('load', function() {
     // adding data source
