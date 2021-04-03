@@ -34,7 +34,6 @@
 <body>
 <div id='map'></div>
 <pre id='coordinates' class='coordinates'></pre>
-<script type='text/javascript' src='config.js'></script>
 <script>
 mapboxgl.accessToken = 'pk.eyJ1IjoiamNha2VzMzMiLCJhIjoiY2p4ZGkyb2JyMDExcDNvb2dxZXFuYmY4cSJ9.m21aYnJvrMrnEGEa0AeimQ' // 
 
@@ -47,7 +46,7 @@ var map = new mapboxgl.Map({
 });
 
 var geojson = null
-fetch('./data.geojson', {method: 'get'}).then(function(response){
+fetch('./data/data.geojson', {method: 'get'}).then(function(response){
     console.log(response)
     geojson = JSON.parse(response) // link to the geojson file
 }).catch(function(err) {
