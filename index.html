@@ -48,54 +48,52 @@ var map = new mapboxgl.Map({
 var geojson = null
 fetch('./data.geojson', {method: 'get'})
 .then(res => res.json())
-.then(data => geojson = data)
-.catch(err => console.log(err));
+.then(geojson => {
+    // adding markers
+    map.on('load', function() {
+        // adding data source
+        map.addSource('source_id', {
+            type: 'geojson', 
+            data: geojson
+        });
+    })
 
-
-while (geojson == null) {}
-
-// adding markers
-map.on('load', function() {
-    // adding data source
-    map.addSource('source_id', {
-        type: 'geojson', 
-        data: geojson
+    geojson.features.forEach(function(marker) {
+        // create a HTML element for each feature
+        var el = document.createElement('div');
+        el.className = 'marker';
+            
+        // make a marker for each feature and add to the map
+        new mapboxgl.Marker(el)
+        .setLngLat(marker.geometry.coordinates)
+        .addTo(map);
     });
+
+    // drawing data on the map
+    // map.addLayer({
+    //       "id": "points",
+    //       "type": "circle",
+    //       "source": {
+    //         "type": "geojson",
+    //         "data": geojson
+    //       }
+    //     })
+
+    // add markers to map
+
+
+    // Add geolocate control to the map.
+    map.addControl(
+        new mapboxgl.GeolocateControl({
+            positionOptions: {
+                enableHighAccuracy: true
+            },
+            trackUserLocation: true
+        })
+    );
 })
 
-geojson.features.forEach(function(marker) {
-    // create a HTML element for each feature
-    var el = document.createElement('div');
-    el.className = 'marker';
-        
-    // make a marker for each feature and add to the map
-    new mapboxgl.Marker(el)
-    .setLngLat(marker.geometry.coordinates)
-    .addTo(map);
-});
 
-// drawing data on the map
-// map.addLayer({
-//       "id": "points",
-//       "type": "circle",
-//       "source": {
-//         "type": "geojson",
-//         "data": geojson
-//       }
-//     })
-
-// add markers to map
-
-
-// Add geolocate control to the map.
-map.addControl(
-    new mapboxgl.GeolocateControl({
-        positionOptions: {
-            enableHighAccuracy: true
-        },
-        trackUserLocation: true
-    })
-);
 
 </script>
 </body>
