@@ -46,7 +46,7 @@
     });
     
     map.on('load', () => {
-        fetch('https://juliacodessometimes.github.io/selfie_nyc/docs/assets/data.geojson')
+        fetch('https://juliacodessometimes.github.io/selfie_nyc/assets/data.geojson')
         .then(response => response.json())
         .then((data) => {
             map.addSource('source_id', {
