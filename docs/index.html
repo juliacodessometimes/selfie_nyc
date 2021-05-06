@@ -11,27 +11,68 @@
     body {
         margin:0;
         padding:0;
+        font-family: 'Courier New', Courier, monospace;
+        background-color: #87E7FF;
+        color: black;
+        text-align: center;
     }
 
-    #map {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        width: 100%;
+    p {
+        background-color: #87E7FF;
+        color:#FFFF87;
     }
-    
+
+    main {
+        border-top: 1px solid white;
+        grid-area: main;
+        display: flex;
+        flex-direction: row;
+    }
+
+    .map {
+        width: 100%;
+        height: 100%;
+        transition: 0.2s all ease;
+    }
+
+    .wrapper {
+        width: 100vw;
+        height: 100vh;
+        overflow: auto;
+        border: 15px solid #FFFF87;
+        display: grid;
+        grid-template-rows: minmax(auto, 1fr) 4.5fr;
+        grid-template-areas:
+        "header"
+        "main";
+    }
+
+    .header {
+        color:#FFFF87;
+    }
+   
     .marker {
         border: none;
         cursor: pointer;
-        height: 20px;
-        width: 31px;
+        height: 33px;
+        width: 55px;
         background-image: url(assets/icon.png);
+    }
+
+    .selfie {
+        width: 0%;
+        height: 100%;
+        transition: 0.2s all ease
     }
     </style>
 </head>
 <body>
+<div class='wrapper'>
+    <div class='header'>
+        <img src='assets/logo.png' id='logo'></img>
+        <p><strong>Click a camera to take a selfie!</strong></p>
+    </div>
     <div id='map'></div>
-    <pre id='coordinates' class='coordinates'></pre>
     <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoiamNha2VzMzMiLCJhIjoiY2p4ZGkyb2JyMDExcDNvb2dxZXFuYmY4cSJ9.m21aYnJvrMrnEGEa0AeimQ' // 
 
@@ -98,12 +139,13 @@
               '<h4>' +
               currentFeature.properties.name +
               '</h4>' +
-              '<h4>' +
+              '<img src="' +
               currentFeature.properties.url +
-              '</h4>'
+              '">'
             )
         .addTo(map);
     }
     </script>
+</div>
 </body>
 </html>
