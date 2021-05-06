@@ -8,13 +8,21 @@
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css' rel='stylesheet' />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
     <style>
+    * {
+        box-sizing: border-box;
+    }
+
     body {
         margin:0;
         padding:0;
+        -webkit-font-smoothing: antialiased;
         font-family: 'Courier New', Courier, monospace;
         background-color: #87E7FF;
         color: black;
+        width: 100vw;
+        height: 100vh;
         text-align: center;
+        overflow: hidden;
     }
 
     p {
@@ -36,8 +44,8 @@
     }
 
     .wrapper {
-        width: 100vw;
-        height: 100vh;
+        width: 100%;
+        height: 100%;
         overflow: auto;
         border: 15px solid #FFFF87;
         display: grid;
