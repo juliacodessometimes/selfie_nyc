@@ -3,84 +3,27 @@
 <head>
     <meta charset='utf-8' />
     <title>selfie.nyc</title>
-    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <meta name='viewport' content='width=device-width,initial-scale=1,user-scalable=no' />
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css' rel='stylesheet' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
-    <style>
-    * {
-        box-sizing: border-box;
-    }
-
-    body {
-        margin:0;
-        padding:0;
-        -webkit-font-smoothing: antialiased;
-        font-family: 'Courier New', Courier, monospace;
-        background-color: #87E7FF;
-        color: black;
-        width: 100vw;
-        height: 100vh;
-        text-align: center;
-        overflow: hidden;
-    }
-
-    p {
-        background-color: #87E7FF;
-        color:#FFFF87;
-    }
-
-    main {
-        border-top: 1px solid white;
-        grid-area: main;
-        display: flex;
-        flex-direction: row;
-    }
-
-    .map {
-        width: 100%;
-        height: 100%;
-        transition: 0.2s all ease;
-    }
-
-    .wrapper {
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        border: 15px solid #FFFF87;
-        display: grid;
-        grid-template-rows: minmax(auto, 1fr) 4.5fr;
-        grid-template-areas:
-        "header"
-        "main";
-    }
-
-    .header {
-        color:#FFFF87;
-    }
-   
-    .marker {
-        border: none;
-        cursor: pointer;
-        height: 33px;
-        width: 55px;
-        background-image: url(assets/icon.png);
-    }
-
-    .selfie {
-        width: 0%;
-        height: 100%;
-        transition: 0.2s all ease
-    }
-    </style>
+    <link rel="stylesheet" href="main.css">
 </head>
 <body>
 <div class='wrapper'>
     <div class='header'>
         <img src='assets/logo.png' id='logo'></img>
-        <p><strong>Click a camera to take a selfie!</strong></p>
+        <p>Click a camera to take a selfie!</p>
     </div>
     <div id='map'></div>
+    <div class='slider'>
+        <div id='slider-header'>
+            <p>CAMERA</p>
+            <button class="sidebar-toggle"><i class='fa fa-close'></i></button>      
+        </div>
+        <img id='camFeed' src=''>
+    </div>
     <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoiamNha2VzMzMiLCJhIjoiY2p4ZGkyb2JyMDExcDNvb2dxZXFuYmY4cSJ9.m21aYnJvrMrnEGEa0AeimQ' // 
 
@@ -122,8 +65,10 @@
                     el.addEventListener('click', function (e) {
                         // fly to the marker
                         flyToCamera(marker);
-                        // close all other popups and display popup for clicked camera
-                        createPopUp(marker);
+                        // move the slider that holds the camera feed
+                        moveSlider(marker);
+                        // set the slider html that holds the camera feed
+                        setHTML(marker);
                     });
                 });                
             };
@@ -136,23 +81,31 @@
             zoom: 17
         });
     }
+ 
+    var toggleBtn = document.querySelector('.sidebar-toggle');
+    var sliderCSS = document.querySelector('.slider');
     
-    function createPopUp(currentFeature) {
-        var popUps = document.getElementsByClassName('mapboxgl-popup');
-        if (popUps[0]) popUps[0].remove();
-        var popup = new mapboxgl.Popup({ closeOnClick: false })
-          .setLngLat(currentFeature.geometry.coordinates)
-          .setHTML(
-              '<h3>CAMERA</h3>' +
-              '<h4>' +
-              currentFeature.properties.name +
-              '</h4>' +
-              '<img src="' +
-              currentFeature.properties.url +
-              '">'
-            )
-        .addTo(map);
+    function moveSlider(currentFeature) {
+        sliderCSS.classList.toggle('is-closed');
     }
+
+    function setHTML(currentFeature) {
+        document.getElementById('camFeed').src = currentFeature.properties.url
+        //document.getElementById('cam-info').innerHTML = 'camera'
+
+        /*'<h3>CAMERA</h3>' +
+        '<h4>' +
+        currentFeature.properties.name +
+        '</h4>' +
+        '<img src="' +
+        currentFeature.properties.url +
+        '">';*/
+
+    }
+
+    toggleBtn.addEventListener('click', function() {
+        sliderCSS.classList.toggle('is-closed');
+    })
     </script>
 </div>
 </body>
