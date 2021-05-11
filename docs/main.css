@@ -73,7 +73,7 @@ body {
 
 .slider {
   width: 100%;
-  height: 30em;
+  height: 100vh;
   border-top: 15px solid #FFFF87;
   -ms-grid-row: 3;
   -ms-grid-column: 1;
@@ -84,8 +84,8 @@ body {
 }
 
 .slider.is-open {
-  -webkit-transform: translateY(-30em);
-          transform: translateY(-30em);
+  -webkit-transform: translateY(-100vh);
+          transform: translateY(-100vh);
 }
 
 .slider #slider-header {
