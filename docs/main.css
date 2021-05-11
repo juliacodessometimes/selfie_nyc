@@ -44,7 +44,7 @@ body {
   font-weight: 900;
 }
 
-main {
+.map-class {
   -ms-grid-row: 2;
   -ms-grid-column: 1;
   grid-area: map;
@@ -57,7 +57,7 @@ main {
           flex-direction: row;
 }
 
-#map {
+.map-class #map {
   width: 100%;
   height: 100%;
   overflow: hidden;
