@@ -12,101 +12,103 @@
 </head>
 <body>
 <div class='wrapper'>
-    <div class='header'>
-        <img src='assets/logo.png' id='logo'></img>
-        <p>Click a camera to take a selfie!</p>
-    </div>
+<div class='header'>
+    <img src='assets/logo.png' id='logo'></img>
+    <p>Click a camera to take a selfie!</p>
+</div>
+<div class='map'>
     <div id='map'></div>
-    <div class='slider'>
-        <div id='slider-header'>
-            <p>CAMERA</p>
-            <button class="sidebar-toggle"><i class='fa fa-close'></i></button>      
-        </div>
-        <img id='camFeed' src=''>
+</div>
+<div class='slider'>
+    <div id='slider-header'>
+        <p>CAMERA</p>
+        <button class='slider-toggle'><i class='fa fa-close'></i></button>      
     </div>
-    <script>
-    mapboxgl.accessToken = 'pk.eyJ1IjoiamNha2VzMzMiLCJhIjoiY2p4ZGkyb2JyMDExcDNvb2dxZXFuYmY4cSJ9.m21aYnJvrMrnEGEa0AeimQ' // 
+    <img id='camFeed' src=''>
+</div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiamNha2VzMzMiLCJhIjoiY2p4ZGkyb2JyMDExcDNvb2dxZXFuYmY4cSJ9.m21aYnJvrMrnEGEa0AeimQ' // 
 
-    // adding map
-    var map = new mapboxgl.Map({
-        container: 'map', // container id
-        style: 'mapbox://styles/mapbox/light-v10',
-        center: [-74.006000, 40.712800], // starting position
-        zoom: 15, // starting zoom
-        scrollZoom: false
-    });
-    
-    map.on('load', () => {
-        fetch('https://juliacodessometimes.github.io/selfie_nyc/assets/data.geojson')
-        .then(response => response.json())
-        .then((data) => {
-            map.addSource('source_id', {
-                type: 'geojson',
-                data: data
-            });
+// adding map
+var map = new mapboxgl.Map({
+    container: 'map', // container id
+    style: 'mapbox://styles/mapbox/light-v10',
+    center: [-74.006000, 40.712800], // starting position
+    zoom: 15, // starting zoom
+    scrollZoom: false
+});
 
-            addMarkers();
-
-            function addMarkers() {
-                // for each feature in the GeoJSON object above:
-                data.features.forEach(function (marker) {
-                    // create a div element for the marker
-                    var el = document.createElement('div');
-                    // assign a unique `id` to the marker
-                    el.id = 'camera-' + marker.properties.id;
-                    // assign the `marker` class to each marker for styling
-                    el.className = 'marker';
-                    
-                    // create div element based on above and add to map
-                    new mapboxgl.Marker(el, { offset: [0, 0] })
-                    .setLngLat(marker.geometry.coordinates)
-                    .addTo(map);
-                    
-                    el.addEventListener('click', function (e) {
-                        // fly to the marker
-                        flyToCamera(marker);
-                        // move the slider that holds the camera feed
-                        moveSlider(marker);
-                        // set the slider html that holds the camera feed
-                        setHTML(marker);
-                    });
-                });                
-            };
+map.on('load', () => {
+    fetch('https://juliacodessometimes.github.io/selfie_nyc/assets/data.geojson')
+    .then(response => response.json())
+    .then((data) => {
+        map.addSource('source_id', {
+            type: 'geojson',
+            data: data
         });
+
+        addMarkers();
+
+        function addMarkers() {
+            // for each feature in the GeoJSON object above:
+            data.features.forEach(function (marker) {
+                // create a div element for the marker
+                var el = document.createElement('div');
+                // assign a unique `id` to the marker
+                el.id = 'camera-' + marker.properties.id;
+                // assign the `marker` class to each marker for styling
+                el.className = 'marker';
+                
+                // create div element based on above and add to map
+                new mapboxgl.Marker(el, { offset: [0, 0] })
+                .setLngLat(marker.geometry.coordinates)
+                .addTo(map);
+                
+                el.addEventListener('click', function (e) {
+                    // fly to the marker
+                    flyToCamera(marker);
+                    // move the slider that holds the camera feed
+                    moveSlider(marker);
+                    // set the slider html that holds the camera feed
+                    setHTML(marker);
+                });
+            });                
+        };
     });
+});
 
-    function flyToCamera(currentFeature) {
-        map.flyTo({
-            center: currentFeature.geometry.coordinates,
-            zoom: 17
-        });
-    }
- 
-    var toggleBtn = document.querySelector('.sidebar-toggle');
-    var sliderCSS = document.querySelector('.slider');
-    
-    function moveSlider(currentFeature) {
-        sliderCSS.classList.toggle('is-closed');
-    }
+function flyToCamera(currentFeature) {
+    map.flyTo({
+        center: currentFeature.geometry.coordinates,
+        zoom: 17
+    });
+}
 
-    function setHTML(currentFeature) {
-        document.getElementById('camFeed').src = currentFeature.properties.url
-        //document.getElementById('cam-info').innerHTML = 'camera'
+var toggleBtn = document.querySelector('.slider-toggle');
+var sliderCSS = document.querySelector('.slider');
 
-        /*'<h3>CAMERA</h3>' +
-        '<h4>' +
-        currentFeature.properties.name +
-        '</h4>' +
-        '<img src="' +
-        currentFeature.properties.url +
-        '">';*/
+function moveSlider(currentFeature) {
+    sliderCSS.classList.toggle('is-open');
+}
 
-    }
+function setHTML(currentFeature) {
+    document.getElementById('camFeed').src = currentFeature.properties.url
+    //document.getElementById('cam-info').innerHTML = 'camera'
 
-    toggleBtn.addEventListener('click', function() {
-        sliderCSS.classList.toggle('is-closed');
-    })
-    </script>
+    /*'<h3>CAMERA</h3>' +
+    '<h4>' +
+    currentFeature.properties.name +
+    '</h4>' +
+    '<img src="' +
+    currentFeature.properties.url +
+    '">';*/
+
+}
+
+toggleBtn.addEventListener('click', function() {
+    sliderCSS.classList.toggle('is-open');
+})
+</script>
 </div>
 </body>
 </html>
