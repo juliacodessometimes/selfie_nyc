@@ -11,30 +11,41 @@
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
-<div class='wrapper'>
 <div class='header'>
     <img src='assets/logo.png' id='logo'></img>
     <p>Click a camera to take a selfie!</p>
 </div>
+<div class='wrapper'>
 <div class='map-class'>
     <div id='map'></div>
 </div>
 <div class='slider'>
-    <div id='slider-header'>
-        <p>CAMERA</p>
-        <button class='slider-toggle'><i class='fa fa-close'></i></button>      
+    <div class='slider-title'>
+        <div id='location'>
+            <p></p>
+        </div>
+        <button class='slider-toggle'><i class='fa fa-close'></i></button>
     </div>
     <img id='camFeed' src=''>
+    <div class='slider-text'>
+        <h4>Strike a pose and snap a selfie by hitting the CLICK button below</h4>
+        <span></span>
+        <p>TIP: Sometimes camera locations on the map aren't exact: try matching the feed with what you see</p>
+    </div>
+    <div class='slider-buttons'>
+        <button class='take-selfie'></button>
+        <button class='refresh'></button>
+    </div>
 </div>
 <script>
 mapboxgl.accessToken = 'pk.eyJ1IjoiamNha2VzMzMiLCJhIjoiY2p4ZGkyb2JyMDExcDNvb2dxZXFuYmY4cSJ9.m21aYnJvrMrnEGEa0AeimQ' // 
 
 // adding map
 var map = new mapboxgl.Map({
-    container: 'map', // container id
+    container: 'map',
     style: 'mapbox://styles/mapbox/light-v10',
     center: [-74.006000, 40.712800], // starting position
-    zoom: 15, // starting zoom
+    zoom: 15,
     scrollZoom: false
 });
 
@@ -65,49 +76,52 @@ map.on('load', () => {
                 .addTo(map);
                 
                 el.addEventListener('click', function (e) {
-                    // fly to the marker
-                    flyToCamera(marker);
                     // move the slider that holds the camera feed
                     moveSlider(marker);
                     // set the slider html that holds the camera feed
                     setHTML(marker);
+                    // fly to the marker
+                    flyToCamera(marker);
                 });
             });                
         };
     });
 });
 
-function flyToCamera(currentFeature) {
-    map.flyTo({
-        center: currentFeature.geometry.coordinates,
-        zoom: 17
-    });
-}
-
+// exit button on slider variable
 var toggleBtn = document.querySelector('.slider-toggle');
-var sliderCSS = document.querySelector('.slider');
 
-function moveSlider(currentFeature) {
+// toggle CSS variables
+var sliderCSS = document.querySelector('.slider');
+var headerCSS = document.querySelector('.header');
+var mapCSS = document.querySelector('.map-class');
+
+function moveSlider() {
     sliderCSS.classList.toggle('is-open');
+    headerCSS.classList.toggle('is-open');
+    mapCSS.classList.toggle('is-open');
 }
 
 function setHTML(currentFeature) {
     document.getElementById('camFeed').src = currentFeature.properties.url
-    //document.getElementById('cam-info').innerHTML = 'camera'
-
-    /*'<h3>CAMERA</h3>' +
-    '<h4>' +
-    currentFeature.properties.name +
-    '</h4>' +
-    '<img src="' +
-    currentFeature.properties.url +
-    '">';*/
-
+    document.getElementById('location').innerHTML = currentFeature.properties.name
 }
 
+function flyToCamera(currentFeature) {
+    map.flyTo({
+        center: currentFeature.geometry.coordinates,
+        zoom: 19,
+        speed: 1.5,
+        offset: [0,-240]
+    });
+}
+
+// close slider
 toggleBtn.addEventListener('click', function() {
     sliderCSS.classList.toggle('is-open');
-})
+    headerCSS.classList.toggle('is-open');
+    mapCSS.classList.toggle('is-open');
+});
 </script>
 </div>
 </body>

@@ -4,129 +4,208 @@ $blue: #87E7FF;
 $pink: #DF4FCF;
 
 // sizes
-$height_slider_open: 100vh;
-$height_slider_closed: 0em;
+$slider_close_icon: 40px;
+$buttons_height: 70px;
 
 // border
 $yellowborder_style: 15px solid $yellow;
 $blueborder_style: 30px solid $blue;
+$pinkborder_style: 14px solid $pink;
 
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body {
-  margin:0;
-  padding:0;
-  -webkit-font-smoothing: antialiased;
-  font-family: 'Courier New', Courier, monospace;
-  background-color: $blue;
-  color: $pink;
-  width: 100%;
-  height: 100vh;
-  text-align: center;
-  overflow: hidden;
-}
-
-.wrapper {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  border: $yellowborder_style;
-  display: grid;
-  grid-template-rows: minmax(auto, 1fr) 4.5fr $height_slider_closed;
-  grid-template-areas:
-  "header"
-  "map"
-  "slider";
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: $yellow;
+    color: $pink;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    border: $yellowborder_style;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1;
 }
 
 .header {
-  background-color: $blue;
-  grid-area: header;
-  color: $pink;
-  p {
-    -webkit-font-smoothing: antialiased;
-    font-family: 'Courier New', Courier, monospace;
     background-color: $blue;
-    color: $pink;
-    font-weight: 900;
-  }
+    overflow: hidden;
+    width: 100%;
+    height: auto;
+    transition: all .7s ease-out;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    
+    &.is-open {
+      transform: translateY(-101%)
+    }
+    
+    #logo {
+        height: auto;
+        width: 100%;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+    
+    p {
+        background-color: $blue;
+        text-align: center;
+        color: $pink;
+        font-weight: 900;
+    }
+}
+
+.wrapper {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 .map-class {
-  grid-area: map;
-  display: flex;
-  flex-direction: row; 
-
-  #map {
+    height: 100vh;
     width: 100%;
-    height: 100%;
-    overflow: hidden;
-  }
-}
-
-
-.marker {
-  border: none;
-  cursor: pointer;
-  height: 33px;
-  width: 55px;
-  background-image: url(assets/icon.png);
+    flex: 4;
+    transition: all .7s ease;
+    
+    &.is-open {
+        flex: 1;
+    }
+    
+    #map {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        
+        .marker {
+            border: none;
+            cursor: pointer;
+            height: 33px;
+            width: 55px;
+            background-image: url(assets/icon.png);
+        }
+    }
 }
 
 .slider {
-  width: 100%;
-  height: $height_slider_open;
-  border-top: $yellowborder_style;
-  grid-area: slider;
-  background-color: $blue;
-  transition: .7s;
-  
-  &.is-open {
-    transform: translateY(-$height_slider_open);
-  }
-
-  #slider-header {
     width: 100%;
-    height: auto;
-    border-top: $blueborder_style;
-    border-bottom: $yellowborder_style;
-    background-color: $blue;
+    height: 0em;
+    background-color: $yellow;
+    border-top: $yellowborder_style;
+    transition: all .7s ease;
+    flex: 0;
     display: grid;
-    grid-template-columns: 5fr 1fr;
+    grid-template-rows: $slider_close_icon 2fr 1fr 1fr;
+    grid-template-areas:
+    'title'
+    'camera'
+    'tips'
+    'buttons';
+    
+    &.is-open {
+        flex: 3.5;
+    }
+    
+    .slider-title {
+        grid-area: title;
+        background-color: $blue;
+        position: relative;
+        display: flex;
+        align-items: center;
 
-    p {
-      -webkit-font-smoothing: antialiased;
-      font-family: 'Courier New', Courier, monospace;
-      background-color: $blue;
-      color: $pink;
-      font-weight: 900;
+        #location {
+            text-align: center;
+            font-weight: 900;
+            flex: 1;
+        }
+
+        .slider-toggle {
+            flex: 0 0 $slider_close_icon;
+            border: none;
+            width: $slider_close_icon;
+            height: $slider_close_icon;
+            cursor: pointer;
+            
+            i.fa {
+                position:center;
+                font-size: 20px;
+                color: $pink;
+            }
+        }
+    }
+    
+    #camFeed {
+        grid-area: camera;
+        height: auto;
+        width: 100%;
+        background-size: contain;
+        background-repeat: no-repeat;
+        border-top: $yellowborder_style;
+        border-bottom: $yellowborder_style;
     }
 
-    .slider-toggle {
-      position: static;
-      top: 15px;
-      left:100px;
-      outline: none;
-      border: 3px solid $pink;
-      width: 40px;
-      height: 40px;
-      background-color: $yellow;
-      cursor: pointer;
-      
-      i.fa {
-        position:center;
-        font-size: 20px;
+    .slider-text {
+        grid-area: tips;
+        width: 100%;
+        height: auto;
+        background-color: $blue;
         color: $pink;
-      }
-    }
-  }
+        font-weight: 900;
+        text-align: center;
 
-  #camFeed {
-    height: auto;
-    width: 100%;
-    background-size: contain;
-    background-repeat: no-repeat;
-  }
+        h4 {
+            font-size: 15px;
+            -webkit-font-smoothing: antialiased;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: 900;
+        }
+
+        p {
+            font-size: 10px;
+            text-align: left;
+            margin-left: 15px;
+        }
+    }
+
+    .slider-buttons {
+        grid-area: buttons;
+        background-color: $blue;
+        display: flex;
+
+        .take-selfie {
+            position: static;
+            top: 15px;
+            left: 100px;
+            outline: none;
+            border: $pinkborder_style;
+            width: 40px;
+            height: $buttons_height;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .refresh {
+            position: static;
+            top: 15px;
+            right: 100px;
+            outline: none;
+            border: $pinkborder_style;
+            width: 40px;
+            height: $buttons_height;
+            cursor: pointer;
+            flex: 1;
+        }
+    }
 }
