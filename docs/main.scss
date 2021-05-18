@@ -6,6 +6,8 @@ $pink: #DF4FCF;
 // sizes
 $slider_close_icon: 40px;
 $buttons_height: 70px;
+$height_slider_open: 80vh;
+$height_slider_closed: 0em;
 
 // border
 $yellowborder_style: 15px solid $yellow;
@@ -41,10 +43,10 @@ body {
     width: 100%;
     height: auto;
     transition: all .7s ease-out;
+    z-index: 3;
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 2;
     
     &.is-open {
       transform: translateY(-101%)
@@ -68,21 +70,27 @@ body {
 .wrapper {
     width: 100%;
     height: 100vh;
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+    display: grid;
+    grid-template-rows: 100vh $height_slider_closed;
+    grid-template-areas:
+    'map'
+    'slider';
 }
 
 .map-class {
-    height: 100vh;
+    grid-area: map;
+    height: 100%;
     width: 100%;
-    flex: 4;
+    position: absolute;
+    z-index: 3;
     transition: all .7s ease;
-    
-    &.is-open {
-        flex: 1;
-    }
     
     #map {
         width: 100%;
@@ -100,12 +108,15 @@ body {
 }
 
 .slider {
+    grid-area: slider;
     width: 100%;
-    height: 0em;
+    height: $height_slider_open;
+    z-index: 4;
     background-color: $yellow;
     border-top: $yellowborder_style;
+    border-bottom: $yellowborder_style;
     transition: all .7s ease;
-    flex: 0;
+    overflow-y: visible;
     display: grid;
     grid-template-rows: $slider_close_icon 2fr 1fr 1fr;
     grid-template-areas:
@@ -115,7 +126,7 @@ body {
     'buttons';
     
     &.is-open {
-        flex: 3.5;
+        transform: translateY(-$height_slider_open);
     }
     
     .slider-title {

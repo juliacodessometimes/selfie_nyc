@@ -30,7 +30,6 @@
     <img id='camFeed' src=''>
     <div class='slider-text'>
         <h4>Strike a pose and snap a selfie by hitting the CLICK button below</h4>
-        <span></span>
         <p>TIP: Sometimes camera locations on the map aren't exact: try matching the feed with what you see</p>
     </div>
     <div class='slider-buttons'>
@@ -58,6 +57,10 @@ map.on('load', () => {
             type: 'geojson',
             data: data
         });
+        
+        if (navigator.geolocation) {
+            flyToUser()
+        }
 
         addMarkers();
 
@@ -95,12 +98,10 @@ var toggleBtn = document.querySelector('.slider-toggle');
 // toggle CSS variables
 var sliderCSS = document.querySelector('.slider');
 var headerCSS = document.querySelector('.header');
-var mapCSS = document.querySelector('.map-class');
 
 function moveSlider() {
     sliderCSS.classList.toggle('is-open');
     headerCSS.classList.toggle('is-open');
-    mapCSS.classList.toggle('is-open');
 }
 
 function setHTML(currentFeature) {
@@ -117,11 +118,21 @@ function flyToCamera(currentFeature) {
     });
 }
 
+function flyToUser(userlocation) {
+    navigator.geolocation.getCurrentPosition(userlocation => {
+        map.flyTo({
+            center: [userlocation.coords.longitude, userlocation.coords.latitude],
+            zoom: 15
+        });
+    });
+}
+
 // close slider
 toggleBtn.addEventListener('click', function() {
     sliderCSS.classList.toggle('is-open');
     headerCSS.classList.toggle('is-open');
-    mapCSS.classList.toggle('is-open');
+
+    flyToUser()
 });
 </script>
 </div>
