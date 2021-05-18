@@ -109,7 +109,7 @@ body {
   border-bottom: 15px solid #FFFF87;
   -webkit-transition: all .7s ease;
   transition: all .7s ease;
-  overflow-y: visible;
+  overflow: hidden;
   display: -ms-grid;
   display: grid;
   -ms-grid-rows: 40px 2fr 1fr 1fr;

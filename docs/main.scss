@@ -116,7 +116,7 @@ body {
     border-top: $yellowborder_style;
     border-bottom: $yellowborder_style;
     transition: all .7s ease;
-    overflow-y: visible;
+    overflow: hidden;
     display: grid;
     grid-template-rows: $slider_close_icon 2fr 1fr 1fr;
     grid-template-areas:
