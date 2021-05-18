@@ -14,7 +14,8 @@
 <body>
 <div class='header'>
     <img src='assets/logo.png' id='logo'></img>
-    <p>Click a camera to take a selfie!</p>
+    <h4>Click a camera to take a selfie!</h4>
+    <p>TIP: Sometimes camera locations on the map aren't exact: try matching the feed with what you see</p>
 </div>
 <div class='wrapper'>
 <div class='map-class'>
@@ -30,7 +31,6 @@
     <img id='camFeed' src=''>
     <div class='slider-text'>
         <h4>Strike a pose and snap a selfie by hitting the CLICK button below</h4>
-        <p>TIP: Sometimes camera locations on the map aren't exact: try matching the feed with what you see</p>
     </div>
     <div class='slider-buttons'>
         <button class='take-selfie'></button>
@@ -99,14 +99,25 @@ var toggleBtn = document.querySelector('.slider-toggle');
 var sliderCSS = document.querySelector('.slider');
 var headerCSS = document.querySelector('.header');
 
+// camera feed variables
+var cameraFeed = document.getElementById('camFeed')
+var cameraLocation = document.getElementById('location')
+
 function moveSlider() {
     sliderCSS.classList.toggle('is-open');
     headerCSS.classList.toggle('is-open');
 }
 
 function setHTML(currentFeature) {
-    document.getElementById('camFeed').src = currentFeature.properties.url
-    document.getElementById('location').innerHTML = currentFeature.properties.name
+    // this pre-loads image before refresh function starts
+    cameraFeed.src = currentFeature.properties.url
+    cameraRefresh = setInterval(function() {
+        // refresh camera feed every 2 seconds
+        cameraFeed.src = currentFeature.properties.url + Math.random();
+    }, 2000);
+
+    // set heading to cross street text
+    cameraLocation.innerHTML = currentFeature.properties.name;
 }
 
 function flyToCamera(currentFeature) {
@@ -132,7 +143,10 @@ toggleBtn.addEventListener('click', function() {
     sliderCSS.classList.toggle('is-open');
     headerCSS.classList.toggle('is-open');
 
-    flyToUser()
+    // clear feed refresh
+    clearInterval(cameraRefresh);
+
+    flyToUser();
 });
 </script>
 </div>
