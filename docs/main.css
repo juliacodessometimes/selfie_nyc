@@ -1,6 +1,6 @@
 @font-face {
   font-family: pixelfont;
-  src: url();
+  src: url(https://juliacodessometimes.github.io/selfie_nyc/assets/pixelfont.woff);
 }
 
 * {
@@ -12,7 +12,7 @@ body {
   margin: 0;
   padding: 0;
   -webkit-font-smoothing: antialiased;
-  font-family: 'Consolas', monospace;
+  font-family: pixelfont;
   background-color: #FFFF87;
   color: #DF4FCF;
   width: 100%;
@@ -53,19 +53,18 @@ body {
 }
 
 .header h4 {
-  font-size: 15px;
+  font-size: 20px;
   -webkit-font-smoothing: antialiased;
-  font-family: 'Consolas', monaco, monospace;
-  font-weight: 900;
+  font-family: pixelfont;
+  font-weight: 500;
   text-align: center;
 }
 
 .header p {
   font-size: 10px;
   -webkit-font-smoothing: antialiased;
-  font-family: 'Consolas', monaco, monospace;
+  font-family: pixelfont;
   text-align: left;
-  font-weight: 900;
   text-align: center;
 }
 
