@@ -79,8 +79,8 @@ map.on('load', () => {
                 .addTo(map);
                 
                 el.addEventListener('click', function (e) {
-                    // move the slider that holds the camera feed
-                    moveSlider(marker);
+                    // open the slider that holds the camera feed
+                    openSlider(marker);
                     // set the slider html that holds the camera feed
                     setHTML(marker);
                     // fly to the marker
@@ -99,9 +99,9 @@ var headerCSS = document.querySelector('.header');
 var cameraFeed = document.getElementById('camFeed')
 var cameraLocation = document.getElementById('location')
 // functions
-function moveSlider() {
-    sliderCSS.classList.toggle('is-open');
-    headerCSS.classList.toggle('is-open');
+function openSlider() {
+    sliderCSS.classList.add('is-open');
+    headerCSS.classList.add('is-open');
 }
 function setHTML(currentFeature) {
     // this pre-loads image before refresh function starts
@@ -135,7 +135,6 @@ toggleBtn.addEventListener('click', function() {
     headerCSS.classList.toggle('is-open');
     // clear feed refresh
     clearInterval(cameraRefresh);
-    cameraFeed.src = '';
 
     flyToUser();
 });
