@@ -158,8 +158,13 @@ body {
 }
 
 .slider .slider-title #location {
+  font-size: 20px;
+  -webkit-font-smoothing: antialiased;
+  font-family: pixelfont;
+  font-weight: 500;
   text-align: center;
-  font-weight: 900;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
@@ -201,15 +206,14 @@ body {
   height: auto;
   background-color: #87E7FF;
   color: #DF4FCF;
-  font-weight: 900;
   text-align: center;
 }
 
 .slider .slider-text h4 {
-  font-size: 15px;
+  font-size: 20px;
   -webkit-font-smoothing: antialiased;
-  font-family: 'Consolas', monaco, monospace;
-  font-weight: 900;
+  font-family: pixelfont;
+  font-weight: 500;
 }
 
 .slider .slider-buttons {
