@@ -1,14 +1,17 @@
+// font
+@font-face {
+    font-family: pixelfont;
+    src: url();
+}
 // colors
 $yellow: #FFFF87;
 $blue: #87E7FF;
 $pink: #DF4FCF;
-
 // sizes
 $slider_close_icon: 40px;
 $buttons_height: 70px;
 $height_slider_open: 80vh;
 $height_slider_closed: 0em;
-
 // border
 $yellowborder_style: 15px solid $yellow;
 $blueborder_style: 30px solid $blue;
@@ -22,7 +25,7 @@ body {
     margin: 0;
     padding: 0;
     -webkit-font-smoothing: antialiased;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Consolas', monospace;
     background-color: $yellow;
     color: $pink;
     width: 100%;
@@ -62,7 +65,7 @@ body {
     h4 {
         font-size: 15px;
         -webkit-font-smoothing: antialiased;
-        font-family: 'Courier New', Courier, monospace;
+        font-family: 'Consolas', monaco, monospace;
         font-weight: 900;
         text-align: center;
     }
@@ -70,7 +73,7 @@ body {
     p {
         font-size: 10px;
         -webkit-font-smoothing: antialiased;
-        font-family: 'Courier New', Courier, monospace;
+        font-family: 'Consolas', monaco, monospace;
         text-align: left;
         font-weight: 900;
         text-align: center;
@@ -101,7 +104,6 @@ body {
     width: 100%;
     position: absolute;
     z-index: 3;
-    transition: all .7s ease;
     
     #map {
         width: 100%;
@@ -114,6 +116,14 @@ body {
             height: 33px;
             width: 55px;
             background-image: url(assets/icon.png);
+            
+            &.select {
+                border: none;
+                cursor: pointer;
+                height: 37px;
+                width: 59px;
+                background-image: url(assets/icon_select.png);
+            }
         }
     }
 }
@@ -190,7 +200,7 @@ body {
         h4 {
             font-size: 15px;
             -webkit-font-smoothing: antialiased;
-            font-family: 'Courier New', Courier, monospace;
+            font-family: 'Consolas', monaco, monospace;
             font-weight: 900;
         }
     }
@@ -209,7 +219,7 @@ body {
             width: 40px;
             height: $buttons_height;
             cursor: pointer;
-            flex: 1;
+            flex: 5;
         }
 
         .refresh {

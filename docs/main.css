@@ -1,3 +1,8 @@
+@font-face {
+  font-family: pixelfont;
+  src: url();
+}
+
 * {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -7,7 +12,7 @@ body {
   margin: 0;
   padding: 0;
   -webkit-font-smoothing: antialiased;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Consolas', monospace;
   background-color: #FFFF87;
   color: #DF4FCF;
   width: 100%;
@@ -50,7 +55,7 @@ body {
 .header h4 {
   font-size: 15px;
   -webkit-font-smoothing: antialiased;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Consolas', monaco, monospace;
   font-weight: 900;
   text-align: center;
 }
@@ -58,7 +63,7 @@ body {
 .header p {
   font-size: 10px;
   -webkit-font-smoothing: antialiased;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Consolas', monaco, monospace;
   text-align: left;
   font-weight: 900;
   text-align: center;
@@ -90,8 +95,6 @@ body {
   width: 100%;
   position: absolute;
   z-index: 3;
-  -webkit-transition: all .7s ease;
-  transition: all .7s ease;
 }
 
 .map-class #map {
@@ -106,6 +109,14 @@ body {
   height: 33px;
   width: 55px;
   background-image: url(assets/icon.png);
+}
+
+.map-class #map .marker.select {
+  border: none;
+  cursor: pointer;
+  height: 37px;
+  width: 59px;
+  background-image: url(assets/icon_select.png);
 }
 
 .slider {
@@ -198,7 +209,7 @@ body {
 .slider .slider-text h4 {
   font-size: 15px;
   -webkit-font-smoothing: antialiased;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Consolas', monaco, monospace;
   font-weight: 900;
 }
 
@@ -221,9 +232,9 @@ body {
   width: 40px;
   height: 70px;
   cursor: pointer;
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
+  -webkit-box-flex: 5;
+      -ms-flex: 5;
+          flex: 5;
 }
 
 .slider .slider-buttons .refresh {

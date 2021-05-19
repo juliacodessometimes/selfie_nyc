@@ -14,7 +14,7 @@
 <body>
 <div class='header'>
     <img src='assets/logo.png' id='logo'></img>
-    <h4>Click a camera to take a selfie!</h4>
+    <h4>Click a camera to enter selfie-mode!</h4>
     <p>TIP: Sometimes camera locations on the map aren't exact: try matching the feed with what you see</p>
 </div>
 <div class='wrapper'>
@@ -30,7 +30,7 @@
     </div>
     <img id='camFeed' src=''>
     <div class='slider-text'>
-        <h4>Strike a pose and snap a selfie by hitting the CLICK button below</h4>
+        <h4>Strike a pose!</h4>
     </div>
     <div class='slider-buttons'>
         <button class='take-selfie'></button>
@@ -38,14 +38,13 @@
     </div>
 </div>
 <script>
-mapboxgl.accessToken = 'pk.eyJ1IjoiamNha2VzMzMiLCJhIjoiY2p4ZGkyb2JyMDExcDNvb2dxZXFuYmY4cSJ9.m21aYnJvrMrnEGEa0AeimQ' // 
-
+mapboxgl.accessToken = 'pk.eyJ1IjoiamNha2VzMzMiLCJhIjoiY2p4ZGkyb2JyMDExcDNvb2dxZXFuYmY4cSJ9.m21aYnJvrMrnEGEa0AeimQ'
 // adding map
 var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/light-v10',
-    center: [-74.006000, 40.712800], // starting position
-    zoom: 15,
+    center: [-73.985130, 40.758896], // starting position
+    zoom: 13,
     scrollZoom: false
 });
 
@@ -91,35 +90,29 @@ map.on('load', () => {
         };
     });
 });
-
 // exit button on slider variable
 var toggleBtn = document.querySelector('.slider-toggle');
-
 // toggle CSS variables
 var sliderCSS = document.querySelector('.slider');
 var headerCSS = document.querySelector('.header');
-
 // camera feed variables
 var cameraFeed = document.getElementById('camFeed')
 var cameraLocation = document.getElementById('location')
-
+// functions
 function moveSlider() {
     sliderCSS.classList.toggle('is-open');
     headerCSS.classList.toggle('is-open');
 }
-
 function setHTML(currentFeature) {
     // this pre-loads image before refresh function starts
-    cameraFeed.src = currentFeature.properties.url
+    cameraFeed.src = currentFeature.properties.url;
     cameraRefresh = setInterval(function() {
         // refresh camera feed every 2 seconds
         cameraFeed.src = currentFeature.properties.url + Math.random();
     }, 2000);
-
     // set heading to cross street text
     cameraLocation.innerHTML = currentFeature.properties.name;
 }
-
 function flyToCamera(currentFeature) {
     map.flyTo({
         center: currentFeature.geometry.coordinates,
@@ -128,7 +121,6 @@ function flyToCamera(currentFeature) {
         offset: [0,-240]
     });
 }
-
 function flyToUser(userlocation) {
     navigator.geolocation.getCurrentPosition(userlocation => {
         map.flyTo({
@@ -137,14 +129,14 @@ function flyToUser(userlocation) {
         });
     });
 }
-
-// close slider
+// close slider functions
 toggleBtn.addEventListener('click', function() {
     sliderCSS.classList.toggle('is-open');
     headerCSS.classList.toggle('is-open');
 
     // clear feed refresh
     clearInterval(cameraRefresh);
+    cameraFeed.src = '';
 
     flyToUser();
 });
