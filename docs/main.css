@@ -8,6 +8,22 @@
           box-sizing: border-box;
 }
 
+p {
+  font-size: 10px;
+  -webkit-font-smoothing: antialiased;
+  font-family: pixelfont;
+  text-align: left;
+  text-align: center;
+}
+
+h4 {
+  font-size: 20px;
+  -webkit-font-smoothing: antialiased;
+  font-family: pixelfont;
+  font-weight: 500;
+  text-align: center;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -50,22 +66,6 @@ body {
   width: 100%;
   background-size: contain;
   background-repeat: no-repeat;
-}
-
-.header h4 {
-  font-size: 20px;
-  -webkit-font-smoothing: antialiased;
-  font-family: pixelfont;
-  font-weight: 500;
-  text-align: center;
-}
-
-.header p {
-  font-size: 10px;
-  -webkit-font-smoothing: antialiased;
-  font-family: pixelfont;
-  text-align: left;
-  text-align: center;
 }
 
 .wrapper {
@@ -194,8 +194,7 @@ body {
   width: 100%;
   background-size: contain;
   background-repeat: no-repeat;
-  border-top: 15px solid #FFFF87;
-  border-bottom: 15px solid #FFFF87;
+  border: 15px solid #FFFF87;
 }
 
 .slider .slider-text {
@@ -207,13 +206,6 @@ body {
   background-color: #87E7FF;
   color: #DF4FCF;
   text-align: center;
-}
-
-.slider .slider-text h4 {
-  font-size: 20px;
-  -webkit-font-smoothing: antialiased;
-  font-family: pixelfont;
-  font-weight: 500;
 }
 
 .slider .slider-buttons {
@@ -231,7 +223,7 @@ body {
   top: 15px;
   left: 100px;
   outline: none;
-  border: 14px solid #DF4FCF;
+  border: 15px solid #DF4FCF;
   width: 40px;
   height: 70px;
   cursor: pointer;
@@ -245,7 +237,7 @@ body {
   top: 15px;
   right: 100px;
   outline: none;
-  border: 14px solid #DF4FCF;
+  border: 15px solid #DF4FCF;
   width: 40px;
   height: 70px;
   cursor: pointer;
