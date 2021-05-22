@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset='utf-8' />
-    <title>selfie.nyc</title>
+    <title>selfie_nyc</title>
     <meta name='viewport' content='width=device-width,initial-scale=1,user-scalable=no' />
     <link rel='shortcut icon' type='image/jpg' href='assets/favicon.png'/>
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
@@ -95,6 +95,8 @@ map.on('load', () => {
                     setHTML(marker);
                     // fly to the marker
                     flyToCamera(marker);
+                    // getting last-clicked marker location
+                    var markerLatLon = marker.geometry.coordinates
                 });
             });                
         };
@@ -127,19 +129,18 @@ function flyToCamera(currentFeature) {
     map.flyTo({
         center: currentFeature.geometry.coordinates,
         zoom: 19,
-        speed: 1.5,
+        speed: 1.8,
         offset: [0,-240]
     });
 }
-toggleBtn.addEventListener('click', function() {
-    // close slider functions
-    sliderCSS.classList.toggle('is-open');
-    headerCSS.classList.toggle('is-open');
-    // clear feed interval
-    clearInterval(camInterval);
-
-    flyToUser();
-});
+function flyFromCamera(markerLatLon) {
+    // zoom out from last cliked camera location
+    map.flyTo({
+        center: markerLatLon,
+        zoom: 15,
+        speed: 2
+    });
+}
 function flyToUser(userlocation) {
     // fly to user location 
     navigator.geolocation.getCurrentPosition(userlocation => {
@@ -149,6 +150,15 @@ function flyToUser(userlocation) {
         });
     });
 }
+toggleBtn.addEventListener('click', function() {
+    // close slider functions
+    sliderCSS.classList.toggle('is-open');
+    headerCSS.classList.toggle('is-open');
+    // clear feed interval
+    clearInterval(camInterval);
+    // zoom out from lat-clicked camera
+    flyFromCamera();
+});
 </script>
 </div>
 </body>
