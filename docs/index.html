@@ -39,7 +39,7 @@
 </div>
 <script>
 mapboxgl.accessToken = 'pk.eyJ1IjoiamNha2VzMzMiLCJhIjoiY2p4ZGkyb2JyMDExcDNvb2dxZXFuYmY4cSJ9.m21aYnJvrMrnEGEa0AeimQ'
-// adding map
+// mapbox map
 var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/light-v10',
@@ -47,6 +47,16 @@ var map = new mapboxgl.Map({
     zoom: 13,
     scrollZoom: false
 });
+
+// slider toggle variables
+var toggleBtn = document.querySelector('.slider-toggle');
+var sliderCSS = document.querySelector('.slider');
+var headerCSS = document.querySelector('.header');
+// camera feed variables
+var cameraFeed = document.getElementById('camFeed');
+var cameraLocation = document.getElementById('location');
+var camInterval;
+// loading map
 
 map.on('load', () => {
     fetch('https://juliacodessometimes.github.io/selfie_nyc/assets/data.geojson')
@@ -79,9 +89,9 @@ map.on('load', () => {
                 .addTo(map);
                 
                 el.addEventListener('click', function (e) {
-                    // open the slider that holds the camera feed
+                    // open the slider that holds camera data
                     openSlider(marker);
-                    // set the slider html that holds the camera feed
+                    // set the slider html
                     setHTML(marker);
                     // fly to the marker
                     flyToCamera(marker);
@@ -90,30 +100,30 @@ map.on('load', () => {
         };
     });
 });
-// exit button on slider variable
-var toggleBtn = document.querySelector('.slider-toggle');
-// toggle CSS variables
-var sliderCSS = document.querySelector('.slider');
-var headerCSS = document.querySelector('.header');
-// camera feed variables
-var cameraFeed = document.getElementById('camFeed')
-var cameraLocation = document.getElementById('location')
+
 // functions
 function openSlider() {
+    // open slider and hide header
     sliderCSS.classList.add('is-open');
     headerCSS.classList.add('is-open');
 }
 function setHTML(currentFeature) {
-    // this pre-loads image before refresh function starts
-    cameraFeed.src = currentFeature.properties.url;
-    cameraRefresh = setInterval(function() {
-        // refresh camera feed every 2 seconds
-        cameraFeed.src = currentFeature.properties.url + Math.random();
-    }, 2000);
-    // set heading to cross street text
+    // load all HTML for slider div
+
+    // set heading text to cross-street
     cameraLocation.innerHTML = currentFeature.properties.name;
+    // pre-load camera feed image
+    cameraFeed.src = currentFeature.properties.url;
+    // clear any previous intervals
+    clearInterval(camInterval);
+
+    camInterval = setInterval(function() {
+        // set interval that refreshes camera feed image every 1.5 seconds
+        cameraFeed.src = currentFeature.properties.url + Math.random();
+    }, 1500);
 }
 function flyToCamera(currentFeature) {
+    // fly to current camera marker
     map.flyTo({
         center: currentFeature.geometry.coordinates,
         zoom: 19,
@@ -121,7 +131,17 @@ function flyToCamera(currentFeature) {
         offset: [0,-240]
     });
 }
+toggleBtn.addEventListener('click', function() {
+    // close slider functions
+    sliderCSS.classList.toggle('is-open');
+    headerCSS.classList.toggle('is-open');
+    // clear feed interval
+    clearInterval(camInterval);
+
+    flyToUser();
+});
 function flyToUser(userlocation) {
+    // fly to user location 
     navigator.geolocation.getCurrentPosition(userlocation => {
         map.flyTo({
             center: [userlocation.coords.longitude, userlocation.coords.latitude],
@@ -129,15 +149,6 @@ function flyToUser(userlocation) {
         });
     });
 }
-// close slider functions
-toggleBtn.addEventListener('click', function() {
-    sliderCSS.classList.toggle('is-open');
-    headerCSS.classList.toggle('is-open');
-    // clear feed refresh
-    clearInterval(cameraRefresh);
-
-    flyToUser();
-});
 </script>
 </div>
 </body>
