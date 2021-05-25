@@ -112,15 +112,17 @@ body {
         .marker {
             border: none;
             cursor: pointer;
-            height: 33px;
-            width: 55px;
+            height: 34px;
+            width: 56px;
+            z-index: 5;
             background-image: url(assets/icon.png);
             
             &.select {
                 border: none;
                 cursor: pointer;
-                height: 37px;
-                width: 59px;
+                height: 42px;
+                width: 64px;
+                z-index: 6;
                 background-image: url(assets/icon_select.png);
             }
         }
@@ -138,7 +140,7 @@ body {
     transition: all .7s ease;
     overflow: hidden;
     display: grid;
-    grid-template-rows: $slider_close_icon 2fr 1fr 1fr;
+    grid-template-rows: auto 2fr 1fr 1fr;
     grid-template-areas:
     'title'
     'camera'

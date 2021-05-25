@@ -7,9 +7,9 @@
     <link rel='shortcut icon' type='image/jpg' href='assets/favicon.png'/>
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css' rel='stylesheet' />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
-    <link rel="stylesheet" href="main.css">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css'>
+    <link rel='stylesheet' href='main.css'>
 </head>
 <body>
 <div class='header'>
@@ -52,14 +52,16 @@ var map = new mapboxgl.Map({
 var toggleBtn = document.querySelector('.slider-toggle');
 var sliderCSS = document.querySelector('.slider');
 var headerCSS = document.querySelector('.header');
-// camera feed variables
+// camera variables
 var cameraFeed = document.getElementById('camFeed');
 var cameraLocation = document.getElementById('location');
 var camInterval;
-// loading map
+var markerLatLon;
 
+// loading map
 map.on('load', () => {
     fetch('https://juliacodessometimes.github.io/selfie_nyc/assets/data.geojson')
+    // fetching scraped data file
     .then(response => response.json())
     .then((data) => {
         map.addSource('source_id', {
@@ -87,16 +89,26 @@ map.on('load', () => {
                 new mapboxgl.Marker(el, { offset: [0, 0] })
                 .setLngLat(marker.geometry.coordinates)
                 .addTo(map);
-                
+
+                // listener for clicking on marker
                 el.addEventListener('click', function (e) {
+                    // getting last-clicked marker location
+                    markerLatLon = marker.geometry.coordinates;
+                    // getting list of all markers
+                    var allmarkerDiv = document.querySelectorAll('.marker');
+                    // looping through list of markers to remove 'select' CSS
+                    for(i=0; i<allmarkerDiv.length; i++){
+                        allmarkerDiv[i].classList.remove('select');
+                    }
+                    // add 'select' CSS to current marker
+                    markerDiv = this.classList
+                    markerDiv.add('select');
                     // open the slider that holds camera data
                     openSlider(marker);
                     // set the slider html
                     setHTML(marker);
                     // fly to the marker
                     flyToCamera(marker);
-                    // getting last-clicked marker location
-                    var markerLatLon = marker.geometry.coordinates
                 });
             });                
         };
@@ -133,8 +145,8 @@ function flyToCamera(currentFeature) {
         offset: [0,-240]
     });
 }
-function flyFromCamera(markerLatLon) {
-    // zoom out from last cliked camera location
+function flyFromCamera() {
+    // zoom out from last clicked camera location
     map.flyTo({
         center: markerLatLon,
         zoom: 15,
@@ -152,12 +164,16 @@ function flyToUser(userlocation) {
 }
 toggleBtn.addEventListener('click', function() {
     // close slider functions
+
+    // toggle slider and header css
     sliderCSS.classList.toggle('is-open');
     headerCSS.classList.toggle('is-open');
     // clear feed interval
     clearInterval(camInterval);
     // zoom out from lat-clicked camera
     flyFromCamera();
+    // remove 'select' CSS from marker
+    markerDiv.remove('select');
 });
 </script>
 </div>

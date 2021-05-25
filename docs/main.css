@@ -105,16 +105,18 @@ body {
 .map-class #map .marker {
   border: none;
   cursor: pointer;
-  height: 33px;
-  width: 55px;
+  height: 34px;
+  width: 56px;
+  z-index: 5;
   background-image: url(assets/icon.png);
 }
 
 .map-class #map .marker.select {
   border: none;
   cursor: pointer;
-  height: 37px;
-  width: 59px;
+  height: 42px;
+  width: 64px;
+  z-index: 6;
   background-image: url(assets/icon_select.png);
 }
 
@@ -133,8 +135,8 @@ body {
   overflow: hidden;
   display: -ms-grid;
   display: grid;
-  -ms-grid-rows: 40px 2fr 1fr 1fr;
-      grid-template-rows: 40px 2fr 1fr 1fr;
+  -ms-grid-rows: auto 2fr 1fr 1fr;
+      grid-template-rows: auto 2fr 1fr 1fr;
       grid-template-areas: 'title' 'camera' 'tips' 'buttons';
 }
 
