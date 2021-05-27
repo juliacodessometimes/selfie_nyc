@@ -13,12 +13,16 @@ $buttons_height: 70px;
 $height_slider_open: 80vh;
 $height_slider_closed: 0em;
 // border
-$yellowborder_style: 15px solid $yellow;
-$blueborder_style: 30px solid $blue;
+$yellowborder_style: 10px solid $yellow;
+$wideborder_style: 30px solid $yellow;
 $pinkborder_style: 15px solid $pink;
 
 * {
     box-sizing: border-box;
+}
+
+html {
+    overflow: hidden;
 }
 
 p {
@@ -82,7 +86,7 @@ body {
 .wrapper {
     width: 100%;
     height: 100vh;
-    border-bottom: $blueborder_style;
+    border-bottom: $wideborder_style;
     z-index: 2;
     position: absolute;
     top: 0;
