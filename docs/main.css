@@ -13,7 +13,7 @@ html {
 }
 
 p {
-  font-size: 10px;
+  font-size: 13px;
   -webkit-font-smoothing: antialiased;
   font-family: pixelfont;
   text-align: left;
@@ -56,6 +56,7 @@ body {
   transition: all .7s ease-out;
   z-index: 3;
   position: absolute;
+  padding: 10px;
   top: 0;
   left: 0;
 }
@@ -68,6 +69,7 @@ body {
 .header #logo {
   height: auto;
   width: 100%;
+  padding: 0;
   background-size: contain;
   background-repeat: no-repeat;
 }
@@ -75,7 +77,7 @@ body {
 .wrapper {
   width: 100%;
   height: 100vh;
-  border-bottom: 30px solid #FFFF87;
+  border-bottom: 20px solid #FFFF87;
   z-index: 2;
   position: absolute;
   top: 0;
@@ -115,7 +117,7 @@ body {
   background-image: url(assets/icon.png);
 }
 
-.map-class #map .marker.select {
+.map-class #map .marker.selected {
   border: none;
   cursor: pointer;
   height: 42px;
@@ -131,12 +133,10 @@ body {
   width: 100%;
   height: 80vh;
   z-index: 4;
-  background-color: #FFFF87;
-  border-top: 10px solid #FFFF87;
-  border-bottom: 10px solid #FFFF87;
+  background-color: #87E7FF;
+  border-bottom: 20px solid #FFFF87;
   -webkit-transition: all .7s ease;
   transition: all .7s ease;
-  overflow: hidden;
   display: -ms-grid;
   display: grid;
   -ms-grid-rows: auto 2fr 1fr 1fr;
@@ -154,6 +154,10 @@ body {
   -ms-grid-column: 1;
   grid-area: title;
   background-color: #87E7FF;
+  border-top: 5px solid #87E7FF;
+  border-bottom: 5px solid #87E7FF;
+  border-left: 10px solid #87E7FF;
+  border-right: 10px solid #87E7FF;
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -224,12 +228,20 @@ body {
   display: flex;
 }
 
-.slider .slider-buttons .take-selfie {
-  position: static;
-  top: 15px;
-  left: 100px;
+.slider .slider-buttons .delete-it {
   outline: none;
-  border: 15px solid #DF4FCF;
+  border: 10px solid #87E7FF;
+  width: 20px;
+  height: 70px;
+  cursor: pointer;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.slider .slider-buttons .take-selfie {
+  outline: none;
+  border: 10px solid #87E7FF;
   width: 40px;
   height: 70px;
   cursor: pointer;
@@ -238,17 +250,38 @@ body {
           flex: 5;
 }
 
-.slider .slider-buttons .refresh {
-  position: static;
-  top: 15px;
-  right: 100px;
+.slider .slider-buttons .save-it {
   outline: none;
-  border: 15px solid #DF4FCF;
-  width: 40px;
+  border: 10px solid #87E7FF;
+  width: 20px;
   height: 70px;
   cursor: pointer;
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
+}
+
+.footer {
+  background-color: #FFFF87;
+  overflow: hidden;
+  width: 100%;
+  height: auto;
+  padding: 10px;
+  border-bottom: 10px solid #FFFF87;
+  -webkit-transition: all .7s ease-out;
+  transition: all .7s ease-out;
+  z-index: 3;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.footer.is-open {
+  -webkit-transform: translateY(101%);
+          transform: translateY(101%);
+}
+
+.footer p {
+  text-align: left;
 }
 /*# sourceMappingURL=main.css.map */

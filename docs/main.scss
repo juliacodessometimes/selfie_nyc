@@ -14,8 +14,9 @@ $height_slider_open: 80vh;
 $height_slider_closed: 0em;
 // border
 $yellowborder_style: 10px solid $yellow;
-$wideborder_style: 30px solid $yellow;
-$pinkborder_style: 15px solid $pink;
+$wideborder_style: 20px solid $yellow;
+$blueborder_style: 10px solid $blue;
+$text_padding: 10px;
 
 * {
     box-sizing: border-box;
@@ -26,7 +27,7 @@ html {
 }
 
 p {
-    font-size: 10px;
+    font-size: 13px;
     -webkit-font-smoothing: antialiased;
     font-family: pixelfont;
     text-align: left;
@@ -68,6 +69,7 @@ body {
     transition: all .7s ease-out;
     z-index: 3;
     position: absolute;
+    padding: $text_padding;
     top: 0;
     left: 0;
     
@@ -78,6 +80,7 @@ body {
     #logo {
         height: auto;
         width: 100%;
+        padding: 0;
         background-size: contain;
         background-repeat: no-repeat;
     }
@@ -121,7 +124,7 @@ body {
             z-index: 5;
             background-image: url(assets/icon.png);
             
-            &.select {
+            &.selected {
                 border: none;
                 cursor: pointer;
                 height: 42px;
@@ -138,11 +141,9 @@ body {
     width: 100%;
     height: $height_slider_open;
     z-index: 4;
-    background-color: $yellow;
-    border-top: $yellowborder_style;
-    border-bottom: $yellowborder_style;
+    background-color: $blue;
+    border-bottom: $wideborder_style;
     transition: all .7s ease;
-    overflow: hidden;
     display: grid;
     grid-template-rows: auto 2fr 1fr 1fr;
     grid-template-areas:
@@ -158,6 +159,10 @@ body {
     .slider-title {
         grid-area: title;
         background-color: $blue;
+        border-top: 5px solid $blue;
+        border-bottom: 5px solid $blue;
+        border-left: $blueborder_style;
+        border-right: $blueborder_style;
         position: relative;
         display: flex;
         align-items: center;
@@ -209,29 +214,54 @@ body {
         grid-area: buttons;
         background-color: $blue;
         display: flex;
+        
+        .delete-it {
+            outline: none;
+            border: $blueborder_style;
+            width: 20px;
+            height: $buttons_height;
+            cursor: pointer;
+            flex: 1;
+        }
 
         .take-selfie {
-            position: static;
-            top: 15px;
-            left: 100px;
             outline: none;
-            border: $pinkborder_style;
+            border: $blueborder_style;
             width: 40px;
             height: $buttons_height;
             cursor: pointer;
             flex: 5;
         }
 
-        .refresh {
-            position: static;
-            top: 15px;
-            right: 100px;
+        .save-it {
             outline: none;
-            border: $pinkborder_style;
-            width: 40px;
+            border: $blueborder_style;
+            width: 20px;
             height: $buttons_height;
             cursor: pointer;
             flex: 1;
         }
+    }
+}
+
+.footer {
+    background-color: $yellow;
+    overflow: hidden;
+    width: 100%;
+    height: auto;
+    padding: $text_padding;
+    border-bottom: $yellowborder_style;
+    transition: all .7s ease-out;
+    z-index: 3;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    
+    &.is-open {
+      transform: translateY(101%);
+    }
+
+    p {
+        text-align: left;
     }
 }

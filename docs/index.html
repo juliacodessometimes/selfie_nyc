@@ -14,8 +14,8 @@
 <body>
 <div class='header'>
     <img src='assets/logo.png' id='logo'></img>
-    <h4>Click a camera to enter selfie-mode!</h4>
-    <p>TIP: Sometimes camera locations on the map aren't exact: try matching the feed with what you see</p>
+    <h4>click a camera to enter selfie-mode!</h4>
+    <p>TIP: sometimes camera locations on the map aren't exact: try matching the feed with what you see</p>
 </div>
 <div class='wrapper'>
 <div class='map-class'>
@@ -30,12 +30,17 @@
     </div>
     <img id='camFeed' src=''>
     <div class='slider-text'>
-        <h4>Strike a pose!</h4>
+        <h4>strike a pose!</h4>
     </div>
     <div class='slider-buttons'>
-        <button class='take-selfie'></button>
-        <button class='refresh'></button>
+        <button class='delete-it'>retake</button>
+        <button class='take-selfie'>take selfie</button>
+        <button class='save-it'>save</button>
     </div>
+</div>
+</div>
+<div class='footer'>
+    <p>website by julia bloom</p>
 </div>
 <script>
 mapboxgl.accessToken = 'pk.eyJ1IjoiamNha2VzMzMiLCJhIjoiY2p4ZGkyb2JyMDExcDNvb2dxZXFuYmY4cSJ9.m21aYnJvrMrnEGEa0AeimQ'
@@ -52,7 +57,9 @@ var map = new mapboxgl.Map({
 var toggleBtn = document.querySelector('.slider-toggle');
 var sliderCSS = document.querySelector('.slider');
 var headerCSS = document.querySelector('.header');
+var footerCSS = document.querySelector('.footer');
 // camera variables
+var selfieBtn = document.querySelector('.take-selfie');
 var cameraFeed = document.getElementById('camFeed');
 var cameraLocation = document.getElementById('location');
 var camInterval;
@@ -98,11 +105,11 @@ map.on('load', () => {
                     var allmarkerDiv = document.querySelectorAll('.marker');
                     // looping through list of markers to remove 'select' CSS
                     for(i=0; i<allmarkerDiv.length; i++){
-                        allmarkerDiv[i].classList.remove('select');
+                        allmarkerDiv[i].classList.remove('selected');
                     }
                     // add 'select' CSS to current marker
                     markerDiv = this.classList
-                    markerDiv.add('select');
+                    markerDiv.add('selected');
                     // open the slider that holds camera data
                     openSlider(marker);
                     // set the slider html
@@ -120,6 +127,7 @@ function openSlider() {
     // open slider and hide header
     sliderCSS.classList.add('is-open');
     headerCSS.classList.add('is-open');
+    footerCSS.classList.add('is-open');
 }
 function setHTML(currentFeature) {
     // load all HTML for slider div
@@ -162,20 +170,27 @@ function flyToUser(userlocation) {
         });
     });
 }
+
+// button functions
 toggleBtn.addEventListener('click', function() {
     // close slider functions
 
     // toggle slider and header css
     sliderCSS.classList.toggle('is-open');
     headerCSS.classList.toggle('is-open');
+    footerCSS.classList.toggle('is-open');
     // clear feed interval
     clearInterval(camInterval);
     // zoom out from lat-clicked camera
     flyFromCamera();
     // remove 'select' CSS from marker
-    markerDiv.remove('select');
+    markerDiv.remove('selected');
+});
+selfieBtn.addEventListener('click', function() {
+    // selfie button functions
+    var selfiePath = cameraFeed.getAttribute('src');
+    console.log(selfiePath);
 });
 </script>
-</div>
 </body>
 </html>
