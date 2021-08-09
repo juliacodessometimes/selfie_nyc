@@ -6,16 +6,19 @@
 // colors
 $yellow: #FFFF87;
 $blue: #87E7FF;
-$pink: #DF4FCF;
+$pink: #df4ecc;
+$light_pink: #ebb3e4;
 // sizes
 $slider_close_icon: 40px;
 $buttons_height: 70px;
 $height_slider_open: 80vh;
 $height_slider_closed: 0em;
+$height_preview_open: 20vh;
 // border
 $yellowborder_style: 10px solid $yellow;
 $wideborder_style: 20px solid $yellow;
 $blueborder_style: 10px solid $blue;
+$pinkborder_style: 10px solid $pink;
 $text_padding: 10px;
 
 * {
@@ -141,11 +144,11 @@ body {
     width: 100%;
     height: $height_slider_open;
     z-index: 4;
-    background-color: $blue;
+    background-color: $yellow;
     border-bottom: $wideborder_style;
     transition: all .7s ease;
     display: grid;
-    grid-template-rows: auto 2fr 1fr 1fr;
+    grid-template-rows: auto 2fr 1fr $height_slider_closed;
     grid-template-areas:
     'title'
     'camera'
@@ -155,14 +158,15 @@ body {
     &.is-open {
         transform: translateY(-$height_slider_open);
     }
+
+    &.clicked {
+        transform: translateY(-100vh)
+    }
     
     .slider-title {
         grid-area: title;
-        background-color: $blue;
-        border-top: 5px solid $blue;
-        border-bottom: 5px solid $blue;
-        border-left: $blueborder_style;
-        border-right: $blueborder_style;
+        background-color: $yellow;
+        border: $yellowborder_style;
         position: relative;
         display: flex;
         align-items: center;
@@ -199,45 +203,71 @@ body {
         background-size: contain;
         background-repeat: no-repeat;
         border: $yellowborder_style;
+        z-index: 5;
     }
 
     .slider-text {
         grid-area: tips;
         width: 100%;
         height: auto;
-        background-color: $blue;
+        background-color: $yellow;
         color: $pink;
         text-align: center;
-    }
-
-    .slider-buttons {
-        grid-area: buttons;
-        background-color: $blue;
-        display: flex;
-        
-        .delete-it {
-            outline: none;
-            border: $blueborder_style;
-            width: 20px;
-            height: $buttons_height;
-            cursor: pointer;
-            flex: 1;
-        }
+        transition: all .7s ease-out;
+        z-index: 3;
 
         .take-selfie {
             outline: none;
-            border: $blueborder_style;
-            width: 40px;
+            border: $yellowborder_style;
+            width: 100%;
             height: $buttons_height;
+            font-size: 20px;
+            -webkit-font-smoothing: antialiased;
+            font-family: pixelfont;
+            font-weight: 500;
+            color: $pink;
             cursor: pointer;
             flex: 5;
         }
 
-        .save-it {
+        &.clicked {
+            transform: translateY(-120%);
+        }
+    }
+
+    .slider-buttons {
+        grid-area: buttons;
+        background-color: $yellow;
+        width: 100%;
+        height: $height_preview_open;
+        transition: all .7s ease-out;
+        z-index: 6;
+        display: flex;
+            
+        .delete-it {
             outline: none;
-            border: $blueborder_style;
+            border: $yellowborder_style;
             width: 20px;
             height: $buttons_height;
+            font-size: 20px;
+            -webkit-font-smoothing: antialiased;
+            font-family: pixelfont;
+            font-weight: 500;
+            color: $pink;
+            cursor: pointer;
+            flex: 1;
+        }
+    
+        .save-it {
+            outline: none;
+            border: $yellowborder_style;
+            width: 20px;
+            height: $buttons_height;
+            font-size: 20px;
+            -webkit-font-smoothing: antialiased;
+            font-family: pixelfont;
+            font-weight: 500;
+            color: $pink;
             cursor: pointer;
             flex: 1;
         }
