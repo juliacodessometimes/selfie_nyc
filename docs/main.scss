@@ -14,12 +14,12 @@ $slider_close_icon: 40px;
 $buttons_height: 70px;
 $height_slider_open: 80vh;
 $height_slider_total: 100vh;
-$height_slider_closed: 20vh;
-$height_preview_open: 1fr;
+$height_slider_closed: 0em;
+$height_preview_open: 20vh;
 // border
 $yellowborder_style: 10px solid $yellow;
 $wideborder_style: 20px solid $yellow;
-$blueborder_style: 10px solid $dark_blue;
+$blueborder_style: 10px solid $blue;
 $pinkborder_style: 10px solid $pink;
 $text_padding: 10px;
 
@@ -39,7 +39,7 @@ p {
     text-align: center;
 }
 
-h4 {
+h3 {
     font-size: 20px;
     -webkit-font-smoothing: antialiased;
     font-family: pixelfont;
@@ -47,12 +47,30 @@ h4 {
     text-align: center;
 }
 
+h4 {
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+    font-family: pixelfont;
+    font-weight: 500;
+    text-align: left;
+    padding: 5px;
+}
+
+h5 {
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+    font-family: pixelfont;
+    font-weight: 500;
+    text-align: center;
+    padding: 5px;
+}
+
 body {
     margin: 0;
     padding: 0;
     -webkit-font-smoothing: antialiased;
     font-family: pixelfont;
-    background-color: $yellow;
+    background-color: $blue;
     color: $pink;
     width: 100%;
     height: 100vh;
@@ -147,25 +165,27 @@ body {
     border-left: $yellowborder_style;
     border-right: $yellowborder_style;
     border-top: $yellowborder_style;
+    border-bottom: $wideborder_style;
     width: 100%;
     height: $height_slider_total;
     z-index: 4;
     background-color: $blue;
     transition: all .7s ease;
     display: grid;
-    grid-template-rows: auto auto 1fr $height_slider_closed;
+    grid-template-rows: auto auto 1fr $height_slider_closed 1fr;
     grid-template-areas:
     'title'
     'camera'
     'tips'
-    'buttons';
+    'buttons'
+    'spacer';
     
     &.is-open {
         transform: translateY(-$height_slider_open);
     }
 
     &.clicked {
-        transform: translateY(-100vh)
+        transform: translateY(-$height_slider_total)
     }
     
     .slider-title {
@@ -216,8 +236,12 @@ body {
         background-color: $blue;
         color: $pink;
         text-align: center;
-        transition: all .8s ease-out;
+        transition: all .7s ease-out;
         z-index: 3;
+
+        &.clicked {
+            transform: translateY(-101%);
+        }
 
         .take-selfie {
             outline: none;
@@ -231,20 +255,21 @@ body {
             cursor: pointer;
             flex: 5;
         }
-
-        &.clicked {
-            transform: translateY(-101%);
-        }
     }
 
     .slider-buttons {
         grid-area: buttons;
         background-color: $blue;
+        border-top: $blueborder_style;
         width: 100%;
-        height: $height_preview_open;
+        height: $height_slider_closed;
         transition: all .7s ease-out;
         z-index: 6;
         display: flex;
+
+        &.clicked {
+            transform: translateY(-$height_preview_open);
+        }
             
         .delete-it {
             outline: none;
@@ -272,6 +297,15 @@ body {
             flex: 1;
         }
     }
+
+    .spacer {
+        grid-area: spacer;
+        height: auto;
+        width: 100%;
+        background-color: $blue;
+        border-bottom: $wideborder_style;
+        z-index: 10;
+    }
 }
 
 .footer {
@@ -280,7 +314,7 @@ body {
     width: 100%;
     height: auto;
     padding: $text_padding;
-    border-bottom: $yellowborder_style;
+    border-bottom: $wideborder_style;
     transition: all .7s ease-out;
     z-index: 3;
     position: absolute;
@@ -293,5 +327,64 @@ body {
 
     p {
         text-align: left;
+    }
+}
+
+.wrapper-about {
+    overflow-y: auto;
+    height: 100vh;
+    width: 100%;
+
+    .header-about {
+        background-color: $blue;
+        overflow: hidden;
+        width: 100%;
+        height: auto;
+        z-index: 3;
+        padding: $text_padding;
+    
+        #logo {
+            height: auto;
+            width: 100%;
+            padding: 0;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+    }   
+
+    .troubleshooting {
+        height: auto;
+        width: 100%;
+        z-index: 6;
+        background-color: $blue;
+        padding: 5px;
+    
+        #example {
+            height: auto;
+            width: 75%;
+            padding: 15px;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+    
+        p {
+            text-align: left;
+            font-size: 11px;
+            padding-left: 10px;
+        }
+    }
+
+    .footer-about {
+        background-color: $yellow;
+        overflow: hidden;
+        width: 100%;
+        height: auto;
+        padding: $text_padding;
+        border-bottom: $wideborder_style;
+        z-index: 3;
+    
+        p {
+            text-align: left;
+        }
     }
 }

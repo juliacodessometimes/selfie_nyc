@@ -3,7 +3,7 @@
 <head>
     <meta charset='utf-8' />
     <title>selfie_nyc</title>
-    <meta name='viewport' content='width=device-width,initial-scale=1,user-scalable=no' />
+    <meta name='viewport' content='width=device-width,initial-scale=1,user-scalable=yes' />
     <link rel='shortcut icon' type='image/jpg' href='assets/favicon.png'/>
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css' rel='stylesheet' />
@@ -13,8 +13,8 @@
 <body>
 <div class='header'>
     <img src='assets/logo.png' id='logo'></img>
-    <h4>click a camera to enter selfie-mode!</h4>
-    <p>TIP: sometimes camera locations on the map aren't exact: try matching the feed with what you see</p>
+    <h3>click a camera to enter selfie-mode!</h3>
+    <h5>for FAQs and troubleshooting <a href="about.html" style='text-decoration:underline; color:#df4ecc;'>click here</a></h5>
 </div>
 <div class='wrapper'>
 <div class='map-class'>
@@ -30,11 +30,14 @@
     <img id='camFeed' src=''>
     <div class='slider-text'>
         <h4>strike a pose!</h4>
+        <p>TIP: sometimes camera locations on the map aren't exact: try matching the feed with what you see</p>
         <button class='take-selfie'>take selfie</button>
     </div>
     <div class='slider-buttons'>
         <button class='delete-it'>delete</button>
         <button class='save-it'>save</button>
+    </div>
+    <div class='spacer'>
     </div>
 </div>
 </div>
@@ -57,6 +60,7 @@ var toggleBtn = document.querySelector('.slider-toggle');
 var deleteBtn = document.querySelector('.delete-it')
 var sliderCSS = document.querySelector('.slider');
 var sliderTextCSS = document.querySelector('.slider-text');
+var sliderButtonsCSS = document.querySelector('.slider-buttons');
 var headerCSS = document.querySelector('.header');
 var footerCSS = document.querySelector('.footer');
 
@@ -182,6 +186,7 @@ toggleBtn.addEventListener('click', function() {
     sliderCSS.classList.remove('is-open');
     sliderCSS.classList.remove('clicked');
     sliderTextCSS.classList.remove('clicked');
+    sliderButtonsCSS.classList.remove('clicked');
     headerCSS.classList.toggle('is-open');
     footerCSS.classList.toggle('is-open');
     // clear feed interval
@@ -195,6 +200,7 @@ selfieBtn.addEventListener('click', function() {
     // selfie button functions
     sliderCSS.classList.add('clicked');
     sliderTextCSS.classList.add('clicked');
+    sliderButtonsCSS.classList.add('clicked');
 
     // camera feed settings
     var selfiePath = cameraFeed.getAttribute('src');
@@ -205,6 +211,7 @@ deleteBtn.addEventListener('click', function() {
     // delete button functions
     sliderCSS.classList.remove('clicked');
     sliderTextCSS.classList.remove('clicked');
+    sliderButtonsCSS.classList.remove('clicked');
     // pre-load camera feed image
     cameraFeed.src = markerSRC + Math.random();
     clearInterval(camInterval);
