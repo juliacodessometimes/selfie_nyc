@@ -6,18 +6,20 @@
 // colors
 $yellow: #FFFF87;
 $blue: #87E7FF;
+$dark_blue: #08b2dd;
 $pink: #df4ecc;
-$light_pink: #ebb3e4;
+$light_pink: #ffd5f9;
 // sizes
 $slider_close_icon: 40px;
 $buttons_height: 70px;
 $height_slider_open: 80vh;
-$height_slider_closed: 0em;
-$height_preview_open: 20vh;
+$height_slider_total: 100vh;
+$height_slider_closed: 20vh;
+$height_preview_open: 1fr;
 // border
 $yellowborder_style: 10px solid $yellow;
 $wideborder_style: 20px solid $yellow;
-$blueborder_style: 10px solid $blue;
+$blueborder_style: 10px solid $dark_blue;
 $pinkborder_style: 10px solid $pink;
 $text_padding: 10px;
 
@@ -93,6 +95,7 @@ body {
     width: 100%;
     height: 100vh;
     border-bottom: $wideborder_style;
+    background-color: $yellow;
     z-index: 2;
     position: absolute;
     top: 0;
@@ -141,14 +144,16 @@ body {
 
 .slider {
     grid-area: slider;
+    border-left: $yellowborder_style;
+    border-right: $yellowborder_style;
+    border-top: $yellowborder_style;
     width: 100%;
-    height: $height_slider_open;
+    height: $height_slider_total;
     z-index: 4;
-    background-color: $yellow;
-    border-bottom: $wideborder_style;
+    background-color: $blue;
     transition: all .7s ease;
     display: grid;
-    grid-template-rows: auto 2fr 1fr $height_slider_closed;
+    grid-template-rows: auto auto 1fr $height_slider_closed;
     grid-template-areas:
     'title'
     'camera'
@@ -165,13 +170,13 @@ body {
     
     .slider-title {
         grid-area: title;
-        background-color: $yellow;
-        border: $yellowborder_style;
         position: relative;
         display: flex;
         align-items: center;
+        z-index: 7;
 
         #location {
+            background-color: $blue;
             font-size: 20px;
             -webkit-font-smoothing: antialiased;
             font-family: pixelfont;
@@ -183,16 +188,13 @@ body {
 
         .slider-toggle {
             flex: 0 0 $slider_close_icon;
+            background-image: url(assets/toggle.png);
+            background-repeat: no-repeat;
+            background-size: 100%;
             border: none;
             width: $slider_close_icon;
             height: $slider_close_icon;
             cursor: pointer;
-            
-            i.fa {
-                position:center;
-                font-size: 20px;
-                color: $pink;
-            }
         }
     }
     
@@ -202,7 +204,8 @@ body {
         width: 100%;
         background-size: contain;
         background-repeat: no-repeat;
-        border: $yellowborder_style;
+        border-top: $yellowborder_style;
+        border-bottom: $yellowborder_style;
         z-index: 5;
     }
 
@@ -210,15 +213,14 @@ body {
         grid-area: tips;
         width: 100%;
         height: auto;
-        background-color: $yellow;
+        background-color: $blue;
         color: $pink;
         text-align: center;
-        transition: all .7s ease-out;
+        transition: all .8s ease-out;
         z-index: 3;
 
         .take-selfie {
             outline: none;
-            border: $yellowborder_style;
             width: 100%;
             height: $buttons_height;
             font-size: 20px;
@@ -231,13 +233,13 @@ body {
         }
 
         &.clicked {
-            transform: translateY(-120%);
+            transform: translateY(-101%);
         }
     }
 
     .slider-buttons {
         grid-area: buttons;
-        background-color: $yellow;
+        background-color: $blue;
         width: 100%;
         height: $height_preview_open;
         transition: all .7s ease-out;
@@ -246,7 +248,6 @@ body {
             
         .delete-it {
             outline: none;
-            border: $yellowborder_style;
             width: 20px;
             height: $buttons_height;
             font-size: 20px;
@@ -260,7 +261,6 @@ body {
     
         .save-it {
             outline: none;
-            border: $yellowborder_style;
             width: 20px;
             height: $buttons_height;
             font-size: 20px;
