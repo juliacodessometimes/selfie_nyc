@@ -13,7 +13,7 @@ html {
 }
 
 p {
-  font-size: 13px;
+  font-size: 17px;
   -webkit-font-smoothing: antialiased;
   font-family: pixelfont;
   text-align: left;
@@ -21,7 +21,7 @@ p {
 }
 
 h3 {
-  font-size: 20px;
+  font-size: 21px;
   -webkit-font-smoothing: antialiased;
   font-family: pixelfont;
   font-weight: 500;
@@ -29,7 +29,7 @@ h3 {
 }
 
 h4 {
-  font-size: 15px;
+  font-size: 19px;
   -webkit-font-smoothing: antialiased;
   font-family: pixelfont;
   font-weight: 500;
@@ -38,7 +38,7 @@ h4 {
 }
 
 h5 {
-  font-size: 15px;
+  font-size: 19px;
   -webkit-font-smoothing: antialiased;
   font-family: pixelfont;
   font-weight: 500;
@@ -391,7 +391,7 @@ body {
 
 .wrapper-about .troubleshooting p {
   text-align: left;
-  font-size: 11px;
+  font-size: 15px;
   padding-left: 10px;
 }
 
