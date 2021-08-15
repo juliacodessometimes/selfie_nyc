@@ -5,10 +5,11 @@
 }
 // colors
 $yellow: #FFFF87;
-$blue: #87E7FF;
-$dark_blue: #08b2dd;
-$pink: #df4ecc;
-$light_pink: #ffd5f9;
+$blue: rgb(135, 231, 255);
+$pink: rgb(223, 79, 207);
+$light_pink: rgb(208, 204, 208);
+$black: rgb(51, 51, 51);
+$light_purple: rgb(184, 168, 184);
 // sizes
 $slider_close_icon: 40px;
 $buttons_height: 70px;
@@ -16,11 +17,12 @@ $height_slider_open: 80vh;
 $height_slider_total: 100vh;
 $height_slider_closed: 0em;
 $height_preview_open: 20vh;
-// border
+// borders
 $yellowborder_style: 10px solid $yellow;
 $wideborder_style: 20px solid $yellow;
-$blueborder_style: 10px solid $blue;
 $pinkborder_style: 10px solid $pink;
+$blackborder_style: 10px solid $black;
+$thinborder_style: 5px solid $yellow;
 $text_padding: 10px;
 
 * {
@@ -40,7 +42,7 @@ p {
 }
 
 h3 {
-    font-size: 21px;
+    font-size: 20px;
     -webkit-font-smoothing: antialiased;
     font-family: pixelfont;
     font-weight: 500;
@@ -162,14 +164,14 @@ body {
 
 .slider {
     grid-area: slider;
-    border-left: $yellowborder_style;
-    border-right: $yellowborder_style;
+    border-left: $thinborder_style;
+    border-right: $thinborder_style;
     border-top: $yellowborder_style;
     border-bottom: $wideborder_style;
     width: 100%;
     height: $height_slider_total;
     z-index: 4;
-    background-color: $blue;
+    background-color: $black;
     transition: all .7s ease;
     display: grid;
     grid-template-rows: auto auto 1fr $height_slider_closed 1fr;
@@ -191,12 +193,14 @@ body {
     .slider-title {
         grid-area: title;
         position: relative;
+        background-color: $light_pink;
         display: flex;
         align-items: center;
+        border-bottom: $blackborder_style;
         z-index: 7;
 
         #location {
-            background-color: $blue;
+            background-color: $light_pink;
             font-size: 20px;
             -webkit-font-smoothing: antialiased;
             font-family: pixelfont;
@@ -224,8 +228,7 @@ body {
         width: 100%;
         background-size: contain;
         background-repeat: no-repeat;
-        border-top: $yellowborder_style;
-        border-bottom: $yellowborder_style;
+        border: $blackborder_style;
         z-index: 5;
     }
 
@@ -233,7 +236,8 @@ body {
         grid-area: tips;
         width: 100%;
         height: auto;
-        background-color: $blue;
+        background-color: $black;
+        border: none;
         color: $pink;
         text-align: center;
         transition: all .7s ease-out;
@@ -244,14 +248,13 @@ body {
         }
 
         .take-selfie {
+            background-image: url(assets/selfie.png);
+            background-repeat: no-repeat;
+            background-size: 100%;
             outline: none;
-            width: 100%;
+            border: none;
             height: $buttons_height;
-            font-size: 20px;
-            -webkit-font-smoothing: antialiased;
-            font-family: pixelfont;
-            font-weight: 500;
-            color: $pink;
+            width: $buttons_height;
             cursor: pointer;
             flex: 5;
         }
@@ -260,7 +263,6 @@ body {
     .slider-buttons {
         grid-area: buttons;
         background-color: $blue;
-        border-top: $blueborder_style;
         width: 100%;
         height: $height_slider_closed;
         transition: all .7s ease-out;
@@ -302,7 +304,7 @@ body {
         grid-area: spacer;
         height: auto;
         width: 100%;
-        background-color: $blue;
+        background-color: $yellow;
         border-bottom: $wideborder_style;
         z-index: 10;
     }
