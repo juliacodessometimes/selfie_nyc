@@ -1,7 +1,7 @@
 // font
 @font-face {
     font-family: pixelfont;
-    src: url(https://juliacodessometimes.github.io/selfie_nyc/assets/pixelfont.woff);
+    src: url(assets/pixelfont.woff);
 }
 
 @keyframes blinkFlash {
@@ -24,8 +24,10 @@ $light_pink: rgb(237, 156, 228);
 $black: rgb(56, 44, 56);
 $light_purple: rgb(208, 204, 208);
 // sizes
-$slider_close_icon: 50px;
+$sliderclosebutton_height: 50px;
 $selfiebutton_height: 90px;
+$buttons_height: 90px;
+$buttons_width: 150px;
 $height_slider_open: 80vh;
 $height_slider_total: 100vh;
 $height_slider_closed: 0em;
@@ -39,7 +41,6 @@ $thinborder_style: 5px solid $yellow;
 $text_padding: 6px;
 
 *:focus {
-    //outline-color: $black;
     box-shadow: none;
 }
 
@@ -78,7 +79,7 @@ h5 {
 }
 
 body {
-    margin: -1;
+    //margin: 0;
     padding: 0;
     -webkit-font-smoothing: antialiased;
     -webkit-tap-highlight-color: transparent;
@@ -101,7 +102,7 @@ body {
     overflow: hidden;
     width: 100%;
     height: auto;
-    transition: transform .7s ease-out;
+    transition: transform .7s ease-in-out;
     z-index: 2;
     position: absolute;
     padding: $text_padding;
@@ -124,7 +125,7 @@ body {
 .wrapper {
     width: 100%;
     height: 100%;
-    border-bottom: $wideborder_style;
+    border-bottom: $yellowborder_style;
     background-color: $yellow;
     position: absolute;
     top: 0;
@@ -161,7 +162,7 @@ body {
                 height: 34px;
                 width: 56px;
                 z-index: 2;
-                background-image: url(assets/icon.png);
+                background: url(assets/icon.png);
                 
                 &.selected {
                     border: none;
@@ -169,7 +170,7 @@ body {
                     height: 42px;
                     width: 64px;
                     z-index: 3;
-                    background-image: url(assets/icon_select.png);
+                    background: url(assets/icon_select.png);
                 }
             }
         }
@@ -207,10 +208,8 @@ body {
             grid-area: title;
             position: relative;
             background-color: $black;
-            margin: -1;
             display: flex;
             align-items: center;
-            border-bottom: $blackborder_style;
             z-index: 2;
     
             #location {
@@ -221,18 +220,17 @@ body {
                 font-weight: 500;
                 text-align: center;
                 flex-wrap: wrap;
-                margin: -1;
                 flex: 1;
             }
     
             .slider-toggle {
-                flex: 0 0 $slider_close_icon;
+                flex: 0 0 $sliderclosebutton_height;
                 background: url(assets/toggle.png);
                 background-repeat: no-repeat;
                 background-size: 100%;
                 border: none;
-                width: $slider_close_icon;
-                height: $slider_close_icon;
+                width: $sliderclosebutton_height;
+                height: $sliderclosebutton_height;
                 cursor: pointer;
             }
         }
@@ -256,7 +254,7 @@ body {
             border: none;
             opacity: 1;
             text-align: center;
-            transition: transform .7s ease-out, opacity .4s ease-out;
+            transition: transform .7s ease-in-out, opacity .4s ease-in-out;
             z-index: 1;
     
             &.clicked {
@@ -281,7 +279,7 @@ body {
             background-color: $black;
             width: 100%;
             height: $height_slider_closed;
-            transition: transform .7s ease-out, opacity .4s ease-out;
+            transition: transform .7s ease-in-out, opacity .4s ease-in-out;
             z-index: 3;
             opacity: 0;
             display: flex;
@@ -292,8 +290,8 @@ body {
             }
                 
             .delete-it {
-                height: 90px;
-                width: auto;
+                height: $buttons_height;
+                width: $buttons_width;
                 background: url(assets/delete.png);
                 background-repeat: no-repeat;
                 background-size: 100%;
@@ -306,14 +304,15 @@ body {
             }
         
             .save-it {
-                outline: none;
-                width: 20px;
-                height: 90px;
-                font-size: 20px;
-                -webkit-font-smoothing: antialiased;
-                font-family: pixelfont;
-                font-weight: 500;
-                color: $pink;
+                height: $buttons_height;
+                width: $buttons_width;
+                background: url(assets/delete.png);
+                background-repeat: no-repeat;
+                background-size: 100%;
+                border-left: $blackborder_style;
+                border-right: $blackborder_style;
+                border-top: none;
+                border-bottom: none;
                 cursor: pointer;
                 flex: 1;
             }
@@ -324,9 +323,7 @@ body {
             height: auto;
             width: 100%;
             background-color: $black;
-            border-bottom: $wideborder_style;
-            outline: none;
-            z-index: 4;
+            z-index: 2;
         }
     }
 }
@@ -337,8 +334,7 @@ body {
     width: 100%;
     height: auto;
     padding: $text_padding;
-    border: none;
-    transition: transform .7s ease-out;
+    transition: transform .7s ease-in-out;
     z-index: 2;
     position: absolute;
     bottom: 0;
