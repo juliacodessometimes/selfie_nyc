@@ -3,6 +3,30 @@
   src: url(https://juliacodessometimes.github.io/selfie_nyc/assets/pixelfont.woff);
 }
 
+@-webkit-keyframes blinkFlash {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes blinkFlash {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 * {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -14,24 +38,18 @@ html {
 
 p {
   font-size: 17px;
-  -webkit-font-smoothing: antialiased;
-  font-family: pixelfont;
   text-align: left;
   text-align: center;
 }
 
 h3 {
   font-size: 20px;
-  -webkit-font-smoothing: antialiased;
-  font-family: pixelfont;
   font-weight: 500;
   text-align: center;
 }
 
 h4 {
   font-size: 19px;
-  -webkit-font-smoothing: antialiased;
-  font-family: pixelfont;
   font-weight: 500;
   text-align: left;
   padding: 5px;
@@ -39,8 +57,6 @@ h4 {
 
 h5 {
   font-size: 19px;
-  -webkit-font-smoothing: antialiased;
-  font-family: pixelfont;
   font-weight: 500;
   text-align: center;
   padding: 5px;
@@ -50,19 +66,19 @@ body {
   margin: 0;
   padding: 0;
   -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
   font-family: pixelfont;
-  background-color: #87e7ff;
   color: #df4fcf;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   overflow: hidden;
   border: 10px solid #FFFF87;
+  background-color: white;
   position: absolute;
   top: 0;
   right: 0;
   left: 0;
   bottom: 0;
-  z-index: 1;
 }
 
 .header {
@@ -70,9 +86,11 @@ body {
   overflow: hidden;
   width: 100%;
   height: auto;
-  -webkit-transition: all .7s ease-out;
-  transition: all .7s ease-out;
-  z-index: 3;
+  -webkit-transition: -webkit-transform .7s ease-out;
+  transition: -webkit-transform .7s ease-out;
+  transition: transform .7s ease-out;
+  transition: transform .7s ease-out, -webkit-transform .7s ease-out;
+  z-index: 2;
   position: absolute;
   padding: 10px;
   top: 0;
@@ -94,10 +112,10 @@ body {
 
 .wrapper {
   width: 100%;
-  height: 100vh;
+  height: 100%;
   border-bottom: 20px solid #FFFF87;
   background-color: #FFFF87;
-  z-index: 2;
+  z-index: 1;
   position: absolute;
   top: 0;
   right: 0;
@@ -111,41 +129,46 @@ body {
       grid-template-areas: 'map' 'slider';
 }
 
-.map-class {
+.wrapper.clicked {
+  -webkit-animation: blinkFlash 0.5s ease-in-out;
+          animation: blinkFlash 0.5s ease-in-out;
+}
+
+.wrapper .map-class {
   -ms-grid-row: 1;
   -ms-grid-column: 1;
   grid-area: map;
   height: 100%;
   width: 100%;
   position: absolute;
-  z-index: 3;
+  z-index: 1;
 }
 
-.map-class #map {
+.wrapper .map-class #map {
   width: 100%;
   height: 100%;
   overflow: hidden;
 }
 
-.map-class #map .marker {
+.wrapper .map-class #map .marker {
   border: none;
   cursor: pointer;
   height: 34px;
   width: 56px;
-  z-index: 5;
+  z-index: 2;
   background-image: url(assets/icon.png);
 }
 
-.map-class #map .marker.selected {
+.wrapper .map-class #map .marker.selected {
   border: none;
   cursor: pointer;
   height: 42px;
   width: 64px;
-  z-index: 6;
+  z-index: 3;
   background-image: url(assets/icon_select.png);
 }
 
-.slider {
+.wrapper .slider {
   -ms-grid-row: 2;
   -ms-grid-column: 1;
   grid-area: slider;
@@ -155,44 +178,47 @@ body {
   border-bottom: 20px solid #FFFF87;
   width: 100%;
   height: 100vh;
-  z-index: 4;
-  background-color: #333333;
-  -webkit-transition: all .7s ease;
-  transition: all .7s ease;
+  z-index: 2;
+  background-color: #382c38;
+  -webkit-transition: -webkit-transform .7s ease-out;
+  transition: -webkit-transform .7s ease-out;
+  transition: transform .7s ease-out;
+  transition: transform .7s ease-out, -webkit-transform .7s ease-out;
   display: -ms-grid;
   display: grid;
   -ms-grid-rows: auto auto 1fr 0em 1fr;
       grid-template-rows: auto auto 1fr 0em 1fr;
-      grid-template-areas: 'title' 'camera' 'tips' 'buttons' 'spacer';
+      grid-template-areas: 'title' 'camera' 'texts' 'buttons' 'spacer';
 }
 
-.slider.is-open {
+.wrapper .slider.is-open {
   -webkit-transform: translateY(-80vh);
           transform: translateY(-80vh);
 }
 
-.slider.clicked {
+.wrapper .slider.clicked {
   -webkit-transform: translateY(-100vh);
           transform: translateY(-100vh);
 }
 
-.slider .slider-title {
+.wrapper .slider .slider-title {
   -ms-grid-row: 1;
   -ms-grid-column: 1;
   grid-area: title;
   position: relative;
   background-color: #d0ccd0;
+  margin: -1;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  border-bottom: 10px solid #333333;
-  z-index: 7;
+  border-bottom: 10px solid #382c38;
+  z-index: 2;
 }
 
-.slider .slider-title #location {
+.wrapper .slider .slider-title #location {
   background-color: #d0ccd0;
   font-size: 20px;
   -webkit-font-smoothing: antialiased;
@@ -206,7 +232,7 @@ body {
           flex: 1;
 }
 
-.slider .slider-title .slider-toggle {
+.wrapper .slider .slider-title .slider-toggle {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 40px;
           flex: 0 0 40px;
@@ -219,7 +245,7 @@ body {
   cursor: pointer;
 }
 
-.slider #camFeed {
+.wrapper .slider #camFeed {
   -ms-grid-row: 2;
   -ms-grid-column: 1;
   grid-area: camera;
@@ -227,35 +253,39 @@ body {
   width: 100%;
   background-size: contain;
   background-repeat: no-repeat;
-  border: 10px solid #333333;
-  z-index: 5;
+  background-color: #382c38;
+  border: 10px solid #382c38;
+  z-index: 2;
 }
 
-.slider .slider-text {
+.wrapper .slider .slider-text {
   -ms-grid-row: 3;
   -ms-grid-column: 1;
-  grid-area: tips;
+  grid-area: texts;
   width: 100%;
   height: auto;
-  background-color: #333333;
+  background-color: #382c38;
   border: none;
-  color: #df4fcf;
+  opacity: 1;
   text-align: center;
-  -webkit-transition: all .7s ease-out;
-  transition: all .7s ease-out;
-  z-index: 3;
+  -webkit-transition: opacity .4s ease-out, -webkit-transform .7s ease-out;
+  transition: opacity .4s ease-out, -webkit-transform .7s ease-out;
+  transition: transform .7s ease-out, opacity .4s ease-out;
+  transition: transform .7s ease-out, opacity .4s ease-out, -webkit-transform .7s ease-out;
+  z-index: 1;
 }
 
-.slider .slider-text.clicked {
+.wrapper .slider .slider-text.clicked {
   -webkit-transform: translateY(-101%);
           transform: translateY(-101%);
+  opacity: 0;
 }
 
-.slider .slider-text .take-selfie {
+.wrapper .slider .slider-text .take-selfie {
   background-image: url(assets/selfie.png);
   background-repeat: no-repeat;
   background-size: 100%;
-  outline: none;
+  margin: -1;
   border: none;
   height: 70px;
   width: 70px;
@@ -265,27 +295,48 @@ body {
           flex: 5;
 }
 
-.slider .slider-buttons {
+.wrapper .slider .slider-buttons {
   -ms-grid-row: 4;
   -ms-grid-column: 1;
   grid-area: buttons;
-  background-color: #87e7ff;
+  background-color: #382c38;
   width: 100%;
   height: 0em;
-  -webkit-transition: all .7s ease-out;
-  transition: all .7s ease-out;
-  z-index: 6;
+  -webkit-transition: opacity .4s ease-out, -webkit-transform .7s ease-out;
+  transition: opacity .4s ease-out, -webkit-transform .7s ease-out;
+  transition: transform .7s ease-out, opacity .4s ease-out;
+  transition: transform .7s ease-out, opacity .4s ease-out, -webkit-transform .7s ease-out;
+  z-index: 3;
+  opacity: 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
-.slider .slider-buttons.clicked {
+.wrapper .slider .slider-buttons.clicked {
   -webkit-transform: translateY(-20vh);
           transform: translateY(-20vh);
+  opacity: 1;
 }
 
-.slider .slider-buttons .delete-it {
+.wrapper .slider .slider-buttons .delete-it {
+  background-image: url(assets/delete.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  margin: -1;
+  border-left: 10px solid #382c38;
+  border-right: 10px solid #382c38;
+  border-top: none;
+  border-bottom: none;
+  height: 90px;
+  width: auto;
+  cursor: pointer;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.wrapper .slider .slider-buttons .save-it {
   outline: none;
   width: 20px;
   height: 70px;
@@ -300,30 +351,17 @@ body {
           flex: 1;
 }
 
-.slider .slider-buttons .save-it {
-  outline: none;
-  width: 20px;
-  height: 70px;
-  font-size: 20px;
-  -webkit-font-smoothing: antialiased;
-  font-family: pixelfont;
-  font-weight: 500;
-  color: #df4fcf;
-  cursor: pointer;
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-}
-
-.slider .spacer {
+.wrapper .slider .slider-spacer {
   -ms-grid-row: 5;
   -ms-grid-column: 1;
   grid-area: spacer;
   height: auto;
   width: 100%;
-  background-color: #FFFF87;
+  margin: -1;
+  background-color: #382c38;
   border-bottom: 20px solid #FFFF87;
-  z-index: 10;
+  outline: none;
+  z-index: 4;
 }
 
 .footer {
@@ -333,9 +371,11 @@ body {
   height: auto;
   padding: 10px;
   border-bottom: 20px solid #FFFF87;
-  -webkit-transition: all .7s ease-out;
-  transition: all .7s ease-out;
-  z-index: 3;
+  -webkit-transition: -webkit-transform .7s ease-out;
+  transition: -webkit-transform .7s ease-out;
+  transition: transform .7s ease-out;
+  transition: transform .7s ease-out, -webkit-transform .7s ease-out;
+  z-index: 2;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -352,8 +392,10 @@ body {
 
 .wrapper-about {
   overflow-y: auto;
-  height: 100vh;
+  background-color: #87e7ff;
+  height: 100%;
   width: 100%;
+  margin: -1;
 }
 
 .wrapper-about .header-about {
@@ -362,6 +404,7 @@ body {
   width: 100%;
   height: auto;
   z-index: 3;
+  margin: -1;
   padding: 10px;
 }
 
@@ -376,9 +419,10 @@ body {
 .wrapper-about .troubleshooting {
   height: auto;
   width: 100%;
-  z-index: 6;
   background-color: #87e7ff;
   padding: 5px;
+  margin: -1;
+  z-index: 4;
 }
 
 .wrapper-about .troubleshooting #example {

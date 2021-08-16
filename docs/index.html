@@ -29,20 +29,21 @@
     </div>
     <img id='camFeed' src=''>
     <div class='slider-text'>
-        <p>TIP: sometimes camera locations on the map aren't exact: try matching the feed with what you see</p>
         <button class='take-selfie'></button>
+        <p>having trouble? <br> check <a href="about.html" style='text-decoration:underline; color:#df4ecc;'>FAQ and troubleshooting</a></p>
     </div>
     <div class='slider-buttons'>
-        <button class='delete-it'>delete</button>
-        <button class='save-it'>save</button>
+        <button class='delete-it'></button>
+        <button class='save-it'></button>
     </div>
-    <div class='spacer'>
+    <div class='slider-spacer'>
     </div>
 </div>
 </div>
 <div class='footer'>
     <p>website by julia bloom</p>
 </div>
+
 <script>
 mapboxgl.accessToken = 'pk.eyJ1IjoiamNha2VzMzMiLCJhIjoiY2p4ZGkyb2JyMDExcDNvb2dxZXFuYmY4cSJ9.m21aYnJvrMrnEGEa0AeimQ'
 // mapbox map
@@ -56,12 +57,13 @@ var map = new mapboxgl.Map({
 
 // slider toggle variables
 var toggleBtn = document.querySelector('.slider-toggle');
-var deleteBtn = document.querySelector('.delete-it')
+var deleteBtn = document.querySelector('.delete-it');
 var sliderCSS = document.querySelector('.slider');
 var sliderTextCSS = document.querySelector('.slider-text');
 var sliderButtonsCSS = document.querySelector('.slider-buttons');
 var headerCSS = document.querySelector('.header');
 var footerCSS = document.querySelector('.footer');
+var wrapperCSS = document.querySelector('.wrapper');
 
 // camera variables
 var selfieBtn = document.querySelector('.take-selfie');
@@ -200,6 +202,7 @@ selfieBtn.addEventListener('click', function() {
     sliderCSS.classList.add('clicked');
     sliderTextCSS.classList.add('clicked');
     sliderButtonsCSS.classList.add('clicked');
+    wrapperCSS.classList.add('clicked');
 
     // camera feed settings
     var selfiePath = cameraFeed.getAttribute('src');
@@ -211,6 +214,7 @@ deleteBtn.addEventListener('click', function() {
     sliderCSS.classList.remove('clicked');
     sliderTextCSS.classList.remove('clicked');
     sliderButtonsCSS.classList.remove('clicked');
+    wrapperCSS.classList.remove('clicked');
     // pre-load camera feed image
     cameraFeed.src = markerSRC + Math.random();
     clearInterval(camInterval);
