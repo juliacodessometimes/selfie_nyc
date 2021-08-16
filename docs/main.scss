@@ -6,9 +6,11 @@
 
 @keyframes blinkFlash {
     0% {opacity: 1;}
-    //25% {opacity: 0.5;}
+    15% {opacity: 0.5;}
+    45%{opacity: 0;}
     50%{opacity: 0;}
-    //75% {opacity: 0.5;}
+    55%{opacity: 0;}
+    85% {opacity: 0.5;}
     100%{opacity: 1;}
 }
 $blinkanimation: blinkFlash .5s ease-in-out;
@@ -333,7 +335,7 @@ body {
     width: 100%;
     height: auto;
     padding: $text_padding;
-    border-bottom: $wideborder_style;
+    border-bottom: $yellowborder_style;
     transition: transform .7s ease-out;
     z-index: 2;
     position: absolute;
@@ -403,7 +405,7 @@ body {
         width: 100%;
         height: auto;
         padding: $text_padding;
-        border-bottom: $wideborder_style;
+        border-bottom: $yellowborder_style;
         z-index: 3;
     
         p {

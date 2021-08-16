@@ -7,8 +7,20 @@
   0% {
     opacity: 1;
   }
+  15% {
+    opacity: 0.5;
+  }
+  45% {
+    opacity: 0;
+  }
   50% {
     opacity: 0;
+  }
+  55% {
+    opacity: 0;
+  }
+  85% {
+    opacity: 0.5;
   }
   100% {
     opacity: 1;
@@ -19,8 +31,20 @@
   0% {
     opacity: 1;
   }
+  15% {
+    opacity: 0.5;
+  }
+  45% {
+    opacity: 0;
+  }
   50% {
     opacity: 0;
+  }
+  55% {
+    opacity: 0;
+  }
+  85% {
+    opacity: 0.5;
   }
   100% {
     opacity: 1;
@@ -370,7 +394,7 @@ body {
   width: 100%;
   height: auto;
   padding: 10px;
-  border-bottom: 20px solid #FFFF87;
+  border-bottom: 10px solid #FFFF87;
   -webkit-transition: -webkit-transform .7s ease-out;
   transition: -webkit-transform .7s ease-out;
   transition: transform .7s ease-out;
@@ -445,7 +469,7 @@ body {
   width: 100%;
   height: auto;
   padding: 10px;
-  border-bottom: 20px solid #FFFF87;
+  border-bottom: 10px solid #FFFF87;
   z-index: 3;
 }
 
