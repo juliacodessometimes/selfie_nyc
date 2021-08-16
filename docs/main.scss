@@ -19,12 +19,13 @@ $blinkanimation: blinkFlash .5s ease-in-out;
 $yellow: #FFFF87;
 $blue: rgb(135, 231, 255);
 $pink: rgb(223, 79, 207);
-$light_pink: rgb(208, 204, 208);
+$medium_pink: rgb(231, 126, 219);
+$light_pink: rgb(237, 156, 228);
 $black: rgb(56, 44, 56);
-$light_purple: rgb(184, 168, 184);
+$light_purple: rgb(208, 204, 208);
 // sizes
-$slider_close_icon: 40px;
-$buttons_height: 70px;
+$slider_close_icon: 50px;
+$selfiebutton_height: 90px;
 $height_slider_open: 80vh;
 $height_slider_total: 100vh;
 $height_slider_closed: 0em;
@@ -35,9 +36,12 @@ $wideborder_style: 20px solid $yellow;
 $pinkborder_style: 10px solid $pink;
 $blackborder_style: 10px solid $black;
 $thinborder_style: 5px solid $yellow;
-$text_padding: 10px;
-// z-indexes
-$wrapper_index: 2;
+$text_padding: 6px;
+
+*:focus {
+    //outline-color: $black;
+    box-shadow: none;
+}
 
 * {
     box-sizing: border-box;
@@ -63,18 +67,18 @@ h4 {
     font-size: 19px;
     font-weight: 500;
     text-align: left;
-    padding: 5px;
+    padding: 3px;
 }
 
 h5 {
     font-size: 19px;
     font-weight: 500;
     text-align: center;
-    padding: 5px;
+    padding: 3px;
 }
 
 body {
-    margin: 0;
+    margin: -1;
     padding: 0;
     -webkit-font-smoothing: antialiased;
     -webkit-tap-highlight-color: transparent;
@@ -122,12 +126,12 @@ body {
     height: 100%;
     border-bottom: $wideborder_style;
     background-color: $yellow;
-    z-index: 1;
     position: absolute;
     top: 0;
     right: 0;
     left: 0;
     bottom: 0;
+    z-index: 1;
     overflow: hidden;
     display: grid;
     grid-template-rows: 100vh $height_slider_closed;
@@ -202,7 +206,7 @@ body {
         .slider-title {
             grid-area: title;
             position: relative;
-            background-color: $light_pink;
+            background-color: $black;
             margin: -1;
             display: flex;
             align-items: center;
@@ -210,19 +214,20 @@ body {
             z-index: 2;
     
             #location {
-                background-color: $light_pink;
-                font-size: 20px;
+                background-color: $black;
+                font-size: 23px;
                 -webkit-font-smoothing: antialiased;
                 font-family: pixelfont;
                 font-weight: 500;
                 text-align: center;
                 flex-wrap: wrap;
+                margin: -1;
                 flex: 1;
             }
     
             .slider-toggle {
                 flex: 0 0 $slider_close_icon;
-                background-image: url(assets/toggle.png);
+                background: url(assets/toggle.png);
                 background-repeat: no-repeat;
                 background-size: 100%;
                 border: none;
@@ -260,13 +265,12 @@ body {
             }
     
             .take-selfie {
-                background-image: url(assets/selfie.png);
+                background: url(assets/selfie.png);
                 background-repeat: no-repeat;
                 background-size: 100%;
-                margin: -1;
                 border: none;
-                height: $buttons_height;
-                width: $buttons_height;
+                height: $selfiebutton_height;
+                width: $selfiebutton_height;
                 cursor: pointer;
                 flex: 5;
             }
@@ -280,7 +284,6 @@ body {
             transition: transform .7s ease-out, opacity .4s ease-out;
             z-index: 3;
             opacity: 0;
-            margin: -1;
             display: flex;
     
             &.clicked {
@@ -289,16 +292,15 @@ body {
             }
                 
             .delete-it {
-                background-image: url(assets/delete.png);
+                height: 90px;
+                width: auto;
+                background: url(assets/delete.png);
                 background-repeat: no-repeat;
                 background-size: 100%;
-                margin: -1;
                 border-left: $blackborder_style;
                 border-right: $blackborder_style;
                 border-top: none;
                 border-bottom: none;
-                height: 90px;
-                width: auto;
                 cursor: pointer;
                 flex: 1;
             }
@@ -306,7 +308,7 @@ body {
             .save-it {
                 outline: none;
                 width: 20px;
-                height: $buttons_height;
+                height: 90px;
                 font-size: 20px;
                 -webkit-font-smoothing: antialiased;
                 font-family: pixelfont;
@@ -321,7 +323,6 @@ body {
             grid-area: spacer;
             height: auto;
             width: 100%;
-            margin: -1;
             background-color: $black;
             border-bottom: $wideborder_style;
             outline: none;
@@ -357,7 +358,6 @@ body {
     background-color: $blue;
     height: 100%;
     width: 100%;
-    margin: -1;
 
     .header-about {
         background-color: $blue;
@@ -365,7 +365,6 @@ body {
         width: 100%;
         height: auto;
         z-index: 3;
-        margin: -1;
         padding: $text_padding;
     
         #logo {
@@ -382,7 +381,6 @@ body {
         width: 100%;
         background-color: $blue;
         padding: 5px;
-        margin: -1;
         z-index: 4;
         
         #example {
