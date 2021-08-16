@@ -280,6 +280,7 @@ body {
             transition: transform .7s ease-out, opacity .4s ease-out;
             z-index: 3;
             opacity: 0;
+            margin: -1;
             display: flex;
     
             &.clicked {
@@ -335,7 +336,7 @@ body {
     width: 100%;
     height: auto;
     padding: $text_padding;
-    border-bottom: $yellowborder_style;
+    border: none;
     transition: transform .7s ease-out;
     z-index: 2;
     position: absolute;
@@ -405,7 +406,7 @@ body {
         width: 100%;
         height: auto;
         padding: $text_padding;
-        border-bottom: $yellowborder_style;
+        border: none;
         z-index: 3;
     
         p {
