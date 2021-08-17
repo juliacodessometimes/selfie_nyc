@@ -130,10 +130,11 @@ body {
           transform: translateY(-101%);
 }
 
-.header #logo {
+#logo {
   height: auto;
-  width: 100%;
-  padding: 0;
+  max-width: 100%;
+  margin: auto;
+  display: block;
   background-size: contain;
   background-repeat: no-repeat;
 }
@@ -276,11 +277,11 @@ body {
   -ms-grid-row: 2;
   -ms-grid-column: 1;
   grid-area: camera;
+  display: block;
   height: auto;
-  max-width: 100%;
+  width: 100%;
   background-size: contain;
   background-repeat: no-repeat;
-  margin: auto;
   background-color: #382c38;
   border: 10px solid #382c38;
   z-index: 2;
@@ -429,14 +430,6 @@ body {
   padding: 6px;
 }
 
-.wrapper-about .header-about #logo {
-  height: auto;
-  width: 100%;
-  padding: 0;
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-
 .wrapper-about .troubleshooting {
   height: auto;
   width: 100%;
@@ -447,16 +440,24 @@ body {
 
 .wrapper-about .troubleshooting #example {
   height: auto;
-  width: 75%;
+  max-width: 75%;
   padding: 15px;
+  margin: auto;
+  display: block;
   background-size: contain;
   background-repeat: no-repeat;
+}
+
+.wrapper-about .troubleshooting h4 {
+  padding-left: 10px;
+  padding-right: 5px;
 }
 
 .wrapper-about .troubleshooting p {
   text-align: left;
   font-size: 15px;
-  padding-left: 10px;
+  padding-left: 13px;
+  padding-right: 9px;
 }
 
 .wrapper-about .footer-about {
