@@ -208,6 +208,7 @@ body {
   height: 100vh;
   z-index: 2;
   background-color: #382c38;
+  overflow: auto;
   -webkit-transition: -webkit-transform .7s ease-out;
   transition: -webkit-transform .7s ease-out;
   transition: transform .7s ease-out;
@@ -276,9 +277,10 @@ body {
   -ms-grid-column: 1;
   grid-area: camera;
   height: auto;
-  width: 100%;
+  max-width: 100%;
   background-size: contain;
   background-repeat: no-repeat;
+  margin: auto;
   background-color: #382c38;
   border: 10px solid #382c38;
   z-index: 2;
@@ -325,7 +327,7 @@ body {
   -ms-grid-column: 1;
   grid-area: buttons;
   background-color: #382c38;
-  width: 100%;
+  width: auto;
   height: 0em;
   -webkit-transition: opacity .4s ease-in-out, -webkit-transform .7s ease-in-out;
   transition: opacity .4s ease-in-out, -webkit-transform .7s ease-in-out;
@@ -346,14 +348,14 @@ body {
 
 .wrapper .slider .slider-buttons .delete-it {
   height: 90px;
-  width: 150px;
+  max-width: 150px;
   background: url(assets/delete.png);
   background-repeat: no-repeat;
   background-size: 100%;
-  border-left: 10px solid #382c38;
-  border-right: 10px solid #382c38;
-  border-top: none;
-  border-bottom: none;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin: auto;
+  border: none;
   cursor: pointer;
   -webkit-box-flex: 1;
       -ms-flex: 1;
@@ -362,14 +364,14 @@ body {
 
 .wrapper .slider .slider-buttons .save-it {
   height: 90px;
-  width: 150px;
-  background: url(assets/delete.png);
+  max-width: 150px;
+  background: url(assets/save.png);
   background-repeat: no-repeat;
   background-size: 100%;
-  border-left: 10px solid #382c38;
-  border-right: 10px solid #382c38;
-  border-top: none;
-  border-bottom: none;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin: auto;
+  border: none;
   cursor: pointer;
   -webkit-box-flex: 1;
       -ms-flex: 1;

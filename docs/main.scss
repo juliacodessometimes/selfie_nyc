@@ -186,6 +186,7 @@ body {
         height: $height_slider_total;
         z-index: 2;
         background-color: $black;
+        overflow: auto;
         transition: transform .7s ease-out;
         display: grid;
         grid-template-rows: auto auto 1fr $height_slider_closed 1fr;
@@ -238,9 +239,10 @@ body {
         #camFeed {
             grid-area: camera;
             height: auto;
-            width: 100%;
+            max-width: 100%;
             background-size: contain;
             background-repeat: no-repeat;
+            margin: auto;
             background-color: $black;
             border: $blackborder_style;
             z-index: 2;
@@ -277,7 +279,7 @@ body {
         .slider-buttons {
             grid-area: buttons;
             background-color: $black;
-            width: 100%;
+            width: auto;
             height: $height_slider_closed;
             transition: transform .7s ease-in-out, opacity .4s ease-in-out;
             z-index: 3;
@@ -291,28 +293,28 @@ body {
                 
             .delete-it {
                 height: $buttons_height;
-                width: $buttons_width;
+                max-width: $buttons_width;
                 background: url(assets/delete.png);
                 background-repeat: no-repeat;
                 background-size: 100%;
-                border-left: $blackborder_style;
-                border-right: $blackborder_style;
-                border-top: none;
-                border-bottom: none;
+                padding-left: 10px;
+                padding-right: 10px;
+                margin: auto;
+                border: none;
                 cursor: pointer;
                 flex: 1;
             }
         
             .save-it {
                 height: $buttons_height;
-                width: $buttons_width;
-                background: url(assets/delete.png);
+                max-width: $buttons_width;
+                background: url(assets/save.png);
                 background-repeat: no-repeat;
                 background-size: 100%;
-                border-left: $blackborder_style;
-                border-right: $blackborder_style;
-                border-top: none;
-                border-bottom: none;
+                padding-left: 10px;
+                padding-right: 10px;
+                margin: auto;
+                border: none;
                 cursor: pointer;
                 flex: 1;
             }
