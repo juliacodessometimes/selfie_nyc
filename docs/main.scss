@@ -79,7 +79,6 @@ h5 {
 }
 
 body {
-    //margin: 0;
     padding: 0;
     -webkit-font-smoothing: antialiased;
     -webkit-tap-highlight-color: transparent;
@@ -88,7 +87,9 @@ body {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    border: $yellowborder_style;
+    border-top: $yellowborder_style;
+    border-right: $yellowborder_style;
+    border-left: $yellowborder_style;
     background-color: white;
     position: absolute;
     top: 0;
