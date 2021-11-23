@@ -14,6 +14,7 @@ def index():
 def about():
     return render_template('about.html')
 
+# api endpoint
 @app.route('/data')
 def geodata():
     return jsonify(data)
