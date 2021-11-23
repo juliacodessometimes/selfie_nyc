@@ -72,7 +72,7 @@ var camInterval;
 
 // loading map
 map.on('load', () => {
-    fetch('https://juliacodessometimes.github.io/selfie_nyc/assets/data.geojson')
+    fetch('https://raw.githubusercontent.com/juliacodessometimes/selfie_nyc/main/app/data.geojson')
     // fetching scraped data file
     .then(response => response.json())
     .then((data) => {
