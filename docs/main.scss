@@ -103,7 +103,7 @@ body {
     overflow: hidden;
     width: 100%;
     height: auto;
-    transition: transform .7s ease-in-out;
+    transition: transform .7s ease-out;
     z-index: 2;
     position: absolute;
     padding: $text_padding;
@@ -157,24 +157,6 @@ body {
             width: 100%;
             height: 100%;
             overflow: hidden;
-            
-            .marker {
-                border: none;
-                cursor: pointer;
-                height: 34px;
-                width: 56px;
-                z-index: 2;
-                background: url(assets/icon.png);
-                
-                &.selected {
-                    border: none;
-                    cursor: pointer;
-                    height: 42px;
-                    width: 64px;
-                    z-index: 3;
-                    background: url(assets/icon_select.png);
-                }
-            }
         }
     }
 
