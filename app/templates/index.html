@@ -25,16 +25,16 @@
         <div id='location'>
             <p></p>
         </div>
-        <button class='slider-toggle'></button>
+        <button class='slider-toggle' onclick='toggleBtn();'></button>
     </div>
     <img id='camFeed' src=''>
     <div class='slider-text'>
-        <button class='take-selfie'></button>
+        <button class='take-selfie' onclick='selfieBtn();'></button>
         <p>having trouble? <br> check <a href="/about" style='text-decoration:underline; color:#df4ecc;'>FAQ and troubleshooting</a></p>
     </div>
     <div class='slider-buttons'>
-        <button class='delete-it'></button>
-        <button class='save-it'></button>
+        <button class='delete-it' onclick='deleteBtn();'></button>
+        <button class='save-it' onclick='downloadBtn();'></button>
     </div>
     <div class='slider-spacer'>
     </div>
@@ -53,10 +53,6 @@ var map = new mapboxgl.Map({
     zoom: 14,
     scrollZoom: false
 });
-// buttons
-var toggleBtn = document.querySelector('.slider-toggle');
-var selfieBtn = document.querySelector('.take-selfie');
-var deleteBtn = document.querySelector('.delete-it');
 // CSS
 var sliderCSS = document.querySelector('.slider');
 var sliderTextCSS = document.querySelector('.slider-text');
@@ -67,7 +63,8 @@ var wrapperCSS = document.querySelector('.wrapper');
 // elements
 var cameraFeed = document.getElementById('camFeed');
 var cameraLocation = document.getElementById('location');
-var clickedMarker
+var clickedMarker;
+var selfiePath;
 var camInterval;
 
 // loading map
@@ -146,7 +143,7 @@ map.on('load', () => {
         flyToUser()
     }
 });
-// functions
+// animation functions
 function openSlider() {
     // open slider and hide header
     sliderCSS.classList.add('is-open');
@@ -156,20 +153,18 @@ function openSlider() {
 function setHTML(clickedMarker) {
     // load all HTML for slider div
 
-    // set heading text to cross-street
+    // set heading text to cross-street and pre-load camera feed image
     cameraLocation.innerHTML = clickedMarker.properties.name;
-    // pre-load camera feed image
     cameraFeed.src = clickedMarker.properties.url;
-    // clear any previous intervals
+    // clear any previous intervals before setting new interval
     clearInterval(camInterval);
-    // set interval
     camInterval = setInterval(function() {
-        // set interval that refreshes camera feed image every 1.5 seconds
+        // interval refreshes camera feed image every 1.5 seconds
         cameraFeed.src = clickedMarker.properties.url + Math.random();
     }, 1500);
 }
 function flyToCamera(clickedMarker) {
-    // fly to current camera marker
+    // fly to current marker
     map.flyTo({
         center: clickedMarker.geometry.coordinates,
         zoom: 20,
@@ -186,7 +181,6 @@ function flyFromCamera() {
     });
 }
 function flyToUser(userlocation) {
-    // fly to user location 
     navigator.geolocation.getCurrentPosition(userlocation => {
         map.flyTo({
             center: [userlocation.coords.longitude, userlocation.coords.latitude],
@@ -195,7 +189,7 @@ function flyToUser(userlocation) {
     });
 }
 // button functions
-toggleBtn.addEventListener('click', function() {
+function toggleBtn() {
     // close slider button functions
     // remove selected source/layer
     if (map.getLayer('selected')) {
@@ -216,20 +210,27 @@ toggleBtn.addEventListener('click', function() {
     clearInterval(camInterval);
     // zoom out from last-clicked camera
     flyFromCamera();
-});
-selfieBtn.addEventListener('click', function() {
-    // selfie button functions
+}
+function selfieBtn() {
+    // camera feed settings
+    selfiePath = cameraFeed.getAttribute('src');
+    clearInterval(camInterval);
+    camFeed.src = selfiePath;
+
+    // CSS animations
     sliderCSS.classList.add('clicked');
     sliderTextCSS.classList.add('clicked');
     sliderButtonsCSS.classList.add('clicked');
     wrapperCSS.classList.add('clicked');
 
-    // camera feed settings
-    var selfiePath = cameraFeed.getAttribute('src');
-    clearInterval(camInterval);
-    camFeed.src = selfiePath;
-});
-deleteBtn.addEventListener('click', function() {
+    const xhttp = new XMLHttpRequest();
+    xhttp.open('POST', "/image");
+    xhttp.send(clickedMarker.properties.url);
+}
+function downloadBtn() {
+
+}
+function deleteBtn() {
     // delete button functions
     sliderCSS.classList.remove('clicked');
     sliderTextCSS.classList.remove('clicked');
@@ -242,7 +243,7 @@ deleteBtn.addEventListener('click', function() {
         // set interval that refreshes camera feed image every 1.5 seconds
         cameraFeed.src = clickedMarker.properties.url + Math.random();
     }, 1500);
-});
+}
 </script>
 </body>
 </html>
