@@ -1,6 +1,6 @@
 @font-face {
   font-family: pixelfont;
-  src: url(assets/pixelfont.woff);
+  src: url(pixelfont.woff);
 }
 
 @-webkit-keyframes blinkFlash {
@@ -248,7 +248,7 @@ body {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 50px;
           flex: 0 0 50px;
-  background: url(assets/toggle.png);
+  background: url(../assets/toggle.png);
   background-repeat: no-repeat;
   background-size: 100%;
   border: none;
@@ -295,7 +295,7 @@ body {
 }
 
 .wrapper .slider .slider-text .take-selfie {
-  background: url(assets/selfie.png);
+  background: url(../assets/selfie.png);
   background-repeat: no-repeat;
   background-size: 100%;
   border: none;
@@ -334,7 +334,7 @@ body {
 .wrapper .slider .slider-buttons .delete-it {
   height: 90px;
   max-width: 150px;
-  background: url(assets/delete.png);
+  background: url(../assets/delete.png);
   background-repeat: no-repeat;
   background-size: 100%;
   padding-left: 10px;
@@ -350,7 +350,7 @@ body {
 .wrapper .slider .slider-buttons .save-it {
   height: 90px;
   max-width: 150px;
-  background: url(assets/save.png);
+  background: url(../assets/save.png);
   background-repeat: no-repeat;
   background-size: 100%;
   padding-left: 10px;

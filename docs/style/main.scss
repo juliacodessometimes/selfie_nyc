@@ -1,7 +1,7 @@
 // font
 @font-face {
     font-family: pixelfont;
-    src: url(assets/pixelfont.woff);
+    src: url(pixelfont.woff);
 }
 
 @keyframes blinkFlash {
@@ -210,7 +210,7 @@ body {
     
             .slider-toggle {
                 flex: 0 0 $sliderclosebutton_height;
-                background: url(assets/toggle.png);
+                background: url(../assets/toggle.png);
                 background-repeat: no-repeat;
                 background-size: 100%;
                 border: none;
@@ -249,7 +249,7 @@ body {
             }
     
             .take-selfie {
-                background: url(assets/selfie.png);
+                background: url(../assets/selfie.png);
                 background-repeat: no-repeat;
                 background-size: 100%;
                 border: none;
@@ -278,7 +278,7 @@ body {
             .delete-it {
                 height: $buttons_height;
                 max-width: $buttons_width;
-                background: url(assets/delete.png);
+                background: url(../assets/delete.png);
                 background-repeat: no-repeat;
                 background-size: 100%;
                 padding-left: 10px;
@@ -292,7 +292,7 @@ body {
             .save-it {
                 height: $buttons_height;
                 max-width: $buttons_width;
-                background: url(assets/save.png);
+                background: url(../assets/save.png);
                 background-repeat: no-repeat;
                 background-size: 100%;
                 padding-left: 10px;
