@@ -223,9 +223,16 @@ function selfieBtn() {
     sliderButtonsCSS.classList.add('clicked');
     wrapperCSS.classList.add('clicked');
 
-    const xhttp = new XMLHttpRequest();
-    xhttp.open('POST', "/image");
-    xhttp.send(clickedMarker.properties.url);
+    const xhttp1 = new XMLHttpRequest();
+    xhttp1.open('POST', "/image");
+    xhttp1.send(clickedMarker.properties.url);
+
+    const xhttp2 = new XMLHttpRequest();
+    xhttp2.open('GET', "/image");
+    xhttp2.send();
+    xhttp2.onload = function() {
+        cameraFeed.src = JSON.parse(this.responseText);
+    }
 }
 function downloadBtn() {
 
