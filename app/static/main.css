@@ -1,6 +1,6 @@
 @font-face {
   font-family: pixelfont;
-  src: url(../static/pixelfont.woff);
+  src: url(pixelfont.woff);
 }
 
 @-webkit-keyframes blinkFlash {
@@ -111,7 +111,7 @@ body {
   bottom: 0;
 }
 
-.header {
+.header-index {
   background-color: #87e7ff;
   overflow: hidden;
   width: 100%;
@@ -127,7 +127,7 @@ body {
   left: 0;
 }
 
-.header.is-open {
+.header-index.is-open {
   -webkit-transform: translateY(-101%);
           transform: translateY(-101%);
 }
@@ -141,7 +141,7 @@ body {
   background-repeat: no-repeat;
 }
 
-.wrapper {
+.wrapper-index {
   width: 100%;
   height: 100%;
   border-bottom: 10px solid #FFFF87;
@@ -160,12 +160,12 @@ body {
       grid-template-areas: 'map' 'slider';
 }
 
-.wrapper.clicked {
+.wrapper-index.clicked {
   -webkit-animation: blinkFlash 0.5s ease-in-out;
           animation: blinkFlash 0.5s ease-in-out;
 }
 
-.wrapper .map-class {
+.wrapper-index .map-class {
   -ms-grid-row: 1;
   -ms-grid-column: 1;
   grid-area: map;
@@ -175,13 +175,13 @@ body {
   z-index: 1;
 }
 
-.wrapper .map-class #map {
+.wrapper-index .map-class #map {
   width: 100%;
   height: 100%;
   overflow: hidden;
 }
 
-.wrapper .slider {
+.wrapper-index .slider {
   -ms-grid-row: 2;
   -ms-grid-column: 1;
   grid-area: slider;
@@ -205,17 +205,17 @@ body {
       grid-template-areas: 'title' 'camera' 'texts' 'buttons' 'spacer';
 }
 
-.wrapper .slider.is-open {
+.wrapper-index .slider.is-open {
   -webkit-transform: translateY(-80vh);
           transform: translateY(-80vh);
 }
 
-.wrapper .slider.clicked {
+.wrapper-index .slider.clicked {
   -webkit-transform: translateY(-100vh);
           transform: translateY(-100vh);
 }
 
-.wrapper .slider .slider-title {
+.wrapper-index .slider .slider-title {
   -ms-grid-row: 1;
   -ms-grid-column: 1;
   grid-area: title;
@@ -230,7 +230,7 @@ body {
   z-index: 2;
 }
 
-.wrapper .slider .slider-title #location {
+.wrapper-index .slider .slider-title #location {
   background-color: #382c38;
   font-size: 23px;
   -webkit-font-smoothing: antialiased;
@@ -244,11 +244,11 @@ body {
           flex: 1;
 }
 
-.wrapper .slider .slider-title .slider-toggle {
+.wrapper-index .slider .slider-title .slider-toggle {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 50px;
           flex: 0 0 50px;
-  background: url(../static/toggle.png);
+  background: url(toggle.png);
   background-repeat: no-repeat;
   background-size: 100%;
   border: none;
@@ -257,7 +257,7 @@ body {
   cursor: pointer;
 }
 
-.wrapper .slider #camFeed {
+.wrapper-index .slider #camFeed {
   -ms-grid-row: 2;
   -ms-grid-column: 1;
   grid-area: camera;
@@ -271,7 +271,7 @@ body {
   z-index: 2;
 }
 
-.wrapper .slider .slider-text {
+.wrapper-index .slider .slider-text {
   -ms-grid-row: 3;
   -ms-grid-column: 1;
   grid-area: texts;
@@ -288,14 +288,14 @@ body {
   z-index: 1;
 }
 
-.wrapper .slider .slider-text.clicked {
+.wrapper-index .slider .slider-text.clicked {
   -webkit-transform: translateY(-101%);
           transform: translateY(-101%);
   opacity: 0;
 }
 
-.wrapper .slider .slider-text .take-selfie {
-  background: url(../static/selfie.png);
+.wrapper-index .slider .slider-text .take-selfie {
+  background: url(selfie.png);
   background-repeat: no-repeat;
   background-size: 100%;
   border: none;
@@ -307,7 +307,7 @@ body {
           flex: 5;
 }
 
-.wrapper .slider .slider-buttons {
+.wrapper-index .slider .slider-buttons {
   -ms-grid-row: 4;
   -ms-grid-column: 1;
   grid-area: buttons;
@@ -325,16 +325,16 @@ body {
   display: flex;
 }
 
-.wrapper .slider .slider-buttons.clicked {
+.wrapper-index .slider .slider-buttons.clicked {
   -webkit-transform: translateY(-20vh);
           transform: translateY(-20vh);
   opacity: 1;
 }
 
-.wrapper .slider .slider-buttons .delete-it {
+.wrapper-index .slider .slider-buttons .delete-it {
   height: 90px;
   max-width: 150px;
-  background: url(../static/delete.png);
+  background: url(delete.png);
   background-repeat: no-repeat;
   background-size: 100%;
   padding-left: 10px;
@@ -347,10 +347,10 @@ body {
           flex: 1;
 }
 
-.wrapper .slider .slider-buttons .save-it {
+.wrapper-index .slider .slider-buttons .save-it {
   height: 90px;
   max-width: 150px;
-  background: url(../static/save.png);
+  background: url(save.png);
   background-repeat: no-repeat;
   background-size: 100%;
   padding-left: 10px;
@@ -363,7 +363,7 @@ body {
           flex: 1;
 }
 
-.wrapper .slider .slider-spacer {
+.wrapper-index .slider .slider-spacer {
   -ms-grid-row: 5;
   -ms-grid-column: 1;
   grid-area: spacer;
@@ -373,7 +373,7 @@ body {
   z-index: 2;
 }
 
-.footer {
+.footer-index {
   background-color: #FFFF87;
   overflow: hidden;
   width: 100%;
@@ -389,23 +389,23 @@ body {
   left: 0;
 }
 
-.footer.is-open {
+.footer-index.is-open {
   -webkit-transform: translateY(101%);
           transform: translateY(101%);
 }
 
-.footer p {
+.footer-index p {
   text-align: left;
 }
 
-.wrapper-about {
+.wrapper {
   overflow-y: auto;
   background-color: #87e7ff;
   height: 100%;
   width: 100%;
 }
 
-.wrapper-about .header-about {
+.wrapper .header {
   background-color: #87e7ff;
   overflow: hidden;
   width: 100%;
@@ -414,7 +414,8 @@ body {
   padding: 6px;
 }
 
-.wrapper-about .troubleshooting {
+.wrapper .main-text {
+  min-height: 100%;
   height: auto;
   width: 100%;
   background-color: #87e7ff;
@@ -422,7 +423,7 @@ body {
   z-index: 4;
 }
 
-.wrapper-about .troubleshooting #example {
+.wrapper .main-text #example {
   height: auto;
   max-width: 75%;
   padding: 15px;
@@ -432,19 +433,19 @@ body {
   background-repeat: no-repeat;
 }
 
-.wrapper-about .troubleshooting h4 {
+.wrapper .main-text h4 {
   padding-left: 10px;
   padding-right: 5px;
 }
 
-.wrapper-about .troubleshooting p {
+.wrapper .main-text p {
   text-align: left;
   font-size: 15px;
   padding-left: 13px;
   padding-right: 9px;
 }
 
-.wrapper-about .footer-about {
+.wrapper .footer {
   background-color: #FFFF87;
   overflow: hidden;
   width: 100%;
@@ -454,7 +455,7 @@ body {
   z-index: 3;
 }
 
-.wrapper-about .footer-about p {
+.wrapper .footer p {
   text-align: left;
 }
 /*# sourceMappingURL=main.css.map */

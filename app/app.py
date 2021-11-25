@@ -9,6 +9,7 @@ with open('data.geojson') as g:
     data = geojson.load(g)
 
 # routes
+@app.route('/index')
 @app.route('/', methods=('GET', 'POST'))
 def index():
     return render_template('index.html')
@@ -25,13 +26,17 @@ def image_grab():
     # pass new local image url to AJAX GET
     return jsonify('../static/selfie_pause.jpg')
 
-@app.route('/issues')
-def issues():
-    return render_template('issue.html')
-
 @app.route('/about')
 def about():
     return render_template('about.html')
+
+@app.route('/faq')
+def faq():
+    return render_template('faq.html')
+
+@app.route('/issues')
+def issues():
+    return render_template('issue.html')
 
 # geojson endpoint
 @app.route('/data')

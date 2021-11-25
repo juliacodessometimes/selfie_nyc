@@ -1,9 +1,8 @@
 // font
 @font-face {
     font-family: pixelfont;
-    src: url(../static/pixelfont.woff);
+    src: url(pixelfont.woff);
 }
-
 @keyframes blinkFlash {
     0% {opacity: 1;}
     15% {opacity: 0.5;}
@@ -43,41 +42,34 @@ $text_padding: 6px;
 *:focus {
     box-shadow: none;
 }
-
 * {
     box-sizing: border-box;
 }
-
 html {
     overflow: hidden;
 }
-
 p {
     font-size: 17px;
     text-align: left;
     text-align: center;
 }
-
 h3 {
     font-size: 20px;
     font-weight: 500;
     text-align: center;
 }
-
 h4 {
     font-size: 19px;
     font-weight: 500;
     text-align: left;
     padding: 3px;
 }
-
 h5 {
     font-size: 19px;
     font-weight: 500;
     text-align: center;
     padding: 3px;
 }
-
 body {
     padding: 0;
     -webkit-font-smoothing: antialiased;
@@ -97,8 +89,7 @@ body {
     left: 0;
     bottom: 0;
 }
-
-.header {
+.header-index {
     background-color: $blue;
     overflow: hidden;
     width: 100%;
@@ -114,7 +105,6 @@ body {
       transform: translateY(-101%)
     }
 }
-
 #logo {
     height: auto;
     max-width: 100%;
@@ -123,8 +113,7 @@ body {
     background-size: contain;
     background-repeat: no-repeat;
 }
-
-.wrapper {
+.wrapper-index {
     width: 100%;
     height: 100%;
     border-bottom: $yellowborder_style;
@@ -145,21 +134,19 @@ body {
     &.clicked {
         animation: $blinkanimation;
     }
-
+    
     .map-class {
         grid-area: map;
         height: 100%;
         width: 100%;
         position: absolute;
         z-index: 1;
-        
         #map {
             width: 100%;
             height: 100%;
             overflow: hidden;
         }
     }
-
     .slider {
         grid-area: slider;
         border-left: $thinborder_style;
@@ -180,11 +167,10 @@ body {
         'texts'
         'buttons'
         'spacer';
-        
+
         &.is-open {
             transform: translateY(-$height_slider_open);
         }
-    
         &.clicked {
             transform: translateY(-$height_slider_total);
         }
@@ -196,7 +182,6 @@ body {
             display: flex;
             align-items: center;
             z-index: 2;
-    
             #location {
                 background-color: $black;
                 font-size: 23px;
@@ -207,10 +192,9 @@ body {
                 flex-wrap: wrap;
                 flex: 1;
             }
-    
             .slider-toggle {
                 flex: 0 0 $sliderclosebutton_height;
-                background: url(../static/toggle.png);
+                background: url(toggle.png);
                 background-repeat: no-repeat;
                 background-size: 100%;
                 border: none;
@@ -219,7 +203,6 @@ body {
                 cursor: pointer;
             }
         }
-        
         #camFeed {
             grid-area: camera;
             display: block;
@@ -231,7 +214,6 @@ body {
             border: $blackborder_style;
             z-index: 2;
         }
-    
         .slider-text {
             grid-area: texts;
             width: 100%;
@@ -249,7 +231,7 @@ body {
             }
     
             .take-selfie {
-                background: url(../static/selfie.png);
+                background: url(selfie.png);
                 background-repeat: no-repeat;
                 background-size: 100%;
                 border: none;
@@ -259,7 +241,6 @@ body {
                 flex: 5;
             }
         }
-    
         .slider-buttons {
             grid-area: buttons;
             background-color: $black;
@@ -278,7 +259,7 @@ body {
             .delete-it {
                 height: $buttons_height;
                 max-width: $buttons_width;
-                background: url(../static/delete.png);
+                background: url(delete.png);
                 background-repeat: no-repeat;
                 background-size: 100%;
                 padding-left: 10px;
@@ -288,11 +269,10 @@ body {
                 cursor: pointer;
                 flex: 1;
             }
-        
             .save-it {
                 height: $buttons_height;
                 max-width: $buttons_width;
-                background: url(../static/save.png);
+                background: url(save.png);
                 background-repeat: no-repeat;
                 background-size: 100%;
                 padding-left: 10px;
@@ -303,7 +283,6 @@ body {
                 flex: 1;
             }
         }
-    
         .slider-spacer {
             grid-area: spacer;
             height: auto;
@@ -313,8 +292,7 @@ body {
         }
     }
 }
-
-.footer {
+.footer-index {
     background-color: $yellow;
     overflow: hidden;
     width: 100%;
@@ -334,14 +312,12 @@ body {
         text-align: left;
     }
 }
-
-.wrapper-about {
+.wrapper {
     overflow-y: auto;
     background-color: $blue;
     height: 100%;
     width: 100%;
-
-    .header-about {
+    .header {
         background-color: $blue;
         overflow: hidden;
         width: 100%;
@@ -349,14 +325,13 @@ body {
         z-index: 3;
         padding: $text_padding;
     }   
-
-    .troubleshooting {
+    .main-text {
+        min-height: 100%;
         height: auto;
         width: 100%;
         background-color: $blue;
         padding: 5px;
         z-index: 4;
-        
         #example {
             height: auto;
             max-width: 75%;
@@ -366,12 +341,10 @@ body {
             background-size: contain;
             background-repeat: no-repeat;
         }
-
         h4 {
             padding-left: 10px;
             padding-right: 5px;
         }
-    
         p {
             text-align: left;
             font-size: 15px;
@@ -379,8 +352,7 @@ body {
             padding-right: 9px;
         }
     }
-
-    .footer-about {
+    .footer {
         background-color: $yellow;
         overflow: hidden;
         width: 100%;
@@ -388,7 +360,6 @@ body {
         padding: $text_padding;
         border: none;
         z-index: 3;
-    
         p {
             text-align: left;
         }

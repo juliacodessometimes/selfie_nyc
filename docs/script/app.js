@@ -11,9 +11,9 @@ var map = new mapboxgl.Map({
 var sliderCSS = document.querySelector('.slider');
 var sliderTextCSS = document.querySelector('.slider-text');
 var sliderButtonsCSS = document.querySelector('.slider-buttons');
-var headerCSS = document.querySelector('.header');
-var footerCSS = document.querySelector('.footer');
-var wrapperCSS = document.querySelector('.wrapper');
+var headerCSS = document.querySelector('.header-index');
+var footerCSS = document.querySelector('.footer-index');
+var wrapperCSS = document.querySelector('.wrapper-index');
 // elements
 var cameraFeed = document.getElementById('camFeed');
 var cameraLocation = document.getElementById('location');
