@@ -49,7 +49,7 @@ map.on('load', () => {
         // set clicked marker variable
         clickedMarker = feature.features[0];
 
-        // check if selected source/layer exists, and remove
+        // check if selected source + layer exists, if yes remove
         if (map.getLayer('selected')) {
             map.removeLayer('selected');
         }
@@ -105,8 +105,6 @@ function openSlider() {
     footerCSS.classList.add('is-open');
 }
 function setHTML(clickedMarker) {
-    // load all HTML for slider div
-
     // set heading text to cross-street and pre-load camera feed image
     cameraLocation.innerHTML = clickedMarker.properties.name;
     cameraFeed.src = clickedMarker.properties.url;
@@ -134,7 +132,7 @@ function flyFromCamera() {
         speed: 2
     });
 }
-function flyToUser(userlocation) {
+function flyToUser() {
     navigator.geolocation.getCurrentPosition(userlocation => {
         map.flyTo({
             center: [userlocation.coords.longitude, userlocation.coords.latitude],
@@ -169,7 +167,7 @@ function selfieBtn() {
     // camera feed settings
     selfiePath = cameraFeed.getAttribute('src');
     clearInterval(camInterval);
-    camFeed.src = selfiePath;
+    //camFeed.src = selfiePath;
 
     // CSS animations
     sliderCSS.classList.add('clicked');
@@ -177,17 +175,15 @@ function selfieBtn() {
     sliderButtonsCSS.classList.add('clicked');
     wrapperCSS.classList.add('clicked');
 
-    // AJAX requests
-    const xhttp1 = new XMLHttpRequest();
-    xhttp1.open('POST', "/image");
-    xhttp1.send(clickedMarker.properties.url);
-
-    const xhttp2 = new XMLHttpRequest();
-    xhttp2.open('GET', "/image");
-    xhttp2.send();
-    xhttp2.onload = function() {
-        cameraFeed.src = JSON.parse(this.responseText);
+    // AJAX request and response
+    const xhttPost = new XMLHttpRequest();
+    xhttPost.open('POST', "/selfie", true);
+    xhttPost.onload = function(){
+        if(this.status == 200){
+            cameraFeed.src = JSON.parse(this.responseText);
+        }
     }
+    xhttPost.send(clickedMarker.properties.url);
 }
 function downloadBtn() {
 

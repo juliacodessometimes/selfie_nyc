@@ -1,6 +1,7 @@
-from flask import Flask, render_template, jsonify, request, send_file
-import geojson
+from flask import Flask, render_template, jsonify, request
 import urllib.request
+import geojson
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -10,21 +11,20 @@ with open('data.geojson') as g:
 
 # routes
 @app.route('/index')
-@app.route('/', methods=('GET', 'POST'))
+@app.route('/')
 def index():
     return render_template('index.html')
 
-@app.route('/image', methods=['GET', 'POST'])
+@app.route('/selfie', methods=['GET', 'POST'])
 def image_grab():
     if request.method == 'POST':
         # pass external image url from AJAX POST
-        image_url = request.data.decode('utf-8')
+        selfie_url = request.data.decode('utf-8')
+        local_selfie = 'static/selfie_pause' + '.jpg'
         # make request to url and download image file
-        r = urllib.request.urlopen(image_url)
-        with open('static/selfie_pause.jpg', 'wb') as f:
-            f.write(r.read())
-    # pass new local image url to AJAX GET
-    return jsonify('../static/selfie_pause.jpg')
+        r = urllib.request.urlretrieve(selfie_url, local_selfie)
+    return jsonify(local_selfie)
+    
 
 @app.route('/about')
 def about():
