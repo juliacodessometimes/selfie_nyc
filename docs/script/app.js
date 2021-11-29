@@ -7,6 +7,15 @@ var map = new mapboxgl.Map({
     zoom: 14,
     scrollZoom: false
 });
+var geoLocate = new mapboxgl.GeolocateControl({
+    positionOptions: {
+        enableHighAccuracy: true
+    },
+    // When active the map will receive updates to the device's location as it changes.
+    trackUserLocation: true,
+    // Draw an arrow next to the location dot to indicate which direction the device is heading.
+    showUserHeading: true
+});
 // CSS
 var sliderCSS = document.querySelector('.slider');
 var sliderTextCSS = document.querySelector('.slider-text');
@@ -17,10 +26,11 @@ var wrapperCSS = document.querySelector('.wrapper-index');
 // elements
 var cameraFeed = document.getElementById('camFeed');
 var cameraLocation = document.getElementById('location');
-var clickedMarker
+var clickedMarker;
 var camInterval;
 
 // loading map
+map.addControl(geoLocate, 'bottom-right');
 map.on('load', () => {
     fetch('https://raw.githubusercontent.com/juliacodessometimes/selfie_nyc/main/app/data.geojson')
     // fetching scraped data file
@@ -51,7 +61,6 @@ map.on('load', () => {
         map.on('click', 'active-cameras', (feature) => {
             // clicked marker variable
             clickedMarker = feature.features[0];
-
             // check if selected source/layer exists, and remove
             if (map.getLayer('selected')) {
                 map.removeLayer('selected');
@@ -59,7 +68,6 @@ map.on('load', () => {
             if (map.getSource('selected-data')) {
                 map.removeSource('selected-data');
             }
-
             map.addSource('selected-data', {
                 'type': 'geojson',
                 'data': clickedMarker
@@ -79,7 +87,6 @@ map.on('load', () => {
                     ]
                 }
             });
-            
             // open the slider that holds camera data
             openSlider();
             // set the slider html
@@ -87,7 +94,6 @@ map.on('load', () => {
             // fly to the marker
             flyToCamera(clickedMarker);
         });
-
         // change mouse on hover
         map.on('mouseenter', 'active-cameras', () => {
             map.getCanvas().style.cursor = 'pointer';
@@ -98,10 +104,9 @@ map.on('load', () => {
     });
     // fly to user location on map load
     if (navigator.geolocation) {
-        flyToUser()
+        geoLocate.trigger();
     }
 });
-
 // functions
 function openSlider() {
     // open slider and hide header
@@ -178,7 +183,6 @@ function selfieBtn() {
     selfiePath = cameraFeed.getAttribute('src');
     clearInterval(camInterval);
     camFeed.src = selfiePath;
-
     // CSS animations
     sliderCSS.classList.add('clicked');
     sliderTextCSS.classList.add('clicked');
@@ -186,7 +190,7 @@ function selfieBtn() {
     wrapperCSS.classList.add('clicked');
 }
 function downloadBtn() {
-    alert("Sorry! This function isn't available for this testing site");
+    alert("Sorry! This function isn't available on the testing site");
 }
 function deleteBtn() {
     // delete button functions

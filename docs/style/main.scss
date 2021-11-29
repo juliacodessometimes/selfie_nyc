@@ -82,6 +82,7 @@ body {
     border-top: $yellowborder_style;
     border-right: $yellowborder_style;
     border-left: $yellowborder_style;
+    border-bottom: $yellowborder_style;
     background-color: white;
     position: absolute;
     top: 0;
@@ -116,13 +117,11 @@ body {
 .wrapper-index {
     width: 100%;
     height: 100%;
-    border-bottom: $yellowborder_style;
     background-color: $yellow;
-    position: absolute;
+    position: static;
     top: 0;
     right: 0;
     left: 0;
-    bottom: 0;
     z-index: 1;
     overflow: hidden;
     display: grid;
@@ -140,15 +139,14 @@ body {
         height: 100%;
         width: 100%;
         position: absolute;
+        overflow: hidden;
         z-index: 1;
-        
         #map {
             width: 100%;
             height: 100%;
             overflow: hidden;
         }
     }
-
     .slider {
         grid-area: slider;
         border-left: $thinborder_style;
@@ -185,7 +183,6 @@ body {
             display: flex;
             align-items: center;
             z-index: 2;
-    
             #location {
                 background-color: $black;
                 font-size: 23px;
@@ -196,7 +193,6 @@ body {
                 flex-wrap: wrap;
                 flex: 1;
             }
-    
             .slider-toggle {
                 flex: 0 0 $sliderclosebutton_height;
                 background: url(../assets/toggle.png);
@@ -208,7 +204,6 @@ body {
                 cursor: pointer;
             }
         }
-        
         #camFeed {
             grid-area: camera;
             display: block;
@@ -220,7 +215,6 @@ body {
             border: $blackborder_style;
             z-index: 2;
         }
-    
         .slider-text {
             grid-area: texts;
             width: 100%;
@@ -248,7 +242,6 @@ body {
                 flex: 5;
             }
         }
-    
         .slider-buttons {
             grid-area: buttons;
             background-color: $black;
@@ -258,12 +251,10 @@ body {
             z-index: 3;
             opacity: 0;
             display: flex;
-    
             &.clicked {
                 transform: translateY(-$height_preview_open);
                 opacity: 1;
             }
-                
             .delete-it {
                 height: $buttons_height;
                 max-width: $buttons_width;
@@ -277,7 +268,6 @@ body {
                 cursor: pointer;
                 flex: 1;
             }
-        
             .save-it {
                 height: $buttons_height;
                 max-width: $buttons_width;
@@ -292,7 +282,6 @@ body {
                 flex: 1;
             }
         }
-    
         .slider-spacer {
             grid-area: spacer;
             height: auto;
@@ -322,7 +311,6 @@ body {
         text-align: left;
     }
 }
-
 .wrapper {
     overflow-y: auto;
     background-color: $blue;
