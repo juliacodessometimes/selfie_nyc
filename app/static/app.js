@@ -20,7 +20,6 @@ var cameraLocation = document.getElementById('location');
 var clickedMarker;
 var selfiePath;
 var camInterval;
-
 // loading map
 map.on('load', () => {
     // add data source and symbol layer for unselected cameras
@@ -43,7 +42,6 @@ map.on('load', () => {
             ]
         }
     });
-    
     // event listener for clicking on a camera
     map.on('click', 'active-cameras', (feature) => {
         // set clicked marker variable
@@ -83,7 +81,6 @@ map.on('load', () => {
         // fly to the marker
         flyToCamera(clickedMarker);
     });
-    
     // change mouse on hover
     map.on('mouseenter', 'active-cameras', () => {
         map.getCanvas().style.cursor = 'pointer';
@@ -91,7 +88,6 @@ map.on('load', () => {
     map.on('mouseleave', 'active-cameras', () => {
         map.getCanvas().style.cursor = '';
     });
-
     // fly to user location on map load
     if (navigator.geolocation) {
         flyToUser()
@@ -167,7 +163,7 @@ function selfieBtn() {
     // camera feed settings
     selfiePath = cameraFeed.getAttribute('src');
     clearInterval(camInterval);
-    //camFeed.src = selfiePath;
+    cameraFeed.src = selfiePath;
 
     // CSS animations
     sliderCSS.classList.add('clicked');
@@ -177,16 +173,23 @@ function selfieBtn() {
 
     // AJAX request and response
     const xhttPost = new XMLHttpRequest();
-    xhttPost.open('POST', "/selfie", true);
+    xhttPost.open('POST', '/selfie', true);
     xhttPost.onload = function(){
         if(this.status == 200){
-            cameraFeed.src = JSON.parse(this.responseText);
+            cameraFeed.src = JSON.parse(this.responseText) + '?' + Math.random();
         }
     }
     xhttPost.send(clickedMarker.properties.url);
 }
 function downloadBtn() {
-
+    // download selfie
+    selfiePath = cameraFeed.getAttribute('src');
+    var downloadImage = document.createElement('a');
+    downloadImage.setAttribute('href', selfiePath);
+    downloadImage.setAttribute('download', 'selfie.jpg');
+    document.body.appendChild(downloadImage);
+    downloadImage.click();
+    document.body.removeChild(downloadImage);
 }
 function deleteBtn() {
     // delete button functions
