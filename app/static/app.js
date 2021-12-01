@@ -7,6 +7,15 @@ var map = new mapboxgl.Map({
     zoom: 14,
     scrollZoom: false
 });
+var geoLocate = new mapboxgl.GeolocateControl({
+    positionOptions: {
+        enableHighAccuracy: true
+    },
+    // map will receive updates to the device's location as it changes.
+    trackUserLocation: true,
+    // draw an arrow next to indicate device direction
+    showUserHeading: true
+});
 // CSS
 var sliderCSS = document.querySelector('.slider');
 var sliderTextCSS = document.querySelector('.slider-text');
@@ -21,6 +30,7 @@ var clickedMarker;
 var selfiePath;
 var camInterval;
 // loading map
+map.addControl(geoLocate, 'bottom-right');
 map.on('load', () => {
     // add data source and symbol layer for unselected cameras
     map.addSource('source_id', {
@@ -90,7 +100,7 @@ map.on('load', () => {
     });
     // fly to user location on map load
     if (navigator.geolocation) {
-        flyToUser()
+        geoLocate.trigger();
     }
 });
 // animation functions
@@ -126,14 +136,6 @@ function flyFromCamera() {
         center: clickedMarker.geometry.coordinates,
         zoom: 16,
         speed: 2
-    });
-}
-function flyToUser() {
-    navigator.geolocation.getCurrentPosition(userlocation => {
-        map.flyTo({
-            center: [userlocation.coords.longitude, userlocation.coords.latitude],
-            zoom: 15
-        });
     });
 }
 // button functions

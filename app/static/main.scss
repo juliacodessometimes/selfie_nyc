@@ -82,6 +82,7 @@ body {
     border-top: $yellowborder_style;
     border-right: $yellowborder_style;
     border-left: $yellowborder_style;
+    border-bottom: $yellowborder_style;
     background-color: white;
     position: absolute;
     top: 0;
@@ -116,9 +117,8 @@ body {
 .wrapper-index {
     width: 100%;
     height: 100%;
-    border-bottom: $yellowborder_style;
     background-color: $yellow;
-    position: absolute;
+    position: static;
     top: 0;
     right: 0;
     left: 0;
@@ -130,16 +130,15 @@ body {
     grid-template-areas:
     'map'
     'slider';
-
     &.clicked {
         animation: $blinkanimation;
     }
-    
     .map-class {
         grid-area: map;
         height: 100%;
         width: 100%;
         position: absolute;
+        overflow: hidden;
         z-index: 1;
         #map {
             width: 100%;
@@ -167,14 +166,12 @@ body {
         'texts'
         'buttons'
         'spacer';
-
         &.is-open {
             transform: translateY(-$height_slider_open);
         }
         &.clicked {
             transform: translateY(-$height_slider_total);
         }
-        
         .slider-title {
             grid-area: title;
             position: relative;
@@ -224,12 +221,10 @@ body {
             text-align: center;
             transition: transform .7s ease-in-out, opacity .4s ease-in-out;
             z-index: 1;
-    
             &.clicked {
                 transform: translateY(-101%);
                 opacity: 0;
             }
-    
             .take-selfie {
                 background: url(selfie.png);
                 background-repeat: no-repeat;
@@ -250,12 +245,10 @@ body {
             z-index: 3;
             opacity: 0;
             display: flex;
-    
             &.clicked {
                 transform: translateY(-$height_preview_open);
                 opacity: 1;
             }
-                
             .delete-it {
                 height: $buttons_height;
                 max-width: $buttons_width;
@@ -303,11 +296,9 @@ body {
     position: absolute;
     bottom: 0;
     left: 0;
-    
     &.is-open {
       transform: translateY(101%);
     }
-
     p {
         text-align: left;
     }
