@@ -13,13 +13,12 @@
     100%{opacity: 1;}
 }
 $blinkanimation: blinkFlash .5s ease-in-out;
-
 // colors
 $yellow: #FFFF87;
 $blue: rgb(135, 231, 255);
 $pink: rgb(223, 79, 207);
 $medium_pink: rgb(231, 126, 219);
-$light_pink: rgb(237, 156, 228);
+$light_pink: rgb(255, 204, 255);
 $black: rgb(56, 44, 56);
 $light_purple: rgb(208, 204, 208);
 // sizes
@@ -38,6 +37,8 @@ $pinkborder_style: 10px solid $pink;
 $blackborder_style: 10px solid $black;
 $thinborder_style: 5px solid $yellow;
 $text_padding: 6px;
+//shadows
+$yellow_shadowbottom: 0px 10px 0px 0px;
 
 *:focus {
     box-shadow: none;
@@ -47,16 +48,23 @@ $text_padding: 6px;
 }
 html {
     overflow: hidden;
+    width: 100%;
+    height: 100%;
 }
 p {
     font-size: 17px;
     text-align: left;
     text-align: center;
 }
+a {
+    text-decoration: underline;
+    color: $yellow;
+}
 h3 {
     font-size: 20px;
     font-weight: 500;
     text-align: center;
+    background-color: transparent;
 }
 h4 {
     font-size: 19px;
@@ -69,20 +77,20 @@ h5 {
     font-weight: 500;
     text-align: center;
     padding: 3px;
+    background-color: transparent;
 }
 body {
     padding: 0;
     -webkit-font-smoothing: antialiased;
     -webkit-tap-highlight-color: transparent;
     font-family: pixelfont;
-    color: $pink;
+    color: $yellow;
     width: 100%;
     height: 100%;
     overflow: hidden;
     border-top: $yellowborder_style;
     border-right: $yellowborder_style;
     border-left: $yellowborder_style;
-    border-bottom: $yellowborder_style;
     background-color: white;
     position: absolute;
     top: 0;
@@ -91,7 +99,10 @@ body {
     bottom: 0;
 }
 .header-index {
-    background-color: $blue;
+    background-color: $black;
+    border-bottom: $yellowborder_style;
+    box-shadow: $black 0px -3px 13px 0px;
+    outline: none;
     overflow: hidden;
     width: 100%;
     height: auto;
@@ -101,7 +112,6 @@ body {
     padding: $text_padding;
     top: 0;
     left: 0;
-    
     &.is-open {
       transform: translateY(-101%)
     }
@@ -113,6 +123,7 @@ body {
     display: block;
     background-size: contain;
     background-repeat: no-repeat;
+    background-color: transparent;
 }
 .wrapper-index {
     width: 100%;
@@ -129,22 +140,52 @@ body {
     grid-template-areas:
     'map'
     'slider';
-
     &.clicked {
         animation: $blinkanimation;
     }
-
     .map-class {
         grid-area: map;
-        height: 100%;
+        height: 100vh;
         width: 100%;
         position: absolute;
         overflow: hidden;
         z-index: 1;
         #map {
             width: 100%;
-            height: 100%;
+            height: 100vh;
             overflow: hidden;
+            .mapboxgl-user-location-dot:before {
+                background-color:rgb(223, 79, 207);
+            }
+            .mapboxgl-user-location-dot:after {
+                background-color:rgb(223, 79, 207);
+            }
+            .mapboxgl-user-location-accuracy-circle {
+                background-color:rgba(223, 79, 206, 0.25);
+            }
+            .mapboxgl-ctrl-group {
+                border-radius: 0px !important;
+                background-color: $light_pink;
+            }
+            .mapboxgl-ctrl-group:not(:empty) {
+                box-shadow: $black 0px 0px 5px 0px;
+            }
+            button.mapboxgl-ctrl-geolocate {
+                width: 50px !important;
+                height: 50px !important;
+                display: block;
+                cursor: pointer;
+                border: 5px solid $pink;
+                .mapboxgl-ctrl-icon {
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    background-repeat: no-repeat;
+                    background-image: url(../assets/locate_toggle.svg) !important;
+                    background-size: 70%;
+                    background-position: 50%;
+                }
+            }
         }
     }
     .slider {
@@ -153,6 +194,7 @@ body {
         border-right: $thinborder_style;
         border-top: $yellowborder_style;
         border-bottom: $wideborder_style;
+        box-shadow: $black 0px 6px 13px 0px;
         width: 100%;
         height: $height_slider_total;
         z-index: 2;
@@ -167,26 +209,25 @@ body {
         'texts'
         'buttons'
         'spacer';
-        
         &.is-open {
             transform: translateY(-$height_slider_open);
         }
-    
         &.clicked {
             transform: translateY(-$height_slider_total);
         }
-        
         .slider-title {
             grid-area: title;
             position: relative;
+            border-bottom: $yellowborder_style;
             background-color: $black;
             display: flex;
             align-items: center;
             z-index: 2;
             #location {
-                background-color: $black;
-                font-size: 23px;
+                background-color: transparent;
+                font-size: 22px;
                 -webkit-font-smoothing: antialiased;
+                padding: $text_padding;
                 font-family: pixelfont;
                 font-weight: 500;
                 text-align: center;
@@ -195,9 +236,10 @@ body {
             }
             .slider-toggle {
                 flex: 0 0 $sliderclosebutton_height;
-                background: url(../assets/toggle.png);
+                background-image: url(../assets/toggle.png);
                 background-repeat: no-repeat;
                 background-size: 100%;
+                background-color: $black;
                 border: none;
                 width: $sliderclosebutton_height;
                 height: $sliderclosebutton_height;
@@ -225,12 +267,10 @@ body {
             text-align: center;
             transition: transform .7s ease-in-out, opacity .4s ease-in-out;
             z-index: 1;
-    
             &.clicked {
                 transform: translateY(-101%);
                 opacity: 0;
             }
-    
             .take-selfie {
                 background: url(../assets/selfie.png);
                 background-repeat: no-repeat;
@@ -294,6 +334,7 @@ body {
 .footer-index {
     background-color: $yellow;
     overflow: hidden;
+    color: $pink;
     width: 100%;
     height: auto;
     padding: $text_padding;
@@ -302,22 +343,20 @@ body {
     position: absolute;
     bottom: 0;
     left: 0;
-    
     &.is-open {
       transform: translateY(101%);
     }
-
     p {
         text-align: left;
     }
 }
 .wrapper {
     overflow-y: auto;
-    background-color: $blue;
+    background-color: $black;
     height: 100%;
     width: 100%;
     .header {
-        background-color: $blue;
+        background-color: $black;
         overflow: hidden;
         width: 100%;
         height: auto;
@@ -328,7 +367,7 @@ body {
         min-height: 100%;
         height: auto;
         width: 100%;
-        background-color: $blue;
+        background-color: $black;
         padding: 5px;
         z-index: 4;
         #example {
@@ -353,6 +392,7 @@ body {
     }
     .footer {
         background-color: $yellow;
+        color:$pink;
         overflow: hidden;
         width: 100%;
         height: auto;

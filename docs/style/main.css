@@ -63,6 +63,8 @@
 
 html {
   overflow: hidden;
+  width: 100%;
+  height: 100%;
 }
 
 p {
@@ -71,10 +73,16 @@ p {
   text-align: center;
 }
 
+a {
+  text-decoration: underline;
+  color: #FFFF87;
+}
+
 h3 {
   font-size: 20px;
   font-weight: 500;
   text-align: center;
+  background-color: transparent;
 }
 
 h4 {
@@ -89,6 +97,7 @@ h5 {
   font-weight: 500;
   text-align: center;
   padding: 3px;
+  background-color: transparent;
 }
 
 body {
@@ -96,14 +105,13 @@ body {
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
   font-family: pixelfont;
-  color: #df4fcf;
+  color: #FFFF87;
   width: 100%;
   height: 100%;
   overflow: hidden;
   border-top: 10px solid #FFFF87;
   border-right: 10px solid #FFFF87;
   border-left: 10px solid #FFFF87;
-  border-bottom: 10px solid #FFFF87;
   background-color: white;
   position: absolute;
   top: 0;
@@ -113,7 +121,11 @@ body {
 }
 
 .header-index {
-  background-color: #87e7ff;
+  background-color: #382c38;
+  border-bottom: 10px solid #FFFF87;
+  -webkit-box-shadow: #382c38 0px -3px 13px 0px;
+          box-shadow: #382c38 0px -3px 13px 0px;
+  outline: none;
   overflow: hidden;
   width: 100%;
   height: auto;
@@ -140,6 +152,7 @@ body {
   display: block;
   background-size: contain;
   background-repeat: no-repeat;
+  background-color: transparent;
 }
 
 .wrapper-index {
@@ -168,7 +181,7 @@ body {
   -ms-grid-row: 1;
   -ms-grid-column: 1;
   grid-area: map;
-  height: 100%;
+  height: 100vh;
   width: 100%;
   position: absolute;
   overflow: hidden;
@@ -177,8 +190,48 @@ body {
 
 .wrapper-index .map-class #map {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   overflow: hidden;
+}
+
+.wrapper-index .map-class #map .mapboxgl-user-location-dot:before {
+  background-color: #df4fcf;
+}
+
+.wrapper-index .map-class #map .mapboxgl-user-location-dot:after {
+  background-color: #df4fcf;
+}
+
+.wrapper-index .map-class #map .mapboxgl-user-location-accuracy-circle {
+  background-color: rgba(223, 79, 206, 0.25);
+}
+
+.wrapper-index .map-class #map .mapboxgl-ctrl-group {
+  border-radius: 0px !important;
+  background-color: #ffccff;
+}
+
+.wrapper-index .map-class #map .mapboxgl-ctrl-group:not(:empty) {
+  -webkit-box-shadow: #382c38 0px 0px 5px 0px;
+          box-shadow: #382c38 0px 0px 5px 0px;
+}
+
+.wrapper-index .map-class #map button.mapboxgl-ctrl-geolocate {
+  width: 50px !important;
+  height: 50px !important;
+  display: block;
+  cursor: pointer;
+  border: 5px solid #df4fcf;
+}
+
+.wrapper-index .map-class #map button.mapboxgl-ctrl-geolocate .mapboxgl-ctrl-icon {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-image: url(../assets/locate_toggle.svg) !important;
+  background-size: 70%;
+  background-position: 50%;
 }
 
 .wrapper-index .slider {
@@ -189,6 +242,8 @@ body {
   border-right: 5px solid #FFFF87;
   border-top: 10px solid #FFFF87;
   border-bottom: 20px solid #FFFF87;
+  -webkit-box-shadow: #382c38 0px 6px 13px 0px;
+          box-shadow: #382c38 0px 6px 13px 0px;
   width: 100%;
   height: 100vh;
   z-index: 2;
@@ -220,6 +275,7 @@ body {
   -ms-grid-column: 1;
   grid-area: title;
   position: relative;
+  border-bottom: 10px solid #FFFF87;
   background-color: #382c38;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -231,9 +287,10 @@ body {
 }
 
 .wrapper-index .slider .slider-title #location {
-  background-color: #382c38;
-  font-size: 23px;
+  background-color: transparent;
+  font-size: 22px;
   -webkit-font-smoothing: antialiased;
+  padding: 6px;
   font-family: pixelfont;
   font-weight: 500;
   text-align: center;
@@ -248,9 +305,10 @@ body {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 50px;
           flex: 0 0 50px;
-  background: url(../assets/toggle.png);
+  background-image: url(../assets/toggle.png);
   background-repeat: no-repeat;
   background-size: 100%;
+  background-color: #382c38;
   border: none;
   width: 50px;
   height: 50px;
@@ -376,6 +434,7 @@ body {
 .footer-index {
   background-color: #FFFF87;
   overflow: hidden;
+  color: #df4fcf;
   width: 100%;
   height: auto;
   padding: 6px;
@@ -400,13 +459,13 @@ body {
 
 .wrapper {
   overflow-y: auto;
-  background-color: #87e7ff;
+  background-color: #382c38;
   height: 100%;
   width: 100%;
 }
 
 .wrapper .header {
-  background-color: #87e7ff;
+  background-color: #382c38;
   overflow: hidden;
   width: 100%;
   height: auto;
@@ -418,7 +477,7 @@ body {
   min-height: 100%;
   height: auto;
   width: 100%;
-  background-color: #87e7ff;
+  background-color: #382c38;
   padding: 5px;
   z-index: 4;
 }
@@ -447,6 +506,7 @@ body {
 
 .wrapper .footer {
   background-color: #FFFF87;
+  color: #df4fcf;
   overflow: hidden;
   width: 100%;
   height: auto;
