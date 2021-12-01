@@ -261,8 +261,8 @@ body {
 }
 
 .wrapper-index .slider.is-open {
-  -webkit-transform: translateY(-80vh);
-          transform: translateY(-80vh);
+  -webkit-transform: translateY(-80%);
+          transform: translateY(-80%);
 }
 
 .wrapper-index .slider.clicked {

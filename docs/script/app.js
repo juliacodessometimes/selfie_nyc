@@ -23,9 +23,11 @@ var sliderButtonsCSS = document.querySelector('.slider-buttons');
 var headerCSS = document.querySelector('.header-index');
 var footerCSS = document.querySelector('.footer-index');
 var wrapperCSS = document.querySelector('.wrapper-index');
+var mapCSS = document.querySelector('.map-class');
 // elements
 var cameraFeed = document.getElementById('camFeed');
 var cameraLocation = document.getElementById('location');
+// other var
 var clickedMarker;
 var camInterval;
 // loading map
@@ -129,11 +131,12 @@ function setHTML(clickedMarker) {
     }, 1500);
 }
 function flyToCamera(clickedMarker) {
+    var height = mapCSS.offsetHeight;
     map.flyTo({
         center: clickedMarker.geometry.coordinates,
         zoom: 20,
         speed: 1.8,
-        offset: [0,-240]
+        offset: [0, -(height*.4)]
     });
 }
 function flyFromCamera() {
