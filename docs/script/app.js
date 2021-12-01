@@ -11,9 +11,9 @@ var geoLocate = new mapboxgl.GeolocateControl({
     positionOptions: {
         enableHighAccuracy: true
     },
-    // When active the map will receive updates to the device's location as it changes.
+    // map will receive updates to the device's location as it changes.
     trackUserLocation: true,
-    // Draw an arrow next to the location dot to indicate which direction the device is heading.
+    // draw an arrow next to indicate device direction
     showUserHeading: true
 });
 // CSS
@@ -28,7 +28,6 @@ var cameraFeed = document.getElementById('camFeed');
 var cameraLocation = document.getElementById('location');
 var clickedMarker;
 var camInterval;
-
 // loading map
 map.addControl(geoLocate, 'bottom-right');
 map.on('load', () => {
@@ -109,7 +108,7 @@ map.on('load', () => {
 });
 // functions
 function openSlider() {
-    // open slider and hide header
+    // open slider and hide header/footer
     sliderCSS.classList.add('is-open');
     headerCSS.classList.add('is-open');
     footerCSS.classList.add('is-open');
@@ -130,7 +129,6 @@ function setHTML(clickedMarker) {
     }, 1500);
 }
 function flyToCamera(clickedMarker) {
-    // fly to current camera marker
     map.flyTo({
         center: clickedMarker.geometry.coordinates,
         zoom: 20,
@@ -144,15 +142,6 @@ function flyFromCamera() {
         center: clickedMarker.geometry.coordinates,
         zoom: 16,
         speed: 2
-    });
-}
-function flyToUser(userlocation) {
-    // fly to user location 
-    navigator.geolocation.getCurrentPosition(userlocation => {
-        map.flyTo({
-            center: [userlocation.coords.longitude, userlocation.coords.latitude],
-            zoom: 15
-        });
     });
 }
 // button functions

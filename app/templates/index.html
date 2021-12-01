@@ -14,7 +14,7 @@
 <div class="header-index">
     <img src="{{url_for('static', filename='logo.png')}}" id="logo"></img>
     <h3>click a camera to enter selfie-mode!</h3>
-    <p><a href="{{url_for('about')}}" style="text-decoration:underline; color:#df4ecc;">about selfie_nyc</a></p>
+    <p><a href="{{url_for('about')}}">about selfie_nyc</a></p>
 </div>
 <div class="wrapper-index">
 <div class="map-class">
@@ -30,7 +30,7 @@
     <img id="camFeed" src="">
     <div class="slider-text">
         <button class="take-selfie" onclick="selfieBtn();"></button>
-        <p>having trouble? <br> check <a href="{{url_for('faq')}}" style="text-decoration:underline; color:#df4ecc;">FAQ and troubleshooting</a></p>
+        <p>having trouble? <br> check <a href="{{url_for('faq')}}">FAQ and troubleshooting</a></p>
     </div>
     <div class="slider-buttons">
         <button class="delete-it" onclick="deleteBtn();"></button>

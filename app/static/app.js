@@ -105,7 +105,7 @@ map.on('load', () => {
 });
 // animation functions
 function openSlider() {
-    // open slider and hide header
+    // open slider and hide header/footer
     sliderCSS.classList.add('is-open');
     headerCSS.classList.add('is-open');
     footerCSS.classList.add('is-open');
