@@ -14,13 +14,14 @@
 }
 $blinkanimation: blinkFlash .5s ease-in-out;
 // colors
-$yellow: #FFFF87;
+$yellow: rgb(255, 255, 3);
 $blue: rgb(135, 231, 255);
 $pink: rgb(223, 79, 207);
 $medium_pink: rgb(231, 126, 219);
 $light_pink: rgb(255, 204, 255);
 $black: rgb(56, 44, 56);
 $light_purple: rgb(208, 204, 208);
+$green: rgb(48, 213, 95);
 // sizes
 $sliderclosebutton_height: 50px;
 $selfiebutton_height: 90px;
@@ -98,7 +99,7 @@ body {
     bottom: 0;
 }
 .header-index {
-    background-color: $black;
+    background-color: $green;
     border-bottom: $yellowborder_style;
     box-shadow: $black 0px -3px 13px 0px;
     outline: none;
@@ -218,7 +219,7 @@ body {
             grid-area: title;
             position: relative;
             border-bottom: $yellowborder_style;
-            background-color: $black;
+            background-color: $green;
             display: flex;
             align-items: center;
             z-index: 2;
@@ -238,7 +239,7 @@ body {
                 background-image: url(../assets/toggle.png);
                 background-repeat: no-repeat;
                 background-size: 100%;
-                background-color: $black;
+                background-color: $green;
                 border: none;
                 width: $sliderclosebutton_height;
                 height: $sliderclosebutton_height;
@@ -260,7 +261,7 @@ body {
             grid-area: texts;
             width: 100%;
             height: auto;
-            background-color: $black;
+            background-color: $green;
             border: none;
             opacity: 1;
             text-align: center;
@@ -283,7 +284,7 @@ body {
         }
         .slider-buttons {
             grid-area: buttons;
-            background-color: $black;
+            background-color: $green;
             width: auto;
             height: $height_slider_closed;
             transition: transform .7s ease-in-out, opacity .4s ease-in-out;
@@ -325,7 +326,7 @@ body {
             grid-area: spacer;
             height: auto;
             width: 100%;
-            background-color: $black;
+            background-color: $green;
             z-index: 2;
         }
     }
@@ -351,11 +352,11 @@ body {
 }
 .wrapper {
     overflow-y: auto;
-    background-color: $black;
+    background-color: $green;
     height: 100%;
     width: 100%;
     .header {
-        background-color: $black;
+        background-color: $green;
         overflow: hidden;
         width: 100%;
         height: auto;
@@ -366,7 +367,7 @@ body {
         min-height: 100%;
         height: auto;
         width: 100%;
-        background-color: $black;
+        background-color: $green;
         padding: 5px;
         z-index: 4;
         #example {
