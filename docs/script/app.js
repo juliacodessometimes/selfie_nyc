@@ -121,7 +121,8 @@ function setHTML(clickedMarker) {
     // set heading text to cross-street
     cameraLocation.innerHTML = clickedMarker.properties.name;
     // pre-load camera feed image
-    cameraFeed.src = clickedMarker.properties.url;
+    cameraFeed.src = "assets/loading.png";
+    //cameraFeed.src = clickedMarker.properties.url;
     // clear any previous intervals
     clearInterval(camInterval);
     // set interval

@@ -147,7 +147,7 @@ body {
 .wrapper-index {
   width: 100%;
   height: 100%;
-  background-color: rgb(255, 255, 3);
+  background-color: rgb(125, 63, 89);
   position: static;
   top: 0;
   right: 0;
@@ -252,14 +252,14 @@ body {
   flex: 1;
 }
 .wrapper-index .slider .slider-title .slider-toggle {
-  flex: 0 0 50px;
+  flex: 0 0 58px;
   background-image: url(../assets/toggle.png);
   background-repeat: no-repeat;
   background-size: 100%;
   background-color: rgb(48, 213, 95);
   border: none;
-  width: 50px;
-  height: 50px;
+  width: 58px;
+  height: 58px;
   cursor: pointer;
 }
 .wrapper-index .slider #camFeed {
@@ -293,8 +293,8 @@ body {
   background-repeat: no-repeat;
   background-size: 100%;
   border: none;
-  height: 90px;
-  width: 90px;
+  height: 116px;
+  width: 232px;
   cursor: pointer;
   flex: 5;
 }
@@ -347,9 +347,9 @@ body {
 }
 
 .footer-index {
-  background-color: rgb(255, 255, 3);
+  background-color: rgb(125, 63, 89);
   overflow: hidden;
-  color: rgb(223, 79, 207);
+  color: rgb(255, 255, 3);
   width: 100%;
   height: auto;
   padding: 6px;
@@ -408,8 +408,8 @@ body {
   padding-right: 9px;
 }
 .wrapper .footer {
-  background-color: rgb(255, 255, 3);
-  color: rgb(223, 79, 207);
+  background-color: rgb(125, 63, 89);
+  color: rgb(255, 255, 3);
   overflow: hidden;
   width: 100%;
   height: auto;
