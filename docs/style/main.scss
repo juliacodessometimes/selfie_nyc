@@ -17,6 +17,8 @@ $blinkanimation: blinkFlash .5s ease-in-out;
 $yellow: rgb(255, 255, 3);
 $blue: rgb(135, 231, 255);
 $pink: rgb(223, 79, 207);
+$maroon: rgb(125, 63, 89);
+$orange: rgb(249, 168, 117);
 $medium_pink: rgb(231, 126, 219);
 $light_pink: rgb(255, 204, 255);
 $black: rgb(56, 44, 56);
@@ -32,10 +34,11 @@ $height_slider_total: 100vh;
 $height_slider_closed: 0em;
 $height_preview_open: 20vh;
 // borders
-$yellowborder_style: 10px solid $yellow;
+$yellowborder_style: 6px solid $yellow;
 $wideborder_style: 20px solid $yellow;
 $blackborder_style: 10px solid $black;
-$thinborder_style: 5px solid $yellow;
+$maroonborder_style: 6px solid $maroon;
+$widemaroonborder_style: 10px solid $maroon;
 $text_padding: 6px;
 //shadows
 $yellow_shadowbottom: 0px 10px 0px 0px;
@@ -58,7 +61,7 @@ p {
 }
 a {
     text-decoration: underline;
-    color: $yellow;
+    color: $maroon;
 }
 h3 {
     font-size: 20px;
@@ -84,13 +87,13 @@ body {
     -webkit-font-smoothing: antialiased;
     -webkit-tap-highlight-color: transparent;
     font-family: pixelfont;
-    color: $yellow;
+    color: $maroon;
     width: 100%;
     height: 100%;
     overflow: hidden;
-    border-top: $yellowborder_style;
-    border-right: $yellowborder_style;
-    border-left: $yellowborder_style;
+    border-top: $widemaroonborder_style;
+    border-right: $widemaroonborder_style;
+    border-left: $widemaroonborder_style;
     background-color: white;
     position: absolute;
     top: 0;
@@ -100,7 +103,7 @@ body {
 }
 .header-index {
     background-color: $green;
-    border-bottom: $yellowborder_style;
+    border-bottom: $widemaroonborder_style;
     box-shadow: $black 0px -3px 13px 0px;
     outline: none;
     overflow: hidden;
@@ -190,9 +193,9 @@ body {
     }
     .slider {
         grid-area: slider;
-        border-left: $thinborder_style;
-        border-right: $thinborder_style;
-        border-top: $yellowborder_style;
+        border-left: $maroonborder_style;
+        border-right: $maroonborder_style;
+        border-top:$maroonborder_style;
         border-bottom: $wideborder_style;
         box-shadow: $black 0px 6px 13px 0px;
         width: 100%;
@@ -218,7 +221,7 @@ body {
         .slider-title {
             grid-area: title;
             position: relative;
-            border-bottom: $yellowborder_style;
+            border-bottom: $maroonborder_style;
             background-color: $green;
             display: flex;
             align-items: center;
@@ -230,6 +233,7 @@ body {
                 padding: $text_padding;
                 font-family: pixelfont;
                 font-weight: 500;
+                color: $maroon;
                 text-align: center;
                 flex-wrap: wrap;
                 flex: 1;
