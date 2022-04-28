@@ -70,7 +70,7 @@ p {
 
 a {
   text-decoration: underline;
-  color: rgb(223, 79, 207);
+  color: rgb(255, 255, 3);
 }
 
 h3 {
@@ -121,7 +121,7 @@ body {
   border-bottom: 10px solid rgb(125, 63, 89);
   box-shadow: rgb(56, 44, 56) 0px -3px 13px 0px;
   outline: none;
-  color: rgb(223, 79, 207);
+  color: rgb(255, 255, 3);
   overflow: hidden;
   width: 100%;
   height: auto;
@@ -282,8 +282,8 @@ body {
   grid-area: texts;
   width: 100%;
   height: auto;
+  border-top: 8px solid rgb(125, 63, 89);
   background-color: rgb(48, 213, 95);
-  border: none;
   opacity: 1;
   text-align: center;
   transition: transform 0.7s ease-in-out, opacity 0.4s ease-in-out;
@@ -318,7 +318,7 @@ body {
   opacity: 1;
 }
 .wrapper-index .slider .slider-buttons .delete-it {
-  height: 90px;
+  height: 116px;
   max-width: 150px;
   background: url(../assets/delete.png);
   background-repeat: no-repeat;
@@ -331,7 +331,7 @@ body {
   flex: 1;
 }
 .wrapper-index .slider .slider-buttons .save-it {
-  height: 90px;
+  height: 116px;
   max-width: 150px;
   background: url(../assets/save.png);
   background-repeat: no-repeat;
@@ -354,7 +354,7 @@ body {
 .footer-index {
   background-color: rgb(125, 63, 89);
   overflow: hidden;
-  color: rgb(255, 255, 3);
+  color: rgb(223, 79, 207);
   width: 100%;
   height: auto;
   padding: 6px;
@@ -380,7 +380,7 @@ body {
 .wrapper .header {
   background-color: rgb(48, 213, 95);
   overflow: hidden;
-  color: rgb(223, 79, 207);
+  color: rgb(255, 255, 3);
   width: 100%;
   height: auto;
   z-index: 3;

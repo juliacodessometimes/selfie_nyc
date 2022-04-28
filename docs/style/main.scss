@@ -27,7 +27,7 @@ $green: rgb(48, 213, 95);
 $sliderclosebutton_height: 58px;
 $selfiebutton_height: 116px;
 $selfiebutton_width: 232px;
-$buttons_height: 90px;
+$buttons_height: 116px;
 $buttons_width: 150px;
 $height_slider_open: 80%;
 $height_slider_total: 100vh;
@@ -61,7 +61,7 @@ p {
 }
 a {
     text-decoration: underline;
-    color: $pink;
+    color: $yellow;
 }
 h3 {
     font-size: 20px;
@@ -107,7 +107,7 @@ body {
     border-bottom: $widemaroonborder_style;
     box-shadow: $black 0px -3px 13px 0px;
     outline: none;
-    color: $pink;
+    color: $yellow;
     overflow: hidden;
     width: 100%;
     height: auto;
@@ -270,8 +270,8 @@ body {
             grid-area: texts;
             width: 100%;
             height: auto;
+            border-top: $maroonborder_style;
             background-color: $green;
-            border: none;
             opacity: 1;
             text-align: center;
             transition: transform .7s ease-in-out, opacity .4s ease-in-out;
@@ -343,7 +343,7 @@ body {
 .footer-index {
     background-color: $maroon;
     overflow: hidden;
-    color: $yellow;
+    color: $pink;
     width: 100%;
     height: auto;
     padding: $text_padding;
@@ -367,7 +367,7 @@ body {
     .header {
         background-color: $green;
         overflow: hidden;
-        color: $pink;
+        color: $yellow;
         width: 100%;
         height: auto;
         z-index: 3;
