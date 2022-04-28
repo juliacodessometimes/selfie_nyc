@@ -61,7 +61,7 @@ p {
 }
 a {
     text-decoration: underline;
-    color: $yellow;
+    color: $pink;
 }
 h3 {
     font-size: 20px;
@@ -103,10 +103,11 @@ body {
     bottom: 0;
 }
 .header-index {
-    background-color: $blue;
+    background-color: $green;
     border-bottom: $widemaroonborder_style;
     box-shadow: $black 0px -3px 13px 0px;
     outline: none;
+    color: $pink;
     overflow: hidden;
     width: 100%;
     height: auto;
@@ -202,7 +203,7 @@ body {
         width: 100%;
         height: $height_slider_total;
         z-index: 2;
-        background-color: $blue;
+        background-color: $green;
         overflow: auto;
         transition: transform .7s ease-out;
         display: grid;
@@ -223,7 +224,7 @@ body {
             grid-area: title;
             position: relative;
             border-bottom: $maroonborder_style;
-            background-color: $blue;
+            background-color: $green;
             display: flex;
             align-items: center;
             z-index: 2;
@@ -244,11 +245,14 @@ body {
                 background-image: url(../assets/toggle.png);
                 background-repeat: no-repeat;
                 background-size: 100%;
-                background-color: $blue;
+                background-color: $green;
                 border: none;
                 width: $sliderclosebutton_height;
                 height: $sliderclosebutton_height;
                 cursor: pointer;
+            }
+            .slider-toggle:active {
+                background-image: url(../assets/toggle_clicked.png);
             }
         }
         #camFeed {
@@ -266,7 +270,7 @@ body {
             grid-area: texts;
             width: 100%;
             height: auto;
-            background-color: $blue;
+            background-color: $green;
             border: none;
             opacity: 1;
             text-align: center;
@@ -289,7 +293,7 @@ body {
         }
         .slider-buttons {
             grid-area: buttons;
-            background-color: $pink;
+            background-color: $green;
             width: auto;
             height: $height_slider_closed;
             transition: transform .7s ease-in-out, opacity .4s ease-in-out;
@@ -331,7 +335,7 @@ body {
             grid-area: spacer;
             height: auto;
             width: 100%;
-            background-color: $pink;
+            background-color: $green;
             z-index: 2;
         }
     }
@@ -363,6 +367,7 @@ body {
     .header {
         background-color: $green;
         overflow: hidden;
+        color: $pink;
         width: 100%;
         height: auto;
         z-index: 3;
