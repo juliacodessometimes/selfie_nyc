@@ -61,7 +61,7 @@ p {
 }
 a {
     text-decoration: underline;
-    color: $yellow;
+    color: $maroon;
 }
 h3 {
     font-size: 20px;
@@ -87,7 +87,7 @@ body {
     -webkit-font-smoothing: antialiased;
     -webkit-tap-highlight-color: transparent;
     font-family: pixelfont;
-    color: $yellow;
+    color: $maroon;
     font-weight: 500;
     width: 100%;
     height: 100%;
@@ -103,11 +103,11 @@ body {
     bottom: 0;
 }
 .header-index {
-    background-color: $green;
+    background-color: $orange;
     border-bottom: $widemaroonborder_style;
     box-shadow: $black 0px -3px 13px 0px;
     outline: none;
-    color: $yellow;
+    color: $maroon;
     overflow: hidden;
     width: 100%;
     height: auto;
@@ -203,7 +203,7 @@ body {
         width: 100%;
         height: $height_slider_total;
         z-index: 2;
-        background-color: $green;
+        background-color: $orange;
         overflow: auto;
         transition: transform .7s ease-out;
         display: grid;
@@ -224,7 +224,7 @@ body {
             grid-area: title;
             position: relative;
             border-bottom: $maroonborder_style;
-            background-color: $green;
+            background-color: $orange;
             display: flex;
             align-items: center;
             z-index: 2;
@@ -245,7 +245,7 @@ body {
                 background-image: url(../assets/toggle.png);
                 background-repeat: no-repeat;
                 background-size: 100%;
-                background-color: $green;
+                background-color: $orange;
                 border: none;
                 width: $sliderclosebutton_height;
                 height: $sliderclosebutton_height;
@@ -271,7 +271,7 @@ body {
             width: 100%;
             height: auto;
             border-top: $maroonborder_style;
-            background-color: $green;
+            background-color: $orange;
             opacity: 1;
             text-align: center;
             transition: transform .7s ease-in-out, opacity .4s ease-in-out;
@@ -293,7 +293,7 @@ body {
         }
         .slider-buttons {
             grid-area: buttons;
-            background-color: $green;
+            background-color: $orange;
             width: auto;
             height: $height_slider_closed;
             transition: transform .7s ease-in-out, opacity .4s ease-in-out;
@@ -335,7 +335,7 @@ body {
             grid-area: spacer;
             height: auto;
             width: 100%;
-            background-color: $green;
+            background-color: $orange;
             z-index: 2;
         }
     }
@@ -343,7 +343,7 @@ body {
 .footer-index {
     background-color: $maroon;
     overflow: hidden;
-    color: $pink;
+    color: $yellow;
     width: 100%;
     height: auto;
     padding: $text_padding;

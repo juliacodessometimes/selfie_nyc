@@ -70,7 +70,7 @@ p {
 
 a {
   text-decoration: underline;
-  color: rgb(255, 255, 3);
+  color: rgb(125, 63, 89);
 }
 
 h3 {
@@ -100,7 +100,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
   font-family: pixelfont;
-  color: rgb(255, 255, 3);
+  color: rgb(125, 63, 89);
   font-weight: 500;
   width: 100%;
   height: 100%;
@@ -117,11 +117,11 @@ body {
 }
 
 .header-index {
-  background-color: rgb(48, 213, 95);
+  background-color: rgb(249, 168, 117);
   border-bottom: 10px solid rgb(125, 63, 89);
   box-shadow: rgb(56, 44, 56) 0px -3px 13px 0px;
   outline: none;
-  color: rgb(255, 255, 3);
+  color: rgb(125, 63, 89);
   overflow: hidden;
   width: 100%;
   height: auto;
@@ -219,7 +219,7 @@ body {
   width: 100%;
   height: 100vh;
   z-index: 2;
-  background-color: rgb(48, 213, 95);
+  background-color: rgb(249, 168, 117);
   overflow: auto;
   transition: transform 0.7s ease-out;
   display: grid;
@@ -236,7 +236,7 @@ body {
   grid-area: title;
   position: relative;
   border-bottom: 8px solid rgb(125, 63, 89);
-  background-color: rgb(48, 213, 95);
+  background-color: rgb(249, 168, 117);
   display: flex;
   align-items: center;
   z-index: 2;
@@ -258,7 +258,7 @@ body {
   background-image: url(../assets/toggle.png);
   background-repeat: no-repeat;
   background-size: 100%;
-  background-color: rgb(48, 213, 95);
+  background-color: rgb(249, 168, 117);
   border: none;
   width: 58px;
   height: 58px;
@@ -283,7 +283,7 @@ body {
   width: 100%;
   height: auto;
   border-top: 8px solid rgb(125, 63, 89);
-  background-color: rgb(48, 213, 95);
+  background-color: rgb(249, 168, 117);
   opacity: 1;
   text-align: center;
   transition: transform 0.7s ease-in-out, opacity 0.4s ease-in-out;
@@ -305,7 +305,7 @@ body {
 }
 .wrapper-index .slider .slider-buttons {
   grid-area: buttons;
-  background-color: rgb(48, 213, 95);
+  background-color: rgb(249, 168, 117);
   width: auto;
   height: 0em;
   transition: transform 0.7s ease-in-out, opacity 0.4s ease-in-out;
@@ -347,14 +347,14 @@ body {
   grid-area: spacer;
   height: auto;
   width: 100%;
-  background-color: rgb(48, 213, 95);
+  background-color: rgb(249, 168, 117);
   z-index: 2;
 }
 
 .footer-index {
   background-color: rgb(125, 63, 89);
   overflow: hidden;
-  color: rgb(223, 79, 207);
+  color: rgb(255, 255, 3);
   width: 100%;
   height: auto;
   padding: 6px;
