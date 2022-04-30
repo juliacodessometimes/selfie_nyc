@@ -356,7 +356,7 @@ body {
 }
 
 .footer-index {
-  background-color: rgb(223, 79, 207);
+  background-color: rgb(0, 150, 136);
   overflow: hidden;
   color: rgb(255, 255, 3);
   width: 100%;
@@ -377,12 +377,12 @@ body {
 
 .wrapper-faq {
   overflow-y: auto;
-  background-color: rgb(48, 213, 95);
+  background-color: rgb(239, 154, 154);
   height: 100%;
   width: 100%;
 }
 .wrapper-faq .header {
-  background-color: rgb(48, 213, 95);
+  background-color: rgb(239, 154, 154);
   overflow: hidden;
   color: rgb(255, 255, 3);
   width: 100%;
@@ -394,7 +394,7 @@ body {
   min-height: 100%;
   height: auto;
   width: 100%;
-  background-color: rgb(48, 213, 95);
+  background-color: rgb(239, 154, 154);
   padding: 5px;
   z-index: 4;
 }
@@ -418,7 +418,7 @@ body {
   padding-right: 9px;
 }
 .wrapper-faq .footer {
-  background-color: rgb(125, 63, 89);
+  background-color: rgb(0, 150, 136);
   color: rgb(255, 255, 3);
   overflow: hidden;
   width: 100%;
@@ -439,10 +439,6 @@ body {
 }
 .wrapper-about .header {
   background-color: rgb(0, 175, 255);
-  border-top: 6px solid rgb(0, 150, 136);
-  border-right: 6px solid rgb(0, 150, 136);
-  border-left: 6px solid rgb(0, 150, 136);
-  border-bottom: 6px solid rgb(0, 150, 136);
   overflow: hidden;
   color: rgb(255, 255, 3);
   width: 100%;
@@ -469,7 +465,7 @@ body {
   padding-right: 9px;
 }
 .wrapper-about .footer {
-  background-color: rgb(48, 213, 95);
+  background-color: rgb(0, 150, 136);
   color: rgb(255, 255, 3);
   overflow: hidden;
   width: 100%;

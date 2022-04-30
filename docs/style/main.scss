@@ -18,7 +18,7 @@ $yellow: rgb(255, 255, 3);
 $blue: rgb(0, 175, 255);
 $pink: rgb(223, 79, 207);
 $maroon: rgb(125, 63, 89);
-$orange: rgb(249, 168, 117);
+$orange: rgb(239, 154, 154);
 $medium_pink: rgb(231, 126, 219);
 $light_pink: rgb(255, 204, 255);
 $black: rgb(56, 44, 56);
@@ -355,7 +355,7 @@ body {
     }
 }
 .footer-index {
-    background-color: $pink;
+    background-color: $darkgreen;
     overflow: hidden;
     color: $yellow;
     width: 100%;
@@ -375,11 +375,11 @@ body {
 }
 .wrapper-faq {
     overflow-y: auto;
-    background-color: $green;
+    background-color: $orange;
     height: 100%;
     width: 100%;
     .header {
-        background-color: $green;
+        background-color: $orange;
         overflow: hidden;
         color: $yellow;
         width: 100%;
@@ -391,7 +391,7 @@ body {
         min-height: 100%;
         height: auto;
         width: 100%;
-        background-color: $green;
+        background-color: $orange;
         padding: 5px;
         z-index: 4;
         #example {
@@ -415,7 +415,7 @@ body {
         }
     }
     .footer {
-        background-color: $maroon;
+        background-color: $darkgreen;
         color:$yellow;
         overflow: hidden;
         width: 100%;
@@ -435,10 +435,6 @@ body {
     width: 100%;
     .header {
         background-color: $blue;
-        border-top: $blueborder_style;
-        border-right: $blueborder_style;
-        border-left: $blueborder_style;
-        border-bottom: $blueborder_style;
         overflow: hidden;
         color: $yellow;
         width: 100%;
@@ -465,7 +461,7 @@ body {
         }
     }
     .footer {
-        background-color: $green;
+        background-color: $darkgreen;
         color:$yellow;
         overflow: hidden;
         width: 100%;
