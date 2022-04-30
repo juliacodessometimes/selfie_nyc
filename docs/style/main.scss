@@ -23,6 +23,8 @@ $medium_pink: rgb(231, 126, 219);
 $light_pink: rgb(255, 204, 255);
 $black: rgb(56, 44, 56);
 $green: rgb(48, 213, 95);
+$darkgreen: rgb(0, 150, 136);
+$darkblue: rgb(40, 53, 147);
 // sizes
 $sliderclosebutton_height: 58px;
 $selfiebutton_height: 116px;
@@ -36,9 +38,10 @@ $height_preview_open: 20vh;
 // borders
 $yellowborder_style: 6px solid $yellow;
 $pinkborder_style: 6px solid $pink;
+$blueborder_style: 6px solid $darkblue;
 $skinnypinkborder_style: 3px solid $pink;
 $greenborder_style: 6px solid $green;
-$blueborder_style: 6px solid $blue;
+$blueborder_style: 6px solid $darkgreen;
 $wideborder_style: 20px solid $yellow;
 $blackborder_style: 10px solid $black;
 $maroonborder_style: 8px solid $maroon;
@@ -97,9 +100,9 @@ body {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    border-top: $skinnypinkborder_style;
-    border-right: $skinnypinkborder_style;
-    border-left: $skinnypinkborder_style;
+    border-top: $blueborder_style;
+    border-right: $blueborder_style;
+    border-left: $blueborder_style;
     background-color: white;
     position: absolute;
     top: 0;
@@ -112,7 +115,7 @@ body {
     //border-top: $pinkborder_style;
     //border-right: $pinkborder_style;
     //border-left: $pinkborder_style;
-    border-bottom: $pinkborder_style;
+    border-bottom: $blueborder_style;
     box-shadow: $black 0px -3px 13px 0px;
     outline: none;
     color: $yellow;
@@ -203,10 +206,10 @@ body {
     }
     .slider {
         grid-area: slider;
-        border-left: $pinkborder_style;
-        border-right: $pinkborder_style;
-        border-top:$pinkborder_style;
-        border-bottom: $pinkborder_style;
+        border-left: $blueborder_style;
+        border-right: $blueborder_style;
+        border-top:$blueborder_style;
+        border-bottom: $blueborder_style;
         background-color: $green;
         box-shadow: $black 0px 6px 13px 0px;
         width: 100%;
@@ -231,7 +234,7 @@ body {
         .slider-title {
             grid-area: title;
             position: relative;
-            border-bottom: $pinkborder_style;
+            border-bottom: $blueborder_style;
             background-color: $green;
             display: flex;
             align-items: center;
@@ -278,7 +281,7 @@ body {
             grid-area: texts;
             width: 100%;
             height: auto;
-            border-top: $pinkborder_style;
+            border-top: $blueborder_style;
             background-color: $green;
             opacity: 1;
             text-align: center;
