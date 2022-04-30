@@ -49,7 +49,7 @@ map.on('load', () => {
             'type': 'symbol',
             'source': 'source_id',
             'layout': {
-                'icon-image': 'icon',
+                'icon-image': 'icon_neon',
                 'icon-allow-overlap': true,
                 'icon-size': [
                     'interpolate', ['linear'], ['zoom'], 
