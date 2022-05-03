@@ -5,6 +5,7 @@ var map = new mapboxgl.Map({
     style: 'mapbox://styles/jcakes33/cksmb94hl0zk218qjo6mcfawn',
     center: [-73.985130, 40.758896], // starting position
     zoom: 14,
+    attributionControl: false,
     scrollZoom: false
 });
 var geoLocate = new mapboxgl.GeolocateControl({
@@ -107,6 +108,7 @@ map.on('load', () => {
     if (navigator.geolocation) {
         geoLocate.trigger();
     }
+    map.addControl(new mapboxgl.AttributionControl(), 'bottom-left');
 });
 // functions
 function openSlider() {
