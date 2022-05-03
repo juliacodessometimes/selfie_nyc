@@ -16,15 +16,16 @@ $blinkanimation: blinkFlash .5s ease-in-out;
 // colors
 $yellow: rgb(255, 255, 3);
 $blue: rgb(0, 175, 255);
-$pink: rgb(223, 79, 207);
-$maroon: rgb(125, 63, 89);
-$orange: rgb(239, 154, 154);
-$medium_pink: rgb(231, 126, 219);
-$light_pink: rgb(255, 204, 255);
-$black: rgb(56, 44, 56);
+$darkblue: rgb(40, 53, 147);
 $green: rgb(48, 213, 95);
 $darkgreen: rgb(0, 150, 136);
-$darkblue: rgb(40, 53, 147);
+$pink: rgb(223, 79, 207);
+$light_pink: rgb(255, 204, 255);
+$maroon: rgb(125, 63, 89);
+$orange: rgb(239, 154, 154);
+$black: rgb(56, 44, 56);
+
+
 // sizes
 $sliderclosebutton_height: 58px;
 $selfiebutton_height: 116px;
@@ -40,11 +41,10 @@ $yellowborder_style: 6px solid $yellow;
 $pinkborder_style: 6px solid $pink;
 $blueborder_style: 6px solid $darkblue;
 $skinnypinkborder_style: 3px solid $pink;
-$greenborder_style: 6px solid $green;
-$blueborder_style: 6px solid $darkgreen;
+$greenborder_style: 6px solid $darkgreen;
 $wideborder_style: 20px solid $yellow;
 $blackborder_style: 10px solid $black;
-$maroonborder_style: 8px solid $maroon;
+$maroonborder_style: 6px solid $maroon;
 $widemaroonborder_style: 10px solid $maroon;
 $text_padding: 6px;
 //shadows
@@ -100,9 +100,9 @@ body {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    border-top: $blueborder_style;
-    border-right: $blueborder_style;
-    border-left: $blueborder_style;
+    border-top: $greenborder_style;
+    border-right: $greenborder_style;
+    border-left: $greenborder_style;
     background-color: white;
     position: absolute;
     top: 0;
@@ -112,10 +112,7 @@ body {
 }
 .header-index {
     background-color: $green;
-    //border-top: $pinkborder_style;
-    //border-right: $pinkborder_style;
-    //border-left: $pinkborder_style;
-    border-bottom: $blueborder_style;
+    border-bottom: $greenborder_style;
     box-shadow: $black 0px -3px 13px 0px;
     outline: none;
     color: $yellow;
@@ -206,10 +203,10 @@ body {
     }
     .slider {
         grid-area: slider;
-        border-left: $blueborder_style;
-        border-right: $blueborder_style;
-        border-top:$blueborder_style;
-        border-bottom: $blueborder_style;
+        border-left: $greenborder_style;
+        border-right: $greenborder_style;
+        border-top:$greenborder_style;
+        border-bottom: $greenborder_style;
         background-color: $green;
         box-shadow: $black 0px 6px 13px 0px;
         width: 100%;
@@ -234,7 +231,7 @@ body {
         .slider-title {
             grid-area: title;
             position: relative;
-            border-bottom: $blueborder_style;
+            border-bottom: $greenborder_style;
             background-color: $green;
             display: flex;
             align-items: center;
@@ -281,7 +278,7 @@ body {
             grid-area: texts;
             width: 100%;
             height: auto;
-            border-top: $blueborder_style;
+            border-top: $greenborder_style;
             background-color: $green;
             opacity: 1;
             text-align: center;
@@ -375,11 +372,12 @@ body {
 }
 .wrapper-faq {
     overflow-y: auto;
-    background-color: $orange;
+    background-color: $pink;
     height: 100%;
     width: 100%;
+    position: static;
     .header {
-        background-color: $orange;
+        background-color: $pink;
         overflow: hidden;
         color: $yellow;
         width: 100%;
@@ -391,7 +389,7 @@ body {
         min-height: 100%;
         height: auto;
         width: 100%;
-        background-color: $orange;
+        background-color: $pink;
         padding: 5px;
         z-index: 4;
         #example {
@@ -415,7 +413,7 @@ body {
         }
     }
     .footer {
-        background-color: $darkgreen;
+        background-color: $maroon;
         color:$yellow;
         overflow: hidden;
         width: 100%;
@@ -433,6 +431,7 @@ body {
     background-color: $blue;
     height: 100%;
     width: 100%;
+    position: static;
     .header {
         background-color: $blue;
         overflow: hidden;
@@ -461,7 +460,7 @@ body {
         }
     }
     .footer {
-        background-color: $darkgreen;
+        background-color: $darkblue;
         color:$yellow;
         overflow: hidden;
         width: 100%;

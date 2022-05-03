@@ -377,12 +377,13 @@ body {
 
 .wrapper-faq {
   overflow-y: auto;
-  background-color: rgb(239, 154, 154);
+  background-color: rgb(223, 79, 207);
   height: 100%;
   width: 100%;
+  position: static;
 }
 .wrapper-faq .header {
-  background-color: rgb(239, 154, 154);
+  background-color: rgb(223, 79, 207);
   overflow: hidden;
   color: rgb(255, 255, 3);
   width: 100%;
@@ -394,7 +395,7 @@ body {
   min-height: 100%;
   height: auto;
   width: 100%;
-  background-color: rgb(239, 154, 154);
+  background-color: rgb(223, 79, 207);
   padding: 5px;
   z-index: 4;
 }
@@ -418,7 +419,7 @@ body {
   padding-right: 9px;
 }
 .wrapper-faq .footer {
-  background-color: rgb(0, 150, 136);
+  background-color: rgb(125, 63, 89);
   color: rgb(255, 255, 3);
   overflow: hidden;
   width: 100%;
@@ -436,6 +437,7 @@ body {
   background-color: rgb(0, 175, 255);
   height: 100%;
   width: 100%;
+  position: static;
 }
 .wrapper-about .header {
   background-color: rgb(0, 175, 255);
@@ -465,7 +467,7 @@ body {
   padding-right: 9px;
 }
 .wrapper-about .footer {
-  background-color: rgb(0, 150, 136);
+  background-color: rgb(40, 53, 147);
   color: rgb(255, 255, 3);
   overflow: hidden;
   width: 100%;
