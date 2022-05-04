@@ -100,10 +100,7 @@ body {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    border-top: $greenborder_style;
-    border-right: $greenborder_style;
-    border-left: $greenborder_style;
-    border-bottom: $greenborder_style;
+    border: $greenborder_style;
     background-color: white;
     position: absolute;
     top: 0;
@@ -142,7 +139,7 @@ body {
 .wrapper-index {
     width: 100%;
     height: 100%;
-    background-color: $green;
+    background-color: $darkgreen;
     position: static;
     top: 0;
     right: 0;
