@@ -32,7 +32,7 @@ $selfiebutton_height: 116px;
 $selfiebutton_width: 232px;
 $buttons_height: 116px;
 $buttons_width: 150px;
-$height_slider_open: 80%;
+$height_slider_open: 85%;
 $height_slider_total: 100vh;
 $height_slider_closed: 0em;
 $height_preview_open: 20vh;
@@ -46,7 +46,7 @@ $wideborder_style: 20px solid $yellow;
 $blackborder_style: 10px solid $black;
 $maroonborder_style: 6px solid $maroon;
 $widemaroonborder_style: 10px solid $maroon;
-$text_padding: 6px;
+$text_padding: 3px;
 //shadows
 $yellow_shadowbottom: 0px 10px 0px 0px;
 
@@ -81,13 +81,13 @@ h4 {
     font-size: 19px;
     font-weight: 500;
     text-align: left;
-    padding: 3px;
+    padding: 2px;
 }
 h5 {
     font-size: 19px;
     font-weight: 500;
     text-align: center;
-    padding: 3px;
+    padding: 2px;
     background-color: transparent;
 }
 body {
@@ -103,6 +103,7 @@ body {
     border-top: $greenborder_style;
     border-right: $greenborder_style;
     border-left: $greenborder_style;
+    border-bottom: $greenborder_style;
     background-color: white;
     position: absolute;
     top: 0;
@@ -267,6 +268,7 @@ body {
             grid-area: camera;
             display: block;
             height: auto;
+            max-height: 100%;
             width: 100%;
             background-size: contain;
             background-repeat: no-repeat;
