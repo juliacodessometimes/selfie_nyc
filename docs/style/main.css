@@ -219,8 +219,8 @@ body {
   overflow: auto;
   transition: transform 0.7s ease-out;
   display: grid;
-  grid-template-rows: auto auto auto auto 1fr;
-  grid-template-areas: "title" "camera" "texts" "buttons" "spacer";
+  grid-template-rows: auto auto auto 1fr;
+  grid-template-areas: "title" "camera" "functions";
 }
 .wrapper-index .slider.is-open {
   transform: translateY(-85vh);
@@ -248,7 +248,7 @@ body {
   color: rgb(255, 255, 3);
   text-align: center;
   flex-wrap: wrap;
-  flex: 1;
+  flex: 2;
 }
 .wrapper-index .slider .slider-title .slider-toggle {
   flex: 0 0 58px;
@@ -264,8 +264,16 @@ body {
 .wrapper-index .slider .slider-title .slider-toggle:active {
   background-image: url(../assets/toggle_clicked.png);
 }
-.wrapper-index .slider #camFeed {
+.wrapper-index .slider .slider-cam {
   grid-area: camera;
+  border-bottom: 6px solid rgb(0, 150, 136);
+  display: block;
+  height: auto;
+  max-height: 100%;
+  width: 100%;
+  z-index: 3;
+}
+.wrapper-index .slider .slider-cam #camFeed {
   display: block;
   height: auto;
   max-height: 100%;
@@ -274,25 +282,35 @@ body {
   background-repeat: no-repeat;
   background-color: rgb(56, 44, 56);
   border: 10px solid rgb(56, 44, 56);
-  z-index: 2;
+  z-index: 3;
 }
-.wrapper-index .slider .slider-text {
-  grid-area: texts;
+.wrapper-index .slider .slider-functions {
+  grid-area: functions;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 1;
+}
+.wrapper-index .slider .slider-functions .slider-text {
+  flex: 1;
   width: 100%;
   height: 100%;
-  border-top: 6px solid rgb(0, 150, 136);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: rgb(48, 213, 95);
   opacity: 1;
   text-align: center;
-  transition: opacity 0.4s ease-in-out, transform 0.7s ease-in-out;
-  z-index: 1;
+  transition: transform 0.7s ease-in-out, opacity 0.7s ease-in-out;
 }
-.wrapper-index .slider .slider-text.clicked {
-  transform: translateY(-101%);
+.wrapper-index .slider .slider-functions .slider-text.clicked {
+  transform: translateY(-116px);
   opacity: 0;
-  height: 0;
+  flex: 0;
 }
-.wrapper-index .slider .slider-text .take-selfie {
+.wrapper-index .slider .slider-functions .slider-text .take-selfie {
   background: url(../assets/selfie.png);
   background-repeat: no-repeat;
   background-size: 100%;
@@ -300,31 +318,31 @@ body {
   height: 116px;
   width: 232px;
   cursor: pointer;
-  flex: 5;
 }
-.wrapper-index .slider .slider-text .take-selfie:active {
+.wrapper-index .slider .slider-functions .slider-text .take-selfie:active {
   background: url(../assets/selfie_pressed.png);
 }
-.wrapper-index .slider .slider-text p {
-  height: 1fr;
-}
-.wrapper-index .slider .slider-buttons {
-  grid-area: buttons;
+.wrapper-index .slider .slider-functions .slider-buttons {
+  flex: 0;
   background-color: rgb(48, 213, 95);
-  width: auto;
-  height: auto;
+  width: 100%;
+  height: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   z-index: 3;
   opacity: 0;
-  position: static;
-  display: flex;
+  transition: transform 0.7s ease-in-out, opacity 0.7s ease-in-out, flex 0.7 ease-in-out;
 }
-.wrapper-index .slider .slider-buttons.clicked {
-  height: 116px;
+.wrapper-index .slider .slider-functions .slider-buttons.clicked {
+  transform: translateY(-116px);
+  flex: 1;
   opacity: 1;
+  height: 100%;
 }
-.wrapper-index .slider .slider-buttons .delete-it {
+.wrapper-index .slider .slider-functions .slider-buttons .delete-it {
   height: 116px;
-  max-width: 150px;
+  width: 150px;
   background: url(../assets/delete.png);
   background-repeat: no-repeat;
   background-size: 100%;
@@ -335,9 +353,9 @@ body {
   cursor: pointer;
   flex: 1;
 }
-.wrapper-index .slider .slider-buttons .save-it {
+.wrapper-index .slider .slider-functions .slider-buttons .save-it {
   height: 116px;
-  max-width: 150px;
+  width: 150px;
   background: url(../assets/save.png);
   background-repeat: no-repeat;
   background-size: 100%;
@@ -348,12 +366,16 @@ body {
   cursor: pointer;
   flex: 1;
 }
-.wrapper-index .slider .slider-spacer {
-  grid-area: spacer;
-  height: auto;
+.wrapper-index .slider .slider-functions .slider-spacer {
+  flex: 1;
+  height: 100%;
   width: 100%;
   background-color: rgb(48, 213, 95);
   z-index: 1;
+  transition: transform 0.7s ease-in-out;
+}
+.wrapper-index .slider .slider-functions .slider-spacer.clicked {
+  transform: translateY(-116px);
 }
 
 .footer-index {

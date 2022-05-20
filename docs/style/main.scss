@@ -210,13 +210,11 @@ body {
         overflow: auto;
         transition: transform .7s ease-out;
         display: grid;
-        grid-template-rows: auto auto auto auto 1fr;
+        grid-template-rows: auto auto auto 1fr;
         grid-template-areas:
         'title'
         'camera'
-        'texts'
-        'buttons'
-        'spacer';
+        'functions';
         &.is-open {
             transform: translateY(-$height_slider_open);
         }
@@ -242,7 +240,7 @@ body {
                 color: $yellow;
                 text-align: center;
                 flex-wrap: wrap;
-                flex: 1;
+                flex: 2;
             }
             .slider-toggle {
                 flex: 0 0 $sliderclosebutton_height;
@@ -259,96 +257,118 @@ body {
                 background-image: url(../assets/toggle_clicked.png);
             }
         }
-        #camFeed {
+        .slider-cam {
             grid-area: camera;
+            border-bottom: $greenborder_style;
             display: block;
             height: auto;
             max-height: 100%;
             width: 100%;
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-color: $black;
-            border: $blackborder_style;
-            z-index: 2;
-        }
-        .slider-text {
-            grid-area: texts;
-            width: 100%;
-            height: 100%;
-            border-top: $greenborder_style;
-            background-color: $green;
-            opacity: 1;
-            text-align: center;
-            transition: opacity .4s ease-in-out, transform .7s ease-in-out;
-            z-index: 1;
-            &.clicked {
-                transform: translateY(-101%);
-                opacity: 0;
-                height: 0;
-            }
-            .take-selfie {
-                background: url(../assets/selfie.png);
-                background-repeat: no-repeat;
-                background-size: 100%;
-                border: none;
-                height: $selfiebutton_height;
-                width: $selfiebutton_width;
-                cursor: pointer;
-                flex: 5;
-            }
-            .take-selfie:active {
-                background: url(../assets/selfie_pressed.png);
-            }
-            p {
-                height: 1fr;
-            }
-        }
-        .slider-buttons {
-            grid-area: buttons;
-            background-color: $green;
-            width: auto;
-            height: auto;
             z-index: 3;
-            opacity: 0;
-            position: static;
-            display: flex;
-            &.clicked {
-                height: $buttons_height;
-                opacity: 1;
-            }
-            .delete-it {
-                height: $buttons_height;
-                max-width: $buttons_width;
-                background: url(../assets/delete.png);
+            #camFeed {
+                display: block;
+                height: auto;
+                max-height: 100%;
+                width: 100%;
+                background-size: contain;
                 background-repeat: no-repeat;
-                background-size: 100%;
-                padding-left: 10px;
-                padding-right: 10px;
-                margin: auto;
-                border: none;
-                cursor: pointer;
-                flex: 1;
-            }
-            .save-it {
-                height: $buttons_height;
-                max-width: $buttons_width;
-                background: url(../assets/save.png);
-                background-repeat: no-repeat;
-                background-size: 100%;
-                padding-left: 10px;
-                padding-right: 10px;
-                margin: auto;
-                border: none;
-                cursor: pointer;
-                flex: 1;
+                background-color: $black;
+                border: $blackborder_style;
+                z-index: 3;
             }
         }
-        .slider-spacer {
-            grid-area: spacer;
-            height: auto;
-            width: 100%;
-            background-color: $green;
+        .slider-functions {
+            grid-area: functions;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
             z-index: 1;
+            .slider-text {
+                flex: 1;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: $green;
+                opacity: 1;
+                text-align: center;
+                transition: transform .7s ease-in-out, opacity .7s ease-in-out;
+                &.clicked {
+                    transform: translateY(-$selfiebutton_height);
+                    opacity: 0;
+                    flex: 0;
+                }
+                .take-selfie {
+                    background: url(../assets/selfie.png);
+                    background-repeat: no-repeat;
+                    background-size: 100%;
+                    border: none;
+                    height: $selfiebutton_height;
+                    width: $selfiebutton_width;
+                    cursor: pointer;
+                }
+                .take-selfie:active {
+                    background: url(../assets/selfie_pressed.png);
+                }
+            }
+            .slider-buttons {
+                flex: 0;
+                background-color: $green;
+                width: 100%;
+                height: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 3;
+                opacity: 0;
+                transition: transform .7s ease-in-out, opacity .7s ease-in-out, flex .7 ease-in-out;
+                &.clicked {
+                    transform: translateY(-$selfiebutton_height);
+                    flex: 1;
+                    opacity: 1;
+                    height: 100%;
+                }
+                .delete-it {
+                    height: $buttons_height;
+                    width: $buttons_width;
+                    background: url(../assets/delete.png);
+                    background-repeat: no-repeat;
+                    background-size: 100%;
+                    padding-left: 10px;
+                    padding-right: 10px;
+                    margin: auto;
+                    border: none;
+                    cursor: pointer;
+                    flex: 1;
+                }
+                .save-it {
+                    height: $buttons_height;
+                    width: $buttons_width;
+                    background: url(../assets/save.png);
+                    background-repeat: no-repeat;
+                    background-size: 100%;
+                    padding-left: 10px;
+                    padding-right: 10px;
+                    margin: auto;
+                    border: none;
+                    cursor: pointer;
+                    flex: 1;
+                }
+            }
+            .slider-spacer {
+                flex: 1;
+                height: 100%;
+                width: 100%;
+                background-color: $green;
+                z-index: 1;
+                transition: transform .7s ease-in-out;
+                &.clicked {
+                    transform: translateY(-$selfiebutton_height);
+                }
+            }
         }
     }
 }

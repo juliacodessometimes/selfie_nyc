@@ -24,6 +24,7 @@ var headerCSS = document.querySelector('.header-index');
 var footerCSS = document.querySelector('.footer-index');
 var wrapperCSS = document.querySelector('.wrapper-index');
 var mapCSS = document.querySelector('.map-class');
+var spacerCSS = document.querySelector('.slider-spacer');
 // elements
 var cameraFeed = document.getElementById('camFeed');
 var cameraLocation = document.getElementById('location');
@@ -135,17 +136,17 @@ function flyToCamera(clickedMarker) {
     var height = mapCSS.offsetHeight;
     map.flyTo({
         center: clickedMarker.geometry.coordinates,
-        zoom: 20,
+        zoom: 17,
         speed: 1.8,
-        offset: [0, -(height*.4)]
+        offset: [0, -(height*.41)]
     });
 }
 function flyFromCamera() {
     // zoom out from last clicked camera location
     map.flyTo({
         center: clickedMarker.geometry.coordinates,
-        zoom: 16,
-        speed: 2
+        zoom: 14,
+        speed: 1.6
     });
 }
 // button functions
@@ -165,6 +166,7 @@ function toggleBtn() {
     sliderTextCSS.classList.remove('clicked');
     sliderButtonsCSS.classList.remove('clicked');
     sliderCSS.classList.remove('clicked');
+    spacerCSS.classList.remove('clicked');
     
     // clear feed interval
     clearInterval(camInterval);
@@ -181,6 +183,7 @@ function selfieBtn() {
     sliderTextCSS.classList.add('clicked');
     sliderButtonsCSS.classList.add('clicked');
     wrapperCSS.classList.add('clicked');
+    spacerCSS.classList.add('clicked');
 }
 function downloadBtn() {
     alert("Sorry! This function isn't available on the testing site");
@@ -191,6 +194,7 @@ function deleteBtn() {
     sliderTextCSS.classList.remove('clicked');
     sliderButtonsCSS.classList.remove('clicked');
     wrapperCSS.classList.remove('clicked');
+    spacerCSS.classList.remove('clicked');
     // pre-load camera feed image
     cameraFeed.src = clickedMarker.properties.url + Math.random();
     clearInterval(camInterval);
