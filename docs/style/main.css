@@ -156,7 +156,7 @@ body {
   z-index: 1;
   overflow: hidden;
   display: grid;
-  grid-template-rows: 100vh 0em;
+  grid-template-rows: 100vh 0;
   grid-template-areas: "map" "slider";
 }
 .wrapper-index.clicked {
@@ -210,10 +210,7 @@ body {
 }
 .wrapper-index .slider {
   grid-area: slider;
-  border-left: 6px solid rgb(0, 150, 136);
-  border-right: 6px solid rgb(0, 150, 136);
-  border-top: 6px solid rgb(0, 150, 136);
-  border-bottom: 6px solid rgb(0, 150, 136);
+  border: 6px solid rgb(0, 150, 136);
   background-color: rgb(48, 213, 95);
   box-shadow: rgb(56, 44, 56) 0px 6px 13px 0px;
   width: 100%;
@@ -222,14 +219,15 @@ body {
   overflow: auto;
   transition: transform 0.7s ease-out;
   display: grid;
-  grid-template-rows: auto auto 1fr 0em 1fr;
+  grid-template-rows: auto auto auto auto 1fr;
   grid-template-areas: "title" "camera" "texts" "buttons" "spacer";
 }
 .wrapper-index .slider.is-open {
-  transform: translateY(-85%);
+  transform: translateY(-85vh);
 }
 .wrapper-index .slider.clicked {
   transform: translateY(-100vh);
+  height: 100vh;
 }
 .wrapper-index .slider .slider-title {
   grid-area: title;
@@ -281,17 +279,18 @@ body {
 .wrapper-index .slider .slider-text {
   grid-area: texts;
   width: 100%;
-  height: auto;
+  height: 100%;
   border-top: 6px solid rgb(0, 150, 136);
   background-color: rgb(48, 213, 95);
   opacity: 1;
   text-align: center;
-  transition: transform 0.7s ease-in-out, opacity 0.4s ease-in-out;
+  transition: opacity 0.4s ease-in-out, transform 0.7s ease-in-out;
   z-index: 1;
 }
 .wrapper-index .slider .slider-text.clicked {
   transform: translateY(-101%);
   opacity: 0;
+  height: 0;
 }
 .wrapper-index .slider .slider-text .take-selfie {
   background: url(../assets/selfie.png);
@@ -306,18 +305,21 @@ body {
 .wrapper-index .slider .slider-text .take-selfie:active {
   background: url(../assets/selfie_pressed.png);
 }
+.wrapper-index .slider .slider-text p {
+  height: 1fr;
+}
 .wrapper-index .slider .slider-buttons {
   grid-area: buttons;
   background-color: rgb(48, 213, 95);
   width: auto;
-  height: 0em;
-  transition: transform 0.7s ease-in-out, opacity 0.4s ease-in-out;
+  height: auto;
   z-index: 3;
   opacity: 0;
+  position: static;
   display: flex;
 }
 .wrapper-index .slider .slider-buttons.clicked {
-  transform: translateY(-20vh);
+  height: 116px;
   opacity: 1;
 }
 .wrapper-index .slider .slider-buttons .delete-it {
@@ -351,7 +353,7 @@ body {
   height: auto;
   width: 100%;
   background-color: rgb(48, 213, 95);
-  z-index: 2;
+  z-index: 1;
 }
 
 .footer-index {

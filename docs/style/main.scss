@@ -32,10 +32,10 @@ $selfiebutton_height: 116px;
 $selfiebutton_width: 232px;
 $buttons_height: 116px;
 $buttons_width: 150px;
-$height_slider_open: 85%;
+$height_slider_open: 85vh;
 $height_slider_total: 100vh;
-$height_slider_closed: 0em;
-$height_preview_open: 20vh;
+$height_slider_closed: 0;
+$height_preview_open: 1fr;
 // borders
 $yellowborder_style: 6px solid $yellow;
 $pinkborder_style: 6px solid $pink;
@@ -201,10 +201,7 @@ body {
     }
     .slider {
         grid-area: slider;
-        border-left: $greenborder_style;
-        border-right: $greenborder_style;
-        border-top:$greenborder_style;
-        border-bottom: $greenborder_style;
+        border: $greenborder_style;
         background-color: $green;
         box-shadow: $black 0px 6px 13px 0px;
         width: 100%;
@@ -213,7 +210,7 @@ body {
         overflow: auto;
         transition: transform .7s ease-out;
         display: grid;
-        grid-template-rows: auto auto 1fr $height_slider_closed 1fr;
+        grid-template-rows: auto auto auto auto 1fr;
         grid-template-areas:
         'title'
         'camera'
@@ -225,6 +222,7 @@ body {
         }
         &.clicked {
             transform: translateY(-$height_slider_total);
+            height: 100vh;
         }
         .slider-title {
             grid-area: title;
@@ -276,16 +274,17 @@ body {
         .slider-text {
             grid-area: texts;
             width: 100%;
-            height: auto;
+            height: 100%;
             border-top: $greenborder_style;
             background-color: $green;
             opacity: 1;
             text-align: center;
-            transition: transform .7s ease-in-out, opacity .4s ease-in-out;
+            transition: opacity .4s ease-in-out, transform .7s ease-in-out;
             z-index: 1;
             &.clicked {
                 transform: translateY(-101%);
                 opacity: 0;
+                height: 0;
             }
             .take-selfie {
                 background: url(../assets/selfie.png);
@@ -300,18 +299,21 @@ body {
             .take-selfie:active {
                 background: url(../assets/selfie_pressed.png);
             }
+            p {
+                height: 1fr;
+            }
         }
         .slider-buttons {
             grid-area: buttons;
             background-color: $green;
             width: auto;
-            height: $height_slider_closed;
-            transition: transform .7s ease-in-out, opacity .4s ease-in-out;
+            height: auto;
             z-index: 3;
             opacity: 0;
+            position: static;
             display: flex;
             &.clicked {
-                transform: translateY(-$height_preview_open);
+                height: $buttons_height;
                 opacity: 1;
             }
             .delete-it {
@@ -346,7 +348,7 @@ body {
             height: auto;
             width: 100%;
             background-color: $green;
-            z-index: 2;
+            z-index: 1;
         }
     }
 }
