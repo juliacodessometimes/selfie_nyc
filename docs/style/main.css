@@ -294,7 +294,7 @@ body {
   z-index: 1;
 }
 .wrapper-index .slider .slider-functions .slider-text {
-  flex: 1;
+  flex: initial;
   width: 100%;
   height: 100%;
   display: flex;
@@ -307,8 +307,8 @@ body {
 }
 .wrapper-index .slider .slider-functions .slider-text.clicked {
   transform: translateY(-116px);
+  height: 116px;
   opacity: 0;
-  flex: 0;
 }
 .wrapper-index .slider .slider-functions .slider-text .take-selfie {
   background: url(../assets/selfie.png);
@@ -323,39 +323,29 @@ body {
   background: url(../assets/selfie_pressed.png);
 }
 .wrapper-index .slider .slider-functions .slider-buttons {
-  flex: 0;
+  flex: initial;
   background-color: rgb(48, 213, 95);
   width: 100%;
   height: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-template-areas: "delete" "save";
   z-index: 3;
   opacity: 0;
-  transition: transform 0.7s ease-in-out, opacity 0.7s ease-in-out, flex 0.7 ease-in-out;
+  transition: transform 0.7s ease-in-out, opacity 0.7s ease-in-out;
 }
 .wrapper-index .slider .slider-functions .slider-buttons.clicked {
   transform: translateY(-116px);
-  flex: 1;
   opacity: 1;
   height: 100%;
 }
-.wrapper-index .slider .slider-functions .slider-buttons .delete-it {
-  height: 116px;
-  width: 150px;
-  background: url(../assets/delete.png);
-  background-repeat: no-repeat;
-  background-size: 100%;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin: auto;
-  border: none;
-  cursor: pointer;
-  flex: 1;
-}
 .wrapper-index .slider .slider-functions .slider-buttons .save-it {
+  grid-area: "save";
   height: 116px;
-  width: 150px;
+  width: 232px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: url(../assets/save.png);
   background-repeat: no-repeat;
   background-size: 100%;
@@ -364,14 +354,37 @@ body {
   margin: auto;
   border: none;
   cursor: pointer;
-  flex: 1;
+}
+.wrapper-index .slider .slider-functions .slider-buttons .save-it:active {
+  background: url(../assets/save_pressed.png);
+}
+.wrapper-index .slider .slider-functions .slider-buttons .delete-it {
+  grid-area: "delete";
+  height: 116px;
+  width: 232px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url(../assets/delete.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin: auto;
+  border: none;
+  cursor: pointer;
+}
+.wrapper-index .slider .slider-functions .slider-buttons .delete-it:active {
+  background: url(../assets/delete_pressed.png);
 }
 .wrapper-index .slider .slider-functions .slider-spacer {
-  flex: 1;
+  flex: initial;
+  flex-wrap: wrap;
   height: 100%;
   width: 100%;
   background-color: rgb(48, 213, 95);
   z-index: 1;
+  overflow-y: auto;
   transition: transform 0.7s ease-in-out;
 }
 .wrapper-index .slider .slider-functions .slider-spacer.clicked {

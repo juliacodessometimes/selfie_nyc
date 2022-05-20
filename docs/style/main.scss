@@ -286,7 +286,7 @@ body {
             flex-direction: column;
             z-index: 1;
             .slider-text {
-                flex: 1;
+                flex: initial;
                 width: 100%;
                 height: 100%;
                 display: flex;
@@ -298,8 +298,8 @@ body {
                 transition: transform .7s ease-in-out, opacity .7s ease-in-out;
                 &.clicked {
                     transform: translateY(-$selfiebutton_height);
+                    height: $selfiebutton_height;
                     opacity: 0;
-                    flex: 0;
                 }
                 .take-selfie {
                     background: url(../assets/selfie.png);
@@ -315,38 +315,30 @@ body {
                 }
             }
             .slider-buttons {
-                flex: 0;
+                flex: initial;
                 background-color: $green;
                 width: 100%;
                 height: 0;
-                display: flex;
-                justify-content: center;
-                align-items: center;
+                display: grid;
+                grid-template-rows: auto auto;
+                grid-template-areas:
+                'delete'
+                'save';
                 z-index: 3;
                 opacity: 0;
-                transition: transform .7s ease-in-out, opacity .7s ease-in-out, flex .7 ease-in-out;
+                transition: transform .7s ease-in-out, opacity .7s ease-in-out;
                 &.clicked {
                     transform: translateY(-$selfiebutton_height);
-                    flex: 1;
                     opacity: 1;
                     height: 100%;
                 }
-                .delete-it {
-                    height: $buttons_height;
-                    width: $buttons_width;
-                    background: url(../assets/delete.png);
-                    background-repeat: no-repeat;
-                    background-size: 100%;
-                    padding-left: 10px;
-                    padding-right: 10px;
-                    margin: auto;
-                    border: none;
-                    cursor: pointer;
-                    flex: 1;
-                }
                 .save-it {
-                    height: $buttons_height;
-                    width: $buttons_width;
+                    grid-area: 'save';
+                    height: $selfiebutton_height;
+                    width: $selfiebutton_width;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
                     background: url(../assets/save.png);
                     background-repeat: no-repeat;
                     background-size: 100%;
@@ -355,15 +347,38 @@ body {
                     margin: auto;
                     border: none;
                     cursor: pointer;
-                    flex: 1;
+                }
+                .save-it:active {
+                    background: url(../assets/save_pressed.png);
+                }
+                .delete-it {
+                    grid-area: 'delete';
+                    height: $selfiebutton_height;
+                    width: $selfiebutton_width;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background: url(../assets/delete.png);
+                    background-repeat: no-repeat;
+                    background-size: 100%;
+                    padding-left: 10px;
+                    padding-right: 10px;
+                    margin: auto;
+                    border: none;
+                    cursor: pointer;
+                }
+                .delete-it:active {
+                    background: url(../assets/delete_pressed.png);
                 }
             }
             .slider-spacer {
-                flex: 1;
+                flex: initial;
+                flex-wrap:wrap;
                 height: 100%;
                 width: 100%;
                 background-color: $green;
                 z-index: 1;
+                overflow-y: auto;
                 transition: transform .7s ease-in-out;
                 &.clicked {
                     transform: translateY(-$selfiebutton_height);
