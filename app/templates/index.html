@@ -13,7 +13,7 @@
 <body>
 <div class="header-index">
     <img src="{{url_for('static', filename='logo.png')}}" id="logo"></img>
-    <h3>click a camera to enter selfie-mode!</h3>
+    <h3>tap on a camera to enter selfie-mode!</h3>
     <p><a href="{{url_for('about')}}">about selfie_nyc</a></p>
 </div>
 <div class="wrapper-index">
@@ -27,21 +27,25 @@
         </div>
         <button class="slider-toggle" onclick="toggleBtn();"></button>
     </div>
-    <img id="camFeed" src="">
-    <div class="slider-text">
-        <button class="take-selfie" onclick="selfieBtn();"></button>
-        <p>having trouble? <br> check <a href="{{url_for('faq')}}">FAQ and troubleshooting</a></p>
+    <div class="slider-cam">
+        <img id="camFeed" src="">
     </div>
-    <div class="slider-buttons">
-        <button class="delete-it" onclick="deleteBtn();"></button>
-        <button class="save-it" onclick="downloadBtn();"></button>
-    </div>
-    <div class="slider-spacer">
+    <div class="slider-functions">
+        <div class="slider-text">
+            <button class="take-selfie" onclick="selfieBtn();"></button>
+        </div>
+        <div class="slider-buttons">
+            <button class="save-it" onclick="downloadBtn();"></button>
+            <button class="delete-it" onclick="deleteBtn();"></button>
+        </div>
+        <div class="slider-spacer">
+            <p>having trouble? <br> check <a href="{{url_for('faq')}}">FAQ and troubleshooting</a></p>
+        </div>
     </div>
 </div>
 </div>
 <div class="footer-index">
-    <p>website by julia bloom</p>
+    <p>website by <a href="https://www.juliabloomportfolio.com/">julia bloom</a></p>
 </div>
 <script src="{{url_for('static', filename='app.js')}}"></script>
 </body>

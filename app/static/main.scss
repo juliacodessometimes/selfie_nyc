@@ -13,30 +13,43 @@
     100%{opacity: 1;}
 }
 $blinkanimation: blinkFlash .5s ease-in-out;
-
 // colors
-$yellow: #FFFF87;
-$blue: rgb(135, 231, 255);
+$yellow: rgb(255, 255, 3);
+$blue: rgb(0, 175, 255);
+$darkblue: rgb(40, 53, 147);
+$green: rgb(48, 213, 95);
+$darkgreen: rgb(0, 150, 136);
 $pink: rgb(223, 79, 207);
-$medium_pink: rgb(231, 126, 219);
-$light_pink: rgb(237, 156, 228);
+$light_pink: rgb(255, 204, 255);
+$maroon: rgb(125, 63, 89);
+$orange: rgb(239, 154, 154);
 $black: rgb(56, 44, 56);
-$light_purple: rgb(208, 204, 208);
+
+
 // sizes
-$sliderclosebutton_height: 50px;
-$selfiebutton_height: 90px;
-$buttons_height: 90px;
+$selfiebutton_height: 116px;
+$selfiebutton_width: 232px;
+$buttons_height: 116px;
 $buttons_width: 150px;
-$height_slider_open: 80%;
+$height_slider_open: 85vh;
 $height_slider_total: 100vh;
-$height_slider_closed: 0em;
-$height_preview_open: 20vh;
+$height_slider_closed: 0;
+$height_preview_open: 1fr;
+$toggle_buttons: 58px;
 // borders
-$yellowborder_style: 10px solid $yellow;
+$yellowborder_style: 6px solid $yellow;
+$pinkborder_style: 6px solid $pink;
+$blueborder_style: 6px solid $darkblue;
+$skinnypinkborder_style: 3px solid $pink;
+$greenborder_style: 6px solid $darkgreen;
 $wideborder_style: 20px solid $yellow;
 $blackborder_style: 10px solid $black;
-$thinborder_style: 5px solid $yellow;
-$text_padding: 6px;
+$maroonborder_style: 6px solid $maroon;
+$widemaroonborder_style: 10px solid $maroon;
+$text_padding: 3px;
+//shadows
+$yellow_shadowbottom: 0px 10px 0px 0px;
+
 *:focus {
     box-shadow: none;
 }
@@ -52,6 +65,7 @@ p {
     font-size: 17px;
     text-align: left;
     text-align: center;
+    color: $yellow;
 }
 a {
     text-decoration: underline;
@@ -67,15 +81,14 @@ h4 {
     font-size: 19px;
     font-weight: 500;
     text-align: left;
-    background-color: transparent;
-    padding: 3px;
+    padding: 2px;
 }
 h5 {
     font-size: 19px;
     font-weight: 500;
     text-align: center;
+    padding: 2px;
     background-color: transparent;
-    padding: 3px;
 }
 body {
     padding: 0;
@@ -83,12 +96,11 @@ body {
     -webkit-tap-highlight-color: transparent;
     font-family: pixelfont;
     color: $yellow;
+    font-weight: 500;
     width: 100%;
     height: 100%;
     overflow: hidden;
-    border-top: $yellowborder_style;
-    border-right: $yellowborder_style;
-    border-left: $yellowborder_style;
+    border: $greenborder_style;
     background-color: white;
     position: absolute;
     top: 0;
@@ -97,10 +109,11 @@ body {
     bottom: 0;
 }
 .header-index {
-    background-color: $black;
-    border-bottom: $yellow;
+    background-color: $green;
+    border-bottom: $greenborder_style;
     box-shadow: $black 0px -3px 13px 0px;
     outline: none;
+    color: $yellow;
     overflow: hidden;
     width: 100%;
     height: auto;
@@ -110,7 +123,6 @@ body {
     padding: $text_padding;
     top: 0;
     left: 0;
-    
     &.is-open {
       transform: translateY(-101%)
     }
@@ -127,12 +139,11 @@ body {
 .wrapper-index {
     width: 100%;
     height: 100%;
-    background-color: $yellow;
+    background-color: $darkgreen;
     position: static;
     top: 0;
     right: 0;
     left: 0;
-    bottom: 0;
     z-index: 1;
     overflow: hidden;
     display: grid;
@@ -145,14 +156,14 @@ body {
     }
     .map-class {
         grid-area: map;
-        height: 100%;
+        height: 95%;
         width: 100%;
         position: absolute;
         overflow: hidden;
         z-index: 1;
         #map {
             width: 100%;
-            height: 100vh;
+            height: 100%;
             overflow: hidden;
             .mapboxgl-user-location-dot:before {
                 background-color:rgb(223, 79, 207);
@@ -165,177 +176,259 @@ body {
             }
             .mapboxgl-ctrl-group {
                 border-radius: 0px !important;
-                background-color: $light_pink;
+                background-color: transparent;
             }
             .mapboxgl-ctrl-group:not(:empty) {
-                box-shadow: $black 0px 0px 5px 0px;
+                box-shadow: none;
             }
             button.mapboxgl-ctrl-geolocate {
-                width: 50px !important;
-                height: 50px !important;
+                width: $toggle_buttons!important;
+                height: $toggle_buttons !important;
+                background-color: transparent;
                 display: block;
                 cursor: pointer;
-                border: 5px solid $pink;
                 .mapboxgl-ctrl-icon {
-                    display: block;
                     width: 100%;
                     height: 100%;
+                    background-size: 100%;
+                    background-position: 100%;
                     background-repeat: no-repeat;
-                    background-image: url(../assets/locate_toggle.svg) !important;
-                    background-size: 70%;
-                    background-position: 50%;
+                    animation: none !important;
+                    background-image: url(geolocate_toggle.png) !important;
+                }
+            }
+            button.mapboxgl-ctrl-geolocate:disabled {
+                opacity: 1;
+                .mapboxgl-ctrl-icon {
+                    width: 100%;
+                    height: 100%;
+                    background-size: 100%;
+                    background-position: 100%;
+                    background-repeat: no-repeat;
+                    animation: none !important;
+                    background-image: url(geolocate_toggledisabled.png) !important;
+                    opacity: .5 !important;
+                }
+            }
+            button.mapboxgl-ctrl-geolocate-active {
+                .mapboxgl-ctrl-icon {
+                    width: 100%;
+                    height: 100%;
+                    background-size: 100%;
+                    background-position: 100%;
+                    background-repeat: no-repeat;
+                    animation: none !important;
+                    background-image: url(geolocate_togglepressed.png) !important;
+                    opacity: 1 !important;
+                }
+            }
+            button.mapboxgl-ctrl-geolocate-waiting {
+                .mapboxgl-ctrl-icon {
+                    width: 100%;
+                    height: 100%;
+                    background-size: 100%;
+                    background-position: 100%;
+                    background-repeat: no-repeat;
+                    animation: none !important;
+                    background-image: url(geolocate_toggle.png) !important;
+                    opacity: 1 !important;
                 }
             }
         }
     }
     .slider {
         grid-area: slider;
-        border-left: $thinborder_style;
-        border-right: $thinborder_style;
-        border-top: $yellowborder_style;
-        border-bottom: $wideborder_style;
+        border: $greenborder_style;
+        background-color: $green;
+        box-shadow: $black 0px 6px 13px 0px;
         width: 100%;
         height: $height_slider_total;
         z-index: 2;
-        background-color: $black;
         overflow: auto;
         transition: transform .7s ease-out;
         display: grid;
-        grid-template-rows: auto auto 1fr $height_slider_closed 1fr;
+        grid-template-rows: auto auto auto 1fr;
         grid-template-areas:
         'title'
         'camera'
-        'texts'
-        'buttons'
-        'spacer';
+        'functions';
         &.is-open {
             transform: translateY(-$height_slider_open);
         }
         &.clicked {
             transform: translateY(-$height_slider_total);
+            height: 100vh;
         }
         .slider-title {
             grid-area: title;
             position: relative;
-            border-bottom: $yellowborder_style;
-            background-color: $black;
+            border-bottom: $greenborder_style;
+            background-color: $green;
             display: flex;
             align-items: center;
             z-index: 2;
             #location {
-                background-color: $black;
                 background-color: transparent;
+                font-size: 19px;
                 -webkit-font-smoothing: antialiased;
-                font-size: 22px;
                 font-family: pixelfont;
                 font-weight: 500;
+                color: $yellow;
                 text-align: center;
                 flex-wrap: wrap;
-                flex: 1;
+                flex: 2;
             }
             .slider-toggle {
-                flex: 0 0 $sliderclosebutton_height;
+                flex: 0 0 $toggle_buttons;
                 background-image: url(toggle.png);
                 background-repeat: no-repeat;
                 background-size: 100%;
-                background-color: $black;
+                background-color: $green;
                 border: none;
-                width: $sliderclosebutton_height;
-                height: $sliderclosebutton_height;
+                width: $toggle_buttons;
+                height: $toggle_buttons;
                 cursor: pointer;
             }
+            .slider-toggle:active {
+                background-image: url(toggle_clicked.png);
+            }
         }
-        #camFeed {
+        .slider-cam {
             grid-area: camera;
+            border-bottom: $greenborder_style;
             display: block;
             height: auto;
+            max-height: 100%;
             width: 100%;
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-color: $black;
-            border: $blackborder_style;
-            z-index: 2;
-        }
-        .slider-text {
-            grid-area: texts;
-            width: 100%;
-            height: auto;
-            background-color: $black;
-            border: none;
-            opacity: 1;
-            text-align: center;
-            transition: transform .7s ease-in-out, opacity .4s ease-in-out;
-            z-index: 1;
-            &.clicked {
-                transform: translateY(-101%);
-                opacity: 0;
-            }
-            .take-selfie {
-                background: url(selfie.png);
-                background-repeat: no-repeat;
-                background-size: 100%;
-                border: none;
-                height: $selfiebutton_height;
-                width: $selfiebutton_height;
-                cursor: pointer;
-                flex: 5;
-            }
-        }
-        .slider-buttons {
-            grid-area: buttons;
-            background-color: $black;
-            width: auto;
-            height: $height_slider_closed;
-            transition: transform .7s ease-in-out, opacity .4s ease-in-out;
             z-index: 3;
-            opacity: 0;
-            display: flex;
-            &.clicked {
-                transform: translateY(-$height_preview_open);
-                opacity: 1;
-            }
-            .delete-it {
-                height: $buttons_height;
-                max-width: $buttons_width;
-                background: url(delete.png);
+            #camFeed {
+                display: block;
+                height: auto;
+                max-height: 100%;
+                width: 100%;
+                background-size: contain;
                 background-repeat: no-repeat;
-                background-size: 100%;
-                padding-left: 10px;
-                padding-right: 10px;
-                margin: auto;
-                border: none;
-                cursor: pointer;
-                flex: 1;
-            }
-            .save-it {
-                height: $buttons_height;
-                max-width: $buttons_width;
-                background: url(save.png);
-                background-repeat: no-repeat;
-                background-size: 100%;
-                padding-left: 10px;
-                padding-right: 10px;
-                margin: auto;
-                border: none;
-                cursor: pointer;
-                flex: 1;
+                background-color: $black;
+                border: $blackborder_style;
+                z-index: 3;
             }
         }
-        .slider-spacer {
-            grid-area: spacer;
-            height: auto;
-            width: 100%;
-            background-color: $black;
-            z-index: 2;
+        .slider-functions {
+            grid-area: functions;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 1;
+            .slider-text {
+                flex: initial;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: $green;
+                opacity: 1;
+                text-align: center;
+                transition: transform .7s ease-in-out, opacity .7s ease-in-out;
+                &.clicked {
+                    transform: translateY(-$selfiebutton_height);
+                    height: $selfiebutton_height;
+                    opacity: 0;
+                }
+                .take-selfie {
+                    background: url(selfie.png);
+                    background-repeat: no-repeat;
+                    background-size: 100%;
+                    border: none;
+                    height: $selfiebutton_height;
+                    width: $selfiebutton_width;
+                    cursor: pointer;
+                }
+                .take-selfie:active {
+                    background: url(selfie_pressed.png);
+                }
+            }
+            .slider-buttons {
+                flex: initial;
+                background-color: $green;
+                width: 100%;
+                height: 0;
+                display: grid;
+                grid-template-rows: auto auto;
+                grid-template-areas:
+                'delete'
+                'save';
+                z-index: 3;
+                opacity: 0;
+                transition: transform .7s ease-in-out, opacity .7s ease-in-out;
+                &.clicked {
+                    transform: translateY(-$selfiebutton_height);
+                    opacity: 1;
+                    height: 100%;
+                }
+                .save-it {
+                    grid-area: 'save';
+                    height: $selfiebutton_height;
+                    width: $selfiebutton_width;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background: url(save.png);
+                    background-repeat: no-repeat;
+                    background-size: 100%;
+                    padding-left: 10px;
+                    padding-right: 10px;
+                    margin: auto;
+                    border: none;
+                    cursor: pointer;
+                }
+                .save-it:active {
+                    background: url(save_pressed.png);
+                }
+                .delete-it {
+                    grid-area: 'delete';
+                    height: $selfiebutton_height;
+                    width: $selfiebutton_width;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background: url(delete.png);
+                    background-repeat: no-repeat;
+                    background-size: 100%;
+                    padding-left: 10px;
+                    padding-right: 10px;
+                    margin: auto;
+                    border: none;
+                    cursor: pointer;
+                }
+                .delete-it:active {
+                    background: url(delete_pressed.png);
+                }
+            }
+            .slider-spacer {
+                flex: initial;
+                flex-wrap:wrap;
+                height: 100%;
+                width: 100%;
+                background-color: $green;
+                z-index: 1;
+                overflow-y: auto;
+                transition: transform .7s ease-in-out;
+                &.clicked {
+                    transform: translateY(-$selfiebutton_height);
+                }
+            }
         }
     }
 }
 .footer-index {
-    background-color: $yellow;
+    background-color: $darkgreen;
     overflow: hidden;
+    color: $yellow;
     width: 100%;
-    height: auto;
-    color: $pink;
+    height: 5%;
     padding: $text_padding;
     transition: transform .7s ease-in-out;
     z-index: 2;
@@ -349,24 +442,31 @@ body {
         text-align: left;
     }
 }
-.wrapper {
+.wrapper-faq {
     overflow-y: auto;
-    background-color: $black;
+    background-color: $pink;
     height: 100%;
     width: 100%;
+    position: static;
     .header {
-        background-color: $black;
+        background-color: $pink;
         overflow: hidden;
+        color: $yellow;
         width: 100%;
         height: auto;
         z-index: 3;
         padding: $text_padding;
+        h1 {
+            color: $yellow;
+            font-size: 25px;
+            text-align: center;
+        }
     }   
     .main-text {
         min-height: 100%;
         height: auto;
         width: 100%;
-        background-color: $black;
+        background-color: $pink;
         padding: 5px;
         z-index: 4;
         #example {
@@ -390,11 +490,63 @@ body {
         }
     }
     .footer {
-        background-color: $yellow;
-        color: $pink;
+        background-color: $maroon;
+        color:$yellow;
         overflow: hidden;
         width: 100%;
+        height: 5%;
+        padding: $text_padding;
+        border: none;
+        z-index: 3;
+        p {
+            text-align: left;
+        }
+    }
+}
+.wrapper-about {
+    overflow-y: auto;
+    background-color: $blue;
+    height: 100%;
+    width: 100%;
+    position: static;
+    .header {
+        background-color: $blue;
+        overflow: hidden;
+        color: $yellow;
+        width: 100%;
         height: auto;
+        z-index: 3;
+        padding: $text_padding;
+        h1 {
+            color: $yellow;
+            font-size: 25px;
+            text-align: center;
+        }
+    }   
+    .main-text {
+        min-height: 100%;
+        height: auto;
+        width: 100%;
+        background-color: $blue;
+        padding: 5px;
+        z-index: 4;
+        h4 {
+            padding-left: 10px;
+            padding-right: 5px;
+        }
+        p {
+            text-align: left;
+            font-size: 15px;
+            padding-left: 13px;
+            padding-right: 9px;
+        }
+    }
+    .footer {
+        background-color: $darkblue;
+        color:$yellow;
+        overflow: hidden;
+        width: 100%;
+        height: 5%;
         padding: $text_padding;
         border: none;
         z-index: 3;

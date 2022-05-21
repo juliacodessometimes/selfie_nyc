@@ -8,35 +8,21 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
     <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
 </head>
-<body>
-<div class="wrapper">
+<body style="border: 6px solid rgb(40, 53, 147);">
+<div class="wrapper-about">
 <div class="header">
-    <img src="{{url_for('static', filename='logo.png')}}" id="logo"></img>
-    <h3>About selfie_nyc</h3>
-    <h5><a href="{{url_for('index')}}">back to selfie_nyc</a></h5>
+    <img src="{{url_for('static', filename='logo_about.png')}}" id="logo"></img>
+    <h1>about selfie_nyc</h1>
     <h5><a href="{{url_for('faq')}}">FAQ page</a></h5>
+    <h5><a href="{{url_for('index')}}">back to selfie_nyc</a></h5>
 </div>
 <div class="main-text">
-    <p>This is an about page</p>
+    <p> A B C D E F G H I J K L M N O P Q R S T U V W X Y Z ! </p>
+    <p>a b c d e f g h i j k l m n o p q r s t u v w x y z </p>
 </div>
 <div class="footer">
-    <p>website by julia bloom</p>
+    <p>website by <a href="https://www.juliabloomportfolio.com/">julia bloom</a></p>
 </div>
 </div>
-<script>
-    // form
-    /*var selfieForm = document.createElement('form');
-    selfieForm.setAttribute('method', 'POST');
-    selfieForm.setAttribute('id', 'selfie-form');
-    
-    var selfieInput = document.createElement('input');
-    selfieInput.setAttribute('type', 'hidden');
-    selfieInput.setAttribute('name', 'selfie_input');
-    selfieInput.setAttribute('value', selfiePath);
-    selfieForm.appendChild(selfieInput);
-    document.body.appendChild(selfieForm);
-
-    selfieForm.submit();*/
-</script>
 </body>
 </html>

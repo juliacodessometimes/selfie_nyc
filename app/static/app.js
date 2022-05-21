@@ -24,12 +24,12 @@ var headerCSS = document.querySelector('.header-index');
 var footerCSS = document.querySelector('.footer-index');
 var wrapperCSS = document.querySelector('.wrapper-index');
 var mapCSS = document.querySelector('.map-class');
+var spacerCSS = document.querySelector('.slider-spacer');
 // elements
 var cameraFeed = document.getElementById('camFeed');
 var cameraLocation = document.getElementById('location');
 // other var
 var clickedMarker;
-var selfiePath;
 var camInterval;
 // loading map
 map.addControl(geoLocate, 'bottom-right');
@@ -56,10 +56,9 @@ map.on('load', () => {
     });
     // event listener for clicking on a camera
     map.on('click', 'active-cameras', (feature) => {
-        // set clicked marker variable
+        // clicked marker variable
         clickedMarker = feature.features[0];
-
-        // check if selected source + layer exists, if yes remove
+        // check if selected source/layer exists, and remove
         if (map.getLayer('selected')) {
             map.removeLayer('selected');
         }
@@ -105,7 +104,7 @@ map.on('load', () => {
         geoLocate.trigger();
     }
 });
-// animation functions
+// functions
 function openSlider() {
     // open slider and hide header/footer
     sliderCSS.classList.add('is-open');
@@ -113,32 +112,36 @@ function openSlider() {
     footerCSS.classList.add('is-open');
 }
 function setHTML(clickedMarker) {
-    // set heading text to cross-street and pre-load camera feed image
+    // load all HTML for slider div
+
+    // set heading text to cross-street
     cameraLocation.innerHTML = clickedMarker.properties.name;
-    cameraFeed.src = clickedMarker.properties.url;
-    // clear any previous intervals before setting new interval
+    // pre-load camera feed image
+    cameraFeed.src = "/static/loading.png";
+    //cameraFeed.src = clickedMarker.properties.url;
+    // clear any previous intervals
     clearInterval(camInterval);
+    // set interval
     camInterval = setInterval(function() {
-        // interval refreshes camera feed image every 1.5 seconds
+        // set interval that refreshes camera feed image every 1.5 seconds
         cameraFeed.src = clickedMarker.properties.url + Math.random();
     }, 1500);
 }
 function flyToCamera(clickedMarker) {
     var height = mapCSS.offsetHeight;
-    // fly to current marker
     map.flyTo({
         center: clickedMarker.geometry.coordinates,
-        zoom: 20,
+        zoom: 17,
         speed: 1.8,
-        offset: [0, -(height*.4)]
+        offset: [0, -(height*.41)]
     });
 }
 function flyFromCamera() {
     // zoom out from last clicked camera location
     map.flyTo({
         center: clickedMarker.geometry.coordinates,
-        zoom: 16,
-        speed: 2
+        zoom: 14,
+        speed: 1.6
     });
 }
 // button functions
@@ -158,6 +161,7 @@ function toggleBtn() {
     sliderTextCSS.classList.remove('clicked');
     sliderButtonsCSS.classList.remove('clicked');
     sliderCSS.classList.remove('clicked');
+    spacerCSS.classList.remove('clicked');
     
     // clear feed interval
     clearInterval(camInterval);
@@ -168,14 +172,13 @@ function selfieBtn() {
     // camera feed settings
     selfiePath = cameraFeed.getAttribute('src');
     clearInterval(camInterval);
-    cameraFeed.src = selfiePath;
-
+    camFeed.src = selfiePath;
     // CSS animations
     sliderCSS.classList.add('clicked');
     sliderTextCSS.classList.add('clicked');
     sliderButtonsCSS.classList.add('clicked');
     wrapperCSS.classList.add('clicked');
-
+    spacerCSS.classList.add('clicked');
     // AJAX request and response
     const xhttPost = new XMLHttpRequest();
     xhttPost.open('POST', '/selfie', true);
@@ -202,6 +205,7 @@ function deleteBtn() {
     sliderTextCSS.classList.remove('clicked');
     sliderButtonsCSS.classList.remove('clicked');
     wrapperCSS.classList.remove('clicked');
+    spacerCSS.classList.remove('clicked');
     // pre-load camera feed image
     cameraFeed.src = clickedMarker.properties.url + Math.random();
     clearInterval(camInterval);
