@@ -27,7 +27,6 @@ $black: rgb(56, 44, 56);
 
 
 // sizes
-$sliderclosebutton_height: 58px;
 $selfiebutton_height: 116px;
 $selfiebutton_width: 232px;
 $buttons_height: 116px;
@@ -36,6 +35,7 @@ $height_slider_open: 85vh;
 $height_slider_total: 100vh;
 $height_slider_closed: 0;
 $height_preview_open: 1fr;
+$toggle_buttons: 58px;
 // borders
 $yellowborder_style: 6px solid $yellow;
 $pinkborder_style: 6px solid $pink;
@@ -176,26 +176,31 @@ body {
             }
             .mapboxgl-ctrl-group {
                 border-radius: 0px !important;
-                background-color: $blue;
+                background-color: transparent;
             }
             .mapboxgl-ctrl-group:not(:empty) {
-                box-shadow: $black 0px 0px 5px 0px;
+                box-shadow: none;
             }
             button.mapboxgl-ctrl-geolocate {
-                width: 42px !important;
-                height: 42px !important;
+                width: $toggle_buttons!important;
+                height: $toggle_buttons !important;
+                background-color: transparent;
                 display: block;
                 cursor: pointer;
-                border: 4px solid $darkblue;
                 .mapboxgl-ctrl-icon {
+                    background-color: transparent;
                     display: block;
                     width: 100%;
                     height: 100%;
                     background-repeat: no-repeat;
-                    background-image: url(../assets/locate_toggle.svg) !important;
-                    background-size: 70%;
-                    background-position: 50%;
+                    animation: none !important;
+                    background-image: url(../assets/geolocate_toggle.png) !important;
+                    background-size: 100%;
+                    background-position: 100%;
                 }
+            }
+            button.mapboxgl-ctrl-geolocate:disabled {
+                background-image: url(../assets/geolocate_toggle.png) !important;
             }
         }
     }
@@ -232,9 +237,8 @@ body {
             z-index: 2;
             #location {
                 background-color: transparent;
-                font-size: 22px;
+                font-size: 19px;
                 -webkit-font-smoothing: antialiased;
-                padding: $text_padding;
                 font-family: pixelfont;
                 font-weight: 500;
                 color: $yellow;
@@ -243,14 +247,14 @@ body {
                 flex: 2;
             }
             .slider-toggle {
-                flex: 0 0 $sliderclosebutton_height;
+                flex: 0 0 $toggle_buttons;
                 background-image: url(../assets/toggle.png);
                 background-repeat: no-repeat;
                 background-size: 100%;
                 background-color: $green;
                 border: none;
-                width: $sliderclosebutton_height;
-                height: $sliderclosebutton_height;
+                width: $toggle_buttons;
+                height: $toggle_buttons;
                 cursor: pointer;
             }
             .slider-toggle:active {
@@ -420,6 +424,11 @@ body {
         height: auto;
         z-index: 3;
         padding: $text_padding;
+        h1 {
+            color: $yellow;
+            font-size: 25px;
+            text-align: center;
+        }
     }   
     .main-text {
         min-height: 100%;
@@ -453,7 +462,7 @@ body {
         color:$yellow;
         overflow: hidden;
         width: 100%;
-        height: auto;
+        height: 5%;
         padding: $text_padding;
         border: none;
         z-index: 3;
@@ -476,6 +485,11 @@ body {
         height: auto;
         z-index: 3;
         padding: $text_padding;
+        h1 {
+            color: $yellow;
+            font-size: 25px;
+            text-align: center;
+        }
     }   
     .main-text {
         min-height: 100%;
@@ -500,7 +514,7 @@ body {
         color:$yellow;
         overflow: hidden;
         width: 100%;
-        height: auto;
+        height: 5%;
         padding: $text_padding;
         border: none;
         z-index: 3;
