@@ -188,19 +188,51 @@ body {
                 display: block;
                 cursor: pointer;
                 .mapboxgl-ctrl-icon {
-                    background-color: transparent;
-                    display: block;
                     width: 100%;
                     height: 100%;
+                    background-size: 100%;
+                    background-position: 100%;
                     background-repeat: no-repeat;
                     animation: none !important;
                     background-image: url(../assets/geolocate_toggle.png) !important;
-                    background-size: 100%;
-                    background-position: 100%;
                 }
             }
             button.mapboxgl-ctrl-geolocate:disabled {
-                background-image: url(../assets/geolocate_toggle.png) !important;
+                opacity: 1;
+                .mapboxgl-ctrl-icon {
+                    width: 100%;
+                    height: 100%;
+                    background-size: 100%;
+                    background-position: 100%;
+                    background-repeat: no-repeat;
+                    animation: none !important;
+                    background-image: url(../assets/geolocate_toggledisabled.png) !important;
+                    opacity: .5 !important;
+                }
+            }
+            button.mapboxgl-ctrl-geolocate-active {
+                .mapboxgl-ctrl-icon {
+                    width: 100%;
+                    height: 100%;
+                    background-size: 100%;
+                    background-position: 100%;
+                    background-repeat: no-repeat;
+                    animation: none !important;
+                    background-image: url(../assets/geolocate_togglepressed.png) !important;
+                    opacity: 1 !important;
+                }
+            }
+            button.mapboxgl-ctrl-geolocate-waiting {
+                .mapboxgl-ctrl-icon {
+                    width: 100%;
+                    height: 100%;
+                    background-size: 100%;
+                    background-position: 100%;
+                    background-repeat: no-repeat;
+                    animation: none !important;
+                    background-image: url(../assets/geolocate_toggle.png) !important;
+                    opacity: 1 !important;
+                }
             }
         }
     }

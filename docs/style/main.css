@@ -200,19 +200,50 @@ body {
   cursor: pointer;
 }
 .wrapper-index .map-class #map button.mapboxgl-ctrl-geolocate .mapboxgl-ctrl-icon {
-  background-color: transparent;
-  display: block;
   width: 100%;
   height: 100%;
+  background-size: 100%;
+  background-position: 100%;
   background-repeat: no-repeat;
   -webkit-animation: none !important;
           animation: none !important;
   background-image: url(../assets/geolocate_toggle.png) !important;
-  background-size: 100%;
-  background-position: 100%;
 }
 .wrapper-index .map-class #map button.mapboxgl-ctrl-geolocate:disabled {
+  opacity: 1;
+}
+.wrapper-index .map-class #map button.mapboxgl-ctrl-geolocate:disabled .mapboxgl-ctrl-icon {
+  width: 100%;
+  height: 100%;
+  background-size: 100%;
+  background-position: 100%;
+  background-repeat: no-repeat;
+  -webkit-animation: none !important;
+          animation: none !important;
+  background-image: url(../assets/geolocate_toggledisabled.png) !important;
+  opacity: 0.5 !important;
+}
+.wrapper-index .map-class #map button.mapboxgl-ctrl-geolocate-active .mapboxgl-ctrl-icon {
+  width: 100%;
+  height: 100%;
+  background-size: 100%;
+  background-position: 100%;
+  background-repeat: no-repeat;
+  -webkit-animation: none !important;
+          animation: none !important;
+  background-image: url(../assets/geolocate_togglepressed.png) !important;
+  opacity: 1 !important;
+}
+.wrapper-index .map-class #map button.mapboxgl-ctrl-geolocate-waiting .mapboxgl-ctrl-icon {
+  width: 100%;
+  height: 100%;
+  background-size: 100%;
+  background-position: 100%;
+  background-repeat: no-repeat;
+  -webkit-animation: none !important;
+          animation: none !important;
   background-image: url(../assets/geolocate_toggle.png) !important;
+  opacity: 1 !important;
 }
 .wrapper-index .slider {
   grid-area: slider;
