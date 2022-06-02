@@ -118,7 +118,6 @@ function setHTML(clickedMarker) {
     cameraLocation.innerHTML = clickedMarker.properties.name;
     // pre-load camera feed image
     cameraFeed.src = "/static/loading.png";
-    //cameraFeed.src = clickedMarker.properties.url;
     // clear any previous intervals
     clearInterval(camInterval);
     // set interval
@@ -162,7 +161,6 @@ function toggleBtn() {
     sliderButtonsCSS.classList.remove('clicked');
     sliderCSS.classList.remove('clicked');
     spacerCSS.classList.remove('clicked');
-    
     // clear feed interval
     clearInterval(camInterval);
     // zoom out from last-clicked camera

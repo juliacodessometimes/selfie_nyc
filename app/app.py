@@ -1,4 +1,5 @@
 from flask import Flask, render_template, jsonify, request
+import uuid
 import urllib.request
 import geojson
 from datetime import datetime
@@ -7,7 +8,7 @@ app = Flask(__name__)
 
 # import geojson data from file
 with open('data.geojson') as g:
-    data = geojson.load(g)
+    geo_data = geojson.load(g)
 
 # routes
 @app.route('/index')
@@ -19,12 +20,19 @@ def index():
 @app.route('/selfie', methods=['GET', 'POST'])
 def image_grab():
     if request.method == 'POST':
-        # pass external image url from AJAX POST
+        # pass external image url from AJAX
         selfie_url = request.data.decode('utf-8')
-        local_selfie = 'static/selfie' + '.jpg'
+        # create random id and save image file path
+        id = str(uuid.uuid4())
+        local_selfie = 'static/selfie' + id + '.jpg'
         # make request to url and download image file to static folder
         r = urllib.request.urlretrieve(selfie_url, local_selfie)
     return jsonify(local_selfie)
+
+@app.route('/selfie/<test_image>')
+def delete_image(test_image):
+    print(test_image)
+    return 'Hello'
 
 @app.route('/about')
 def about():
@@ -34,20 +42,18 @@ def about():
 def faq():
     return render_template('faq.html')
 
-@app.route('/issues')
-def issues():
-    return render_template('issue.html')
-
 # geojson endpoint
 @app.route('/data')
 def geodata():
-    return jsonify(data)
+    return jsonify(geo_data)
 
-# setting cache control
+
 @app.after_request
-def add_header(response):
+def image_handler(response):
+    # setting cache control
     response.cache_control.no_store = True
     response.cache_control.max_age = 0
+    # deleting old files
     return response
 
 if __name__ == '__main__':
