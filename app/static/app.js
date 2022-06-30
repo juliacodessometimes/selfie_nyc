@@ -31,6 +31,7 @@ var cameraLocation = document.getElementById('location');
 // other var
 var clickedMarker;
 var camInterval;
+var selfieID;
 // loading map
 map.addControl(geoLocate, 'bottom-right');
 map.on('load', () => {
@@ -143,6 +144,12 @@ function flyFromCamera() {
         speed: 1.6
     });
 }
+function deleteImage() {
+    // delete selfie image AJAX request
+    const xhttDelPost = new XMLHttpRequest();
+    xhttDelPost.open('POST', '/delete', true);
+    xhttDelPost.send(selfieID);
+}
 // button functions
 function toggleBtn() {
     // close slider button functions
@@ -163,6 +170,8 @@ function toggleBtn() {
     spacerCSS.classList.remove('clicked');
     // clear feed interval
     clearInterval(camInterval);
+    // delete selfie image AJAX request
+    deleteImage()
     // zoom out from last-clicked camera
     flyFromCamera();
 }
@@ -177,15 +186,16 @@ function selfieBtn() {
     sliderButtonsCSS.classList.add('clicked');
     wrapperCSS.classList.add('clicked');
     spacerCSS.classList.add('clicked');
-    // AJAX request and response
-    const xhttPost = new XMLHttpRequest();
-    xhttPost.open('POST', '/selfie', true);
-    xhttPost.onload = function(){
+    // grab selfie image AJAX request and response
+    const xhttSelPost = new XMLHttpRequest();
+    xhttSelPost.open('POST', '/selfie', true);
+    xhttSelPost.onload = function(){
         if(this.status == 200){
-            cameraFeed.src = JSON.parse(this.responseText) + '?' + Math.random();
+            selfieID = JSON.parse(this.responseText);
+            cameraFeed.src = selfieID + '?' + Math.random();
         }
     }
-    xhttPost.send(clickedMarker.properties.url);
+    xhttSelPost.send(clickedMarker.properties.url);
 }
 function downloadBtn() {
     // download selfie
@@ -211,4 +221,6 @@ function deleteBtn() {
         // set interval that refreshes camera feed image every 1.5 seconds
         cameraFeed.src = clickedMarker.properties.url + Math.random();
     }, 1500);
+    // delete selfie image AJAX request
+    deleteImage()
 }
