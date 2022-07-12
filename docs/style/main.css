@@ -156,7 +156,7 @@ body {
   z-index: 1;
   overflow: hidden;
   display: grid;
-  grid-template-rows: 100vh 0;
+  grid-template-rows: 100vh 0vh;
   grid-template-areas: "map" "slider";
 }
 .wrapper-index.clicked {

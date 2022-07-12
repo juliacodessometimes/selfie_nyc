@@ -33,7 +33,7 @@ $buttons_height: 116px;
 $buttons_width: 150px;
 $height_slider_open: 85vh;
 $height_slider_total: 100vh;
-$height_slider_closed: 0;
+$height_slider_closed: 0vh;
 $height_preview_open: 1fr;
 $toggle_buttons: 58px;
 // borders
@@ -442,6 +442,7 @@ body {
         text-align: left;
     }
 }
+
 .wrapper-faq {
     overflow-y: auto;
     background-color: $pink;
