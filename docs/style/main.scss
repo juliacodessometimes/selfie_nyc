@@ -354,7 +354,7 @@ body {
                 flex: initial;
                 background-color: $green;
                 width: 100%;
-                height: 0;
+                height: 0px;
                 display: grid;
                 grid-template-rows: auto auto;
                 grid-template-areas:
@@ -442,7 +442,6 @@ body {
         text-align: left;
     }
 }
-
 .wrapper-faq {
     overflow-y: auto;
     background-color: $pink;
