@@ -362,7 +362,7 @@ body {
   flex: initial;
   background-color: rgb(48, 213, 95);
   width: 100%;
-  height: 0;
+  height: 0px;
   display: grid;
   grid-template-rows: auto auto;
   grid-template-areas: "delete" "save";
