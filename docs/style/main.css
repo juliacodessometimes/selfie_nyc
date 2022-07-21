@@ -344,7 +344,6 @@ body {
 .wrapper-index .slider .slider-functions .slider-text.clicked {
   transform: translateY(-116px);
   height: 116px;
-  opacity: 0;
 }
 .wrapper-index .slider .slider-functions .slider-text .take-selfie {
   background: url(../assets/selfie.png);

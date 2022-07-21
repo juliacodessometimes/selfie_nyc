@@ -333,7 +333,7 @@ body {
                 &.clicked {
                     transform: translateY(-$selfiebutton_height);
                     height: $selfiebutton_height;
-                    opacity: 0;
+                    //opacity: 0;
                 }
                 .take-selfie {
                     background: url(../assets/selfie.png);
