@@ -24,7 +24,70 @@ $light_pink: rgb(255, 204, 255);
 $maroon: rgb(125, 63, 89);
 $orange: rgb(239, 154, 154);
 $black: rgb(56, 44, 56);
+// gradients
+$green_gradient: linear-gradient(
+    $green 50%,
+    rgb(46, 210, 96) 50%,
+    rgb(46, 210, 96) 55%,
+    rgb(42, 205, 99) 55%,
+    rgb(42, 205, 99) 60%,
+    rgb(36, 197, 104) 60%,
+    rgb(36, 197, 104) 65%,
+    rgb(28, 187, 111) 65%,
+    rgb(28, 187, 111) 70%,
+    rgb(18, 174, 119) 70%,
+    rgb(18, 174, 119) 75%,
+    rgb(11, 164, 125) 75%,
+    rgb(11, 164, 125) 80%,
+    rgb(5, 157, 130) 80%,
+    rgb(5, 157, 130) 85%,
+    rgb(1, 152, 134) 85%,
+    rgb(1, 152, 134) 90%,
+    $darkgreen 100%
+);
+$pink_gradient: linear-gradient(
+    $pink 50%,
+    rgb(217, 77, 200) 50%,
+    rgb(217, 77, 200) 55%,
+    rgb(209, 76, 191) 55%,
+    rgb(209, 76, 191) 60%,
+    rgb(197, 74, 176) 60%,
+    rgb(197, 74, 176) 65%,
+    rgb(182, 71, 157) 65%,
+    rgb(182, 71, 157) 70%,
+    rgb(165, 69, 137) 70%,
+    rgb(165, 69, 137) 75%,
+    rgb(149, 66, 118) 75%,
+    rgb(149, 66, 118) 80%,
+    rgb(137, 65, 104) 80%,
+    rgb(137, 65, 104) 85%,
+    rgb(130, 63, 95) 85%,
+    rgb(130, 63, 95) 90%,
+    $maroon 100%
+);
+$blue_gradient: linear-gradient(
+    $blue 50%,
+    rgb(0, 172, 252) 50%,
+    rgb(0, 172, 252) 55%,
+    rgb(3, 163, 245) 55%,
+    rgb(3, 163, 245) 60%,
+    rgb(8, 147, 230) 60%,
+    rgb(8, 147, 230) 65%,
+    rgb(15, 125, 211) 65%,
+    rgb(15, 125, 211) 70%,
+    rgb(23, 101, 189) 70%,
+    rgb(23, 101, 189) 75%,
+    rgb(30, 79, 170) 75%,
+    rgb(30, 79, 170) 80%,
+    rgb(36, 63, 156) 80%,
+    rgb(36, 63, 156) 85%,
+    rgb(39, 55, 149) 85%,
+    rgb(39, 55, 149) 90%,
+    $darkblue 100%
+);
 // sizes
+$selfiewidth: 352px;
+$selfieheight: 240px;
 $selfiebutton_height: 116px;
 $selfiebutton_width: 232px;
 $buttons_height: 116px;
@@ -38,12 +101,11 @@ $toggle_buttons: 58px;
 $yellowborder_style: 6px solid $yellow;
 $pinkborder_style: 6px solid $pink;
 $blueborder_style: 6px solid $darkblue;
-$skinnypinkborder_style: 3px solid $pink;
-$greenborder_style: 6px solid $darkgreen;
-$wideborder_style: 20px solid $yellow;
-$blackborder_style: 10px solid $black;
 $maroonborder_style: 6px solid $maroon;
-$widemaroonborder_style: 10px solid $maroon;
+$greenborder_style: 6px solid $darkgreen;
+$blackborder_style: 10px solid $black;
+$skinnyyellowborder_style: 2px solid $yellow;
+$skinnyblueborder_style: 3px solid $darkblue;
 $text_padding: 3px;
 //shadows
 $yellow_shadowbottom: 0px 10px 0px 0px;
@@ -69,17 +131,26 @@ a {
     text-decoration: underline;
     color: $yellow;
 }
+h1 {
+    color: $yellow;
+    font-size: 25px;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
 h3 {
     font-size: 20px;
     font-weight: 500;
     text-align: center;
     background-color: transparent;
+    padding: 2px;
 }
 h4 {
     font-size: 19px;
     font-weight: 500;
     text-align: left;
-    padding: 2px;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 h5 {
     font-size: 19px;
@@ -106,8 +177,19 @@ body {
     left: 0;
     bottom: 0;
 }
+.nav-bar{
+    height: 100%;
+    width: 80%;
+    border: $skinnyyellowborder_style;
+    display: flex;
+    margin: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+}
 .header-index {
-    background-color: $green;
+    background: $green;
     border-bottom: $greenborder_style;
     box-shadow: $black 0px -3px 13px 0px;
     outline: none;
@@ -118,11 +200,17 @@ body {
     transition: transform .7s ease-out;
     z-index: 2;
     position: absolute;
-    padding: $text_padding;
     top: 0;
     left: 0;
+    p {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+    h3 {
+        margin-top: 10px;
+    }
     &.is-open {
-      transform: translateY(-101%)
+      transform: translateY(-101%);
     }
 }
 #logo {
@@ -137,7 +225,9 @@ body {
 .wrapper-index {
     width: 100%;
     height: 100%;
-    background-color: $darkgreen;
+    background: $green_gradient;
+    background-repeat: no-repeat;
+    background-size: 100%;
     position: static;
     top: 0;
     right: 0;
@@ -237,7 +327,9 @@ body {
     .slider {
         grid-area: slider;
         border: $greenborder_style;
-        background-color: $green;
+        background: $green_gradient;
+        background-repeat: no-repeat;
+        background-size: 100%;
         box-shadow: $black 0px 6px 13px 0px;
         width: 100%;
         height: $height_slider_total;
@@ -261,7 +353,7 @@ body {
             grid-area: title;
             position: relative;
             border-bottom: $greenborder_style;
-            background-color: $green;
+            background-color: transparent;
             display: flex;
             align-items: center;
             z-index: 2;
@@ -326,7 +418,7 @@ body {
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                background-color: $green;
+                background-color: transparent;
                 opacity: 1;
                 text-align: center;
                 transition: transform .7s ease-in-out, opacity .7s ease-in-out;
@@ -350,7 +442,7 @@ body {
             }
             .slider-buttons {
                 flex: initial;
-                background-color: $green;
+                background-color: transparent;
                 width: 100%;
                 height: 0px;
                 display: grid;
@@ -410,7 +502,7 @@ body {
                 flex-wrap:wrap;
                 height: 100%;
                 width: 100%;
-                background-color: $green;
+                background-color: transparent;
                 z-index: 1;
                 overflow-y: auto;
                 transition: transform .7s ease-in-out;
@@ -442,29 +534,24 @@ body {
 }
 .wrapper-faq {
     overflow-y: auto;
-    background-color: $pink;
+    background: $pink_gradient;
     height: 100%;
     width: 100%;
     position: static;
     .header {
-        background-color: $pink;
+        background: transparent;
         overflow: hidden;
         color: $yellow;
         width: 100%;
         height: auto;
         z-index: 3;
         padding: $text_padding;
-        h1 {
-            color: $yellow;
-            font-size: 25px;
-            text-align: center;
-        }
     }   
     .main-text {
         min-height: 100%;
         height: auto;
         width: 100%;
-        background-color: $pink;
+        background: transparent;
         padding: 5px;
         z-index: 4;
         #example {
@@ -488,7 +575,7 @@ body {
         }
     }
     .footer {
-        background-color: $maroon;
+        background: $maroon;
         color:$yellow;
         overflow: hidden;
         width: 100%;
@@ -503,12 +590,12 @@ body {
 }
 .wrapper-about {
     overflow-y: auto;
-    background-color: $blue;
+    background: $blue_gradient;
     height: 100%;
     width: 100%;
     position: static;
     .header {
-        background-color: $blue;
+        background: transparent;
         overflow: hidden;
         color: $yellow;
         width: 100%;
@@ -525,7 +612,7 @@ body {
         min-height: 100%;
         height: auto;
         width: 100%;
-        background-color: $blue;
+        background: transparent;
         padding: 5px;
         z-index: 4;
         h4 {
@@ -550,6 +637,70 @@ body {
         z-index: 3;
         p {
             text-align: left;
+        }
+    }
+}
+.wrapper-edit {
+    width: 100%;
+    height: 100%;
+    background: $green_gradient;
+    background-size: 100%;
+    position: static;
+    z-index: 1;
+    overflow-y: auto;
+    .header {
+        padding: text_padding;
+        overflow: hidden;
+        width: 100%;
+        outline: none;
+        height: auto;
+    }
+    #stickerbar {
+        height: auto;
+        width: 100%;
+        display: flex;
+        margin: auto;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+    canvas {
+        height: auto;
+        width: 100%;
+        background-color: transparent;
+        border: $greenborder_style;
+        .edit-image {
+            #camImage {
+                display: block;
+                height: auto;
+                max-height: 100%;
+                width: 100%;
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-color: $black;
+                border: $blackborder_style;
+            }
+            .selfie-title {
+                height: $toggle_buttons;
+                width: auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: $green;
+                #camTitle {
+                    background-color: transparent;
+                    font-size: 19px;
+                    height: auto;
+                    width: auto;
+                    -webkit-font-smoothing: antialiased;
+                    font-family: pixelfont;
+                    font-weight: 500;
+                    color: $yellow;
+                    text-align: center;
+                    padding: 15px;
+                }
+            }
         }
     }
 }

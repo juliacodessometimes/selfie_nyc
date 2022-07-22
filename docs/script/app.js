@@ -149,6 +149,7 @@ function flyFromCamera() {
         speed: 1.6
     });
 }
+
 // button functions
 function toggleBtn() {
     // close slider button functions

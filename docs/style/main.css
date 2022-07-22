@@ -74,18 +74,28 @@ a {
   color: rgb(255, 255, 3);
 }
 
+h1 {
+  color: rgb(255, 255, 3);
+  font-size: 25px;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
 h3 {
   font-size: 20px;
   font-weight: 500;
   text-align: center;
   background-color: transparent;
+  padding: 2px;
 }
 
 h4 {
   font-size: 19px;
   font-weight: 500;
   text-align: left;
-  padding: 2px;
+  padding-left: 2px;
+  padding-right: 2px;
 }
 
 h5 {
@@ -115,8 +125,20 @@ body {
   bottom: 0;
 }
 
+.nav-bar {
+  height: 100%;
+  width: 80%;
+  border: 2px solid rgb(255, 255, 3);
+  display: flex;
+  margin: auto;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
 .header-index {
-  background-color: rgb(48, 213, 95);
+  background: rgb(48, 213, 95);
   border-bottom: 6px solid rgb(0, 150, 136);
   box-shadow: rgb(56, 44, 56) 0px -3px 13px 0px;
   outline: none;
@@ -127,9 +149,15 @@ body {
   transition: transform 0.7s ease-out;
   z-index: 2;
   position: absolute;
-  padding: 3px;
   top: 0;
   left: 0;
+}
+.header-index p {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.header-index h3 {
+  margin-top: 10px;
 }
 .header-index.is-open {
   transform: translateY(-101%);
@@ -148,7 +176,9 @@ body {
 .wrapper-index {
   width: 100%;
   height: 100%;
-  background-color: rgb(0, 150, 136);
+  background: linear-gradient(rgb(48, 213, 95) 50%, rgb(46, 210, 96) 50%, rgb(46, 210, 96) 55%, rgb(42, 205, 99) 55%, rgb(42, 205, 99) 60%, rgb(36, 197, 104) 60%, rgb(36, 197, 104) 65%, rgb(28, 187, 111) 65%, rgb(28, 187, 111) 70%, rgb(18, 174, 119) 70%, rgb(18, 174, 119) 75%, rgb(11, 164, 125) 75%, rgb(11, 164, 125) 80%, rgb(5, 157, 130) 80%, rgb(5, 157, 130) 85%, rgb(1, 152, 134) 85%, rgb(1, 152, 134) 90%, rgb(0, 150, 136) 100%);
+  background-repeat: no-repeat;
+  background-size: 100%;
   position: static;
   top: 0;
   right: 0;
@@ -248,7 +278,9 @@ body {
 .wrapper-index .slider {
   grid-area: slider;
   border: 6px solid rgb(0, 150, 136);
-  background-color: rgb(48, 213, 95);
+  background: linear-gradient(rgb(48, 213, 95) 50%, rgb(46, 210, 96) 50%, rgb(46, 210, 96) 55%, rgb(42, 205, 99) 55%, rgb(42, 205, 99) 60%, rgb(36, 197, 104) 60%, rgb(36, 197, 104) 65%, rgb(28, 187, 111) 65%, rgb(28, 187, 111) 70%, rgb(18, 174, 119) 70%, rgb(18, 174, 119) 75%, rgb(11, 164, 125) 75%, rgb(11, 164, 125) 80%, rgb(5, 157, 130) 80%, rgb(5, 157, 130) 85%, rgb(1, 152, 134) 85%, rgb(1, 152, 134) 90%, rgb(0, 150, 136) 100%);
+  background-repeat: no-repeat;
+  background-size: 100%;
   box-shadow: rgb(56, 44, 56) 0px 6px 13px 0px;
   width: 100%;
   height: 100vh;
@@ -270,7 +302,7 @@ body {
   grid-area: title;
   position: relative;
   border-bottom: 6px solid rgb(0, 150, 136);
-  background-color: rgb(48, 213, 95);
+  background-color: transparent;
   display: flex;
   align-items: center;
   z-index: 2;
@@ -336,7 +368,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgb(48, 213, 95);
+  background-color: transparent;
   opacity: 1;
   text-align: center;
   transition: transform 0.7s ease-in-out, opacity 0.7s ease-in-out;
@@ -359,7 +391,7 @@ body {
 }
 .wrapper-index .slider .slider-functions .slider-buttons {
   flex: initial;
-  background-color: rgb(48, 213, 95);
+  background-color: transparent;
   width: 100%;
   height: 0px;
   display: grid;
@@ -417,7 +449,7 @@ body {
   flex-wrap: wrap;
   height: 100%;
   width: 100%;
-  background-color: rgb(48, 213, 95);
+  background-color: transparent;
   z-index: 1;
   overflow-y: auto;
   transition: transform 0.7s ease-in-out;
@@ -448,13 +480,13 @@ body {
 
 .wrapper-faq {
   overflow-y: auto;
-  background-color: rgb(223, 79, 207);
+  background: linear-gradient(rgb(223, 79, 207) 50%, rgb(217, 77, 200) 50%, rgb(217, 77, 200) 55%, rgb(209, 76, 191) 55%, rgb(209, 76, 191) 60%, rgb(197, 74, 176) 60%, rgb(197, 74, 176) 65%, rgb(182, 71, 157) 65%, rgb(182, 71, 157) 70%, rgb(165, 69, 137) 70%, rgb(165, 69, 137) 75%, rgb(149, 66, 118) 75%, rgb(149, 66, 118) 80%, rgb(137, 65, 104) 80%, rgb(137, 65, 104) 85%, rgb(130, 63, 95) 85%, rgb(130, 63, 95) 90%, rgb(125, 63, 89) 100%);
   height: 100%;
   width: 100%;
   position: static;
 }
 .wrapper-faq .header {
-  background-color: rgb(223, 79, 207);
+  background: transparent;
   overflow: hidden;
   color: rgb(255, 255, 3);
   width: 100%;
@@ -462,16 +494,11 @@ body {
   z-index: 3;
   padding: 3px;
 }
-.wrapper-faq .header h1 {
-  color: rgb(255, 255, 3);
-  font-size: 25px;
-  text-align: center;
-}
 .wrapper-faq .main-text {
   min-height: 100%;
   height: auto;
   width: 100%;
-  background-color: rgb(223, 79, 207);
+  background: transparent;
   padding: 5px;
   z-index: 4;
 }
@@ -495,7 +522,7 @@ body {
   padding-right: 9px;
 }
 .wrapper-faq .footer {
-  background-color: rgb(125, 63, 89);
+  background: rgb(125, 63, 89);
   color: rgb(255, 255, 3);
   overflow: hidden;
   width: 100%;
@@ -510,13 +537,13 @@ body {
 
 .wrapper-about {
   overflow-y: auto;
-  background-color: rgb(0, 175, 255);
+  background: linear-gradient(rgb(0, 175, 255) 50%, rgb(0, 172, 252) 50%, rgb(0, 172, 252) 55%, rgb(3, 163, 245) 55%, rgb(3, 163, 245) 60%, rgb(8, 147, 230) 60%, rgb(8, 147, 230) 65%, rgb(15, 125, 211) 65%, rgb(15, 125, 211) 70%, rgb(23, 101, 189) 70%, rgb(23, 101, 189) 75%, rgb(30, 79, 170) 75%, rgb(30, 79, 170) 80%, rgb(36, 63, 156) 80%, rgb(36, 63, 156) 85%, rgb(39, 55, 149) 85%, rgb(39, 55, 149) 90%, rgb(40, 53, 147) 100%);
   height: 100%;
   width: 100%;
   position: static;
 }
 .wrapper-about .header {
-  background-color: rgb(0, 175, 255);
+  background: transparent;
   overflow: hidden;
   color: rgb(255, 255, 3);
   width: 100%;
@@ -533,7 +560,7 @@ body {
   min-height: 100%;
   height: auto;
   width: 100%;
-  background-color: rgb(0, 175, 255);
+  background: transparent;
   padding: 5px;
   z-index: 4;
 }
@@ -559,4 +586,67 @@ body {
 }
 .wrapper-about .footer p {
   text-align: left;
+}
+
+.wrapper-edit {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgb(48, 213, 95) 50%, rgb(46, 210, 96) 50%, rgb(46, 210, 96) 55%, rgb(42, 205, 99) 55%, rgb(42, 205, 99) 60%, rgb(36, 197, 104) 60%, rgb(36, 197, 104) 65%, rgb(28, 187, 111) 65%, rgb(28, 187, 111) 70%, rgb(18, 174, 119) 70%, rgb(18, 174, 119) 75%, rgb(11, 164, 125) 75%, rgb(11, 164, 125) 80%, rgb(5, 157, 130) 80%, rgb(5, 157, 130) 85%, rgb(1, 152, 134) 85%, rgb(1, 152, 134) 90%, rgb(0, 150, 136) 100%);
+  background-size: 100%;
+  position: static;
+  z-index: 1;
+  overflow-y: auto;
+}
+.wrapper-edit .header {
+  padding: text_padding;
+  overflow: hidden;
+  width: 100%;
+  outline: none;
+  height: auto;
+}
+.wrapper-edit #stickerbar {
+  height: auto;
+  width: 100%;
+  display: flex;
+  margin: auto;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.wrapper-edit canvas {
+  height: auto;
+  width: 100%;
+  background-color: transparent;
+  border: 6px solid rgb(0, 150, 136);
+}
+.wrapper-edit canvas .edit-image #camImage {
+  display: block;
+  height: auto;
+  max-height: 100%;
+  width: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: rgb(56, 44, 56);
+  border: 10px solid rgb(56, 44, 56);
+}
+.wrapper-edit canvas .edit-image .selfie-title {
+  height: 58px;
+  width: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(48, 213, 95);
+}
+.wrapper-edit canvas .edit-image .selfie-title #camTitle {
+  background-color: transparent;
+  font-size: 19px;
+  height: auto;
+  width: auto;
+  -webkit-font-smoothing: antialiased;
+  font-family: pixelfont;
+  font-weight: 500;
+  color: rgb(255, 255, 3);
+  text-align: center;
+  padding: 15px;
 }/*# sourceMappingURL=main.css.map */
