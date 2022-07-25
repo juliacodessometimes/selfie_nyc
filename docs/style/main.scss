@@ -480,11 +480,11 @@ body {
                 .delete-it {
                     grid-area: 'delete';
                     height: $selfiebutton_height;
-                    width: $selfiebutton_width;
+                    width: 248px;
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    background: url(../assets/delete.png);
+                    background: url(../assets/del_big_other.png);
                     background-repeat: no-repeat;
                     background-size: 100%;
                     padding-left: 10px;
@@ -494,7 +494,7 @@ body {
                     cursor: pointer;
                 }
                 .delete-it:active {
-                    background: url(../assets/delete_pressed.png);
+                    background: url(../assets/del_pressedsbig_other.png);
                 }
             }
             .slider-spacer {
