@@ -89,8 +89,7 @@ $blue_gradient: linear-gradient(
 $selfiewidth: 352px;
 $selfieheight: 240px;
 $selfiebutton_height: 116px;
-$selfiebutton_width: 232px;
-$otherbutton_width: 288px;
+$selfiebutton_width: 288px;;
 $buttons_height: 116px;
 $buttons_width: 150px;
 $height_slider_open: 85vh;
@@ -468,7 +467,7 @@ body {
                 .save-it {
                     grid-area: 'save';
                     height: $selfiebutton_height;
-                    width: $otherbutton_width;
+                    width: $selfiebutton_width;
                     display: flex;
                     justify-content: center;
                     align-items: center;
@@ -487,7 +486,7 @@ body {
                 .delete-it {
                     grid-area: 'delete';
                     height: $selfiebutton_height;
-                    width: $otherbutton_width;
+                    width: $selfiebutton_width;
                     display: flex;
                     justify-content: center;
                     align-items: center;
