@@ -172,7 +172,7 @@ body {
     border-left: 6px solid $darkgreen;
     border-bottom: 6px solid $darkgreen;
     border-top: 6px solid rgb(7, 255, 77);
-    border-right: 6px solid rgb(7, 255, 77);
+    border-right: 6px solid $green;
     background-color: white;
     position: absolute;
     top: 0;
@@ -333,7 +333,7 @@ body {
         border-left: $greenborder_style;
         border-bottom: $greenborder_style;
         border-top: 6px solid rgb(7, 255, 77);
-        border-right: 6px solid rgb(7, 255, 77);
+        border-right: 6px solid $green;
         background: $green_gradient;
         background-repeat: no-repeat;
         background-size: 100%;
