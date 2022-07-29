@@ -12,17 +12,31 @@
 <div class="wrapper-edit">
 <div class="header">
     <img src="assets/logo.png" id="logo"></img>
-    <h3>edit and save your selfie!</h3>
-    <h5><a href="about.html">about page</a></h5>
-    <h5><a href="index.html">back to selfie_nyc</a></h5>
+    <div class="nav-bar">
+        <h5><a href="index.html">home</a></h5>
+        <h5><a href="about.html">about</a></h5>
+        <h5><a href="faq.html">FAQ</a></h5>
+    </div>
+    <h3>drag and drop stickers to decorate your selfie</h3>
 </div>
+<div id="stickerbar">
+    <img class="sticker" src="assets/toggle.png">
+    <img class="sticker" src="assets/toggle.png">
+    <img class="sticker" src="assets/toggle.png">
+    <img class="sticker" src="assets/toggle.png">
+</div><br>
+<canvas id="selfie-canvas">
 <div class="edit-image">
-    <img id="selfieImage" src="">
+    <img id="camImage" src="assets/cctv.png">
+    <div class="selfie-title">
+        <div id="camTitle">this is a test & this is a test & this is a test & this is a test</div>
+    </div>
 </div>
+</canvas>
 </div>
 <div class="footer-index">
     <p>website by <a href="https://www.juliabloomportfolio.com/">julia bloom</a></p>
 </div>
-<script src="script/app.js"></script>
+<script src="script/edit.js"></script>
 </body>
 </html>

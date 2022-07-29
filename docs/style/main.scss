@@ -196,6 +196,7 @@ body {
     border-bottom: 6px solid $darkgreen;
     box-shadow: $black 0px -3px 13px 0px;
     outline: none;
+    padding: text_padding;
     color: $yellow;
     overflow: hidden;
     width: 100%;
@@ -431,7 +432,7 @@ body {
                 &.clicked {
                     transform: translateY(-$selfiebutton_height);
                     height: $selfiebutton_height;
-                    //opacity: 0;
+                    opacity: 0;
                 }
                 .take-selfie {
                     background: url(../assets/selfie.png);
