@@ -278,7 +278,7 @@ body {
 }
 .wrapper-index .slider {
   grid-area: slider;
-  border: 6px solid rgb(0, 150, 136);
+  border-top: 6px solid rgb(0, 150, 136);
   background: linear-gradient(rgb(48, 213, 95) 50%, rgb(46, 210, 96) 50%, rgb(46, 210, 96) 55%, rgb(42, 205, 99) 55%, rgb(42, 205, 99) 60%, rgb(36, 197, 104) 60%, rgb(36, 197, 104) 65%, rgb(28, 187, 111) 65%, rgb(28, 187, 111) 70%, rgb(18, 174, 119) 70%, rgb(18, 174, 119) 75%, rgb(11, 164, 125) 75%, rgb(11, 164, 125) 80%, rgb(5, 157, 130) 80%, rgb(5, 157, 130) 85%, rgb(1, 152, 134) 85%, rgb(1, 152, 134) 90%, rgb(0, 150, 136) 100%);
   background-repeat: no-repeat;
   background-size: 100%;
@@ -302,11 +302,12 @@ body {
 .wrapper-index .slider .slider-title {
   grid-area: title;
   position: relative;
-  border-bottom: 6px solid rgb(0, 150, 136);
-  border-right: 6px solid rgb(48, 213, 95);
   background-color: transparent;
   display: flex;
   align-items: center;
+  border-bottom: 6px solid rgb(0, 150, 136);
+  padding-left: 2px;
+  padding-right: 2px;
   z-index: 2;
 }
 .wrapper-index .slider .slider-title #location {
@@ -336,8 +337,8 @@ body {
 }
 .wrapper-index .slider .slider-cam {
   grid-area: camera;
-  border-bottom: 6px solid rgb(7, 255, 77);
   display: block;
+  margin: auto;
   height: auto;
   max-height: 100%;
   width: 100%;
@@ -618,38 +619,5 @@ body {
   justify-content: space-evenly;
 }
 .wrapper-edit canvas {
-  height: auto;
-  width: 100%;
-  background-color: transparent;
   border: 6px solid rgb(0, 150, 136);
-}
-.wrapper-edit canvas .edit-image #camImage {
-  display: block;
-  height: auto;
-  max-height: 100%;
-  width: 100%;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-color: rgb(56, 44, 56);
-  border: 10px solid rgb(56, 44, 56);
-}
-.wrapper-edit canvas .edit-image .selfie-title {
-  height: 58px;
-  width: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgb(48, 213, 95);
-}
-.wrapper-edit canvas .edit-image .selfie-title #camTitle {
-  background-color: transparent;
-  font-size: 19px;
-  height: auto;
-  width: auto;
-  -webkit-font-smoothing: antialiased;
-  font-family: pixelfont;
-  font-weight: 500;
-  color: rgb(255, 255, 3);
-  text-align: center;
-  padding: 15px;
 }/*# sourceMappingURL=main.css.map */

@@ -327,7 +327,7 @@ body {
     }
     .slider {
         grid-area: slider;
-        border: $greenborder_style;
+        border-top: $greenborder_style;
         background: $green_gradient;
         background-repeat: no-repeat;
         background-size: 100%;
@@ -353,11 +353,12 @@ body {
         .slider-title {
             grid-area: title;
             position: relative;
-            border-bottom: $greenborder_style;
-            border-right: 6px solid $green;
             background-color: transparent;
             display: flex;
             align-items: center;
+            border-bottom: $greenborder_style;
+            padding-left: 2px;
+            padding-right: 2px;
             z-index: 2;
             #location {
                 background-color: transparent;
@@ -387,8 +388,8 @@ body {
         }
         .slider-cam {
             grid-area: camera;
-            border-bottom: 6px solid rgb(7, 255, 77);
             display: block;
+            margin: auto;
             height: auto;
             max-height: 100%;
             width: 100%;
@@ -668,41 +669,7 @@ body {
         justify-content: space-evenly;
     }
     canvas {
-        height: auto;
-        width: 100%;
-        background-color: transparent;
+        //background-color: transparent;
         border: $greenborder_style;
-        .edit-image {
-            #camImage {
-                display: block;
-                height: auto;
-                max-height: 100%;
-                width: 100%;
-                background-size: contain;
-                background-repeat: no-repeat;
-                background-color: $black;
-                border: $blackborder_style;
-            }
-            .selfie-title {
-                height: $toggle_buttons;
-                width: auto;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                background-color: $green;
-                #camTitle {
-                    background-color: transparent;
-                    font-size: 19px;
-                    height: auto;
-                    width: auto;
-                    -webkit-font-smoothing: antialiased;
-                    font-family: pixelfont;
-                    font-weight: 500;
-                    color: $yellow;
-                    text-align: center;
-                    padding: 15px;
-                }
-            }
-        }
     }
 }
