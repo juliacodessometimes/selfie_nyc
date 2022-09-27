@@ -535,7 +535,7 @@ body {
 }
 .wrapper-faq {
     overflow-y: auto;
-    background: url(../assets/background_pink.png), $pink_gradient;
+    background: url(../assets/background_lightpink.png), $pink_gradient;
     height: 100%;
     width: 100%;
     position: static;
@@ -548,7 +548,7 @@ body {
         z-index: 3;
         padding: $text_padding;
         mark {
-            background: $pink !important;
+            background: rgb(165, 69, 137) !important;
             color: $yellow !important;
         }
     }   
@@ -579,7 +579,7 @@ body {
             padding-right: 9px;
         }
         mark {
-            background: $pink !important;
+            background: rgb(165, 69, 137) !important;
             color: $yellow !important;
         }
     }
