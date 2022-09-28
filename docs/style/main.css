@@ -63,7 +63,7 @@ html {
 }
 
 p {
-  font-size: 17px;
+  font-size: 19px;
   text-align: left;
   text-align: center;
   color: rgb(255, 255, 3);
@@ -83,7 +83,7 @@ h1 {
 }
 
 h3 {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 500;
   text-align: center;
   background-color: transparent;
@@ -91,7 +91,7 @@ h3 {
 }
 
 h4 {
-  font-size: 19px;
+  font-size: 22px;
   font-weight: 500;
   text-align: left;
   padding-left: 2px;
@@ -99,7 +99,7 @@ h4 {
 }
 
 h5 {
-  font-size: 19px;
+  font-size: 22px;
   font-weight: 500;
   text-align: center;
   padding: 2px;
@@ -128,7 +128,6 @@ body {
 .nav-bar {
   height: 100%;
   width: 80%;
-  border: 2px solid rgb(255, 255, 3);
   display: flex;
   margin: auto;
   flex-direction: row;
@@ -499,8 +498,12 @@ body {
   padding: 3px;
 }
 .wrapper-faq .header mark {
-  background: rgb(165, 69, 137) !important;
+  background: rgb(223, 79, 207) !important;
   color: rgb(255, 255, 3) !important;
+}
+.wrapper-faq .header .nav-bar {
+  background-color: rgb(223, 79, 207);
+  border: 3px solid rgb(125, 63, 89);
 }
 .wrapper-faq .main-text {
   min-height: 100%;
@@ -525,7 +528,7 @@ body {
 }
 .wrapper-faq .main-text p {
   text-align: left;
-  font-size: 15px;
+  font-size: 19px;
   padding-left: 13px;
   padding-right: 9px;
 }

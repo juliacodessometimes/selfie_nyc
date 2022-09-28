@@ -120,7 +120,7 @@ html {
     height: 100%;
 }
 p {
-    font-size: 17px;
+    font-size: 19px;
     text-align: left;
     text-align: center;
     color: $yellow;
@@ -137,21 +137,21 @@ h1 {
     margin-bottom: 20px;
 }
 h3 {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 500;
     text-align: center;
     background-color: transparent;
     padding: 2px;
 }
 h4 {
-    font-size: 19px;
+    font-size: 22px;
     font-weight: 500;
     text-align: left;
     padding-left: 2px;
     padding-right: 2px;
 }
 h5 {
-    font-size: 19px;
+    font-size: 22px;
     font-weight: 500;
     text-align: center;
     padding: 2px;
@@ -175,10 +175,9 @@ body {
     left: 0;
     bottom: 0;
 }
-.nav-bar{
+.nav-bar {
     height: 100%;
     width: 80%;
-    border: $skinnyyellowborder_style;
     display: flex;
     margin: auto;
     flex-direction: row;
@@ -548,8 +547,12 @@ body {
         z-index: 3;
         padding: $text_padding;
         mark {
-            background: rgb(165, 69, 137) !important;
+            background: $pink !important;
             color: $yellow !important;
+        }
+        .nav-bar {
+            background-color: $pink;
+            border: 3px solid $maroon;
         }
     }   
     .main-text {
@@ -574,7 +577,7 @@ body {
         }
         p {
             text-align: left;
-            font-size: 15px;
+            font-size: 19px;
             padding-left: 13px;
             padding-right: 9px;
         }
