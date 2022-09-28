@@ -45,6 +45,18 @@ $green_gradient: linear-gradient(
     rgb(1, 152, 134) 90%,
     $darkgreen 100%
 );
+$darkgreen_gradient: linear-gradient(
+    rgb(255, 255, 255, 0) 70%,
+    rgb(18, 174, 119) 70%,
+    rgb(18, 174, 119) 75%,
+    rgb(11, 164, 125) 75%,
+    rgb(11, 164, 125) 80%,
+    rgb(5, 157, 130) 80%,
+    rgb(5, 157, 130) 85%,
+    rgb(1, 152, 134) 85%,
+    rgb(1, 152, 134) 90%,
+    $darkgreen 100%
+);
 $pink_gradient: linear-gradient(
     $pink 50%,
     rgb(217, 77, 200) 50%,
@@ -136,7 +148,7 @@ html {
     height: 100%;
 }
 p {
-    font-size: 18px;
+    font-size: 16px;
     text-align: left;
     text-align: center;
     color: $yellow;
@@ -202,7 +214,7 @@ body {
     justify-content: space-evenly;
 }
 .header-index {
-    background: url(../assets/background_darkgreen.png), $green_gradient;
+    background: $darkgreen_gradient, url(../assets/background_darkgreen.png), $green_gradient;
     border-bottom: 6px solid $darkgreen;
     box-shadow: $black 0px -3px 13px 0px;
     outline: none;
@@ -216,6 +228,9 @@ body {
     position: absolute;
     top: 0;
     left: 0;
+    .nav-bar {
+        background-color: $darkgreen;
+    }
     p {
         margin-left: 5px;
         margin-right: 5px;
@@ -567,8 +582,7 @@ body {
             color: $yellow !important;
         }
         .nav-bar {
-            background-color: $pink;
-            border: 3px solid $maroon;
+            background-color: $maroon;
         }
     }   
     .main-text {
