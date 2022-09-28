@@ -65,6 +65,22 @@ $pink_gradient: linear-gradient(
     rgb(130, 63, 95) 90%,
     $maroon 100%
 );
+$darkpink_gradient : linear-gradient(
+    rgba(255, 255, 255, 0) 60%,
+    rgb(197, 74, 176) 60%,
+    rgb(197, 74, 176) 65%,
+    rgb(182, 71, 157) 65%,
+    rgb(182, 71, 157) 70%,
+    rgb(165, 69, 137) 70%,
+    rgb(165, 69, 137) 75%,
+    rgb(149, 66, 118) 75%,
+    rgb(149, 66, 118) 80%,
+    rgb(137, 65, 104) 80%,
+    rgb(137, 65, 104) 85%,
+    rgb(130, 63, 95) 85%,
+    rgb(130, 63, 95) 90%,
+    $maroon 100%
+);
 $blue_gradient: linear-gradient(
     $blue 50%,
     rgb(0, 172, 252) 50%,
@@ -120,7 +136,7 @@ html {
     height: 100%;
 }
 p {
-    font-size: 19px;
+    font-size: 18px;
     text-align: left;
     text-align: center;
     color: $yellow;
@@ -131,27 +147,27 @@ a {
 }
 h1 {
     color: $yellow;
-    font-size: 25px;
+    font-size: 24px;
     text-align: center;
     margin-top: 20px;
     margin-bottom: 20px;
 }
 h3 {
-    font-size: 22px;
+    font-size: 21px;
     font-weight: 500;
     text-align: center;
     background-color: transparent;
     padding: 2px;
 }
 h4 {
-    font-size: 22px;
+    font-size: 21px;
     font-weight: 500;
     text-align: left;
     padding-left: 2px;
     padding-right: 2px;
 }
 h5 {
-    font-size: 22px;
+    font-size: 21px;
     font-weight: 500;
     text-align: center;
     padding: 2px;
@@ -534,7 +550,7 @@ body {
 }
 .wrapper-faq {
     overflow-y: auto;
-    background: url(../assets/background_lightpink.png), $pink_gradient;
+    background: $darkpink_gradient, url(../assets/background_lightpink.png), $pink_gradient;
     height: 100%;
     width: 100%;
     position: static;
@@ -577,13 +593,9 @@ body {
         }
         p {
             text-align: left;
-            font-size: 19px;
+            font-size: 18px;
             padding-left: 13px;
             padding-right: 9px;
-        }
-        mark {
-            background: rgb(165, 69, 137) !important;
-            color: $yellow !important;
         }
     }
     .footer {
