@@ -141,7 +141,6 @@ body {
   border-bottom: 6px solid rgb(0, 150, 136);
   box-shadow: rgb(56, 44, 56) 0px -3px 13px 0px;
   outline: none;
-  padding: text_padding;
   color: rgb(255, 255, 3);
   overflow: hidden;
   width: 100%;
@@ -152,12 +151,21 @@ body {
   top: 0;
   left: 0;
 }
+.header-index mark {
+  background: rgb(48, 213, 95) !important;
+  color: rgb(255, 255, 3) !important;
+}
 .header-index p {
   margin-left: 5px;
   margin-right: 5px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  font-size: 18px;
 }
-.header-index h3 {
+.header-index h1 {
   margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 20px;
 }
 .header-index.is-open {
   transform: translateY(-101%);
@@ -307,6 +315,7 @@ body {
   border-bottom: 6px solid rgb(0, 150, 136);
   padding-left: 2px;
   padding-right: 2px;
+  text-shadow: -1px 0 rgb(40, 53, 147), 0 1px rgb(40, 53, 147), 1px 0 rgb(40, 53, 147), 0 -1px rgb(40, 53, 147);
   z-index: 2;
 }
 .wrapper-index .slider .slider-title #location {
@@ -576,7 +585,7 @@ body {
 }
 .wrapper-about .main-text p {
   text-align: left;
-  font-size: 15px;
+  font-size: 18px;
   padding-left: 13px;
   padding-right: 9px;
 }
