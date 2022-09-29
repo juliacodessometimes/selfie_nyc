@@ -151,6 +151,9 @@ body {
   top: 0;
   left: 0;
 }
+.header-index .nav-bar {
+  margin-bottom: 10px;
+}
 .header-index mark {
   background: rgb(48, 213, 95) !important;
   color: rgb(255, 255, 3) !important;
@@ -160,12 +163,7 @@ body {
   margin-right: 5px;
   margin-top: 0px;
   margin-bottom: 0px;
-  font-size: 18px;
-}
-.header-index h1 {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  font-size: 20px;
+  font-size: 19px;
 }
 .header-index.is-open {
   transform: translateY(-101%);
@@ -312,6 +310,7 @@ body {
   background-color: transparent;
   display: flex;
   align-items: center;
+  font-size: 22px;
   border-bottom: 6px solid rgb(0, 150, 136);
   padding-left: 2px;
   padding-right: 2px;

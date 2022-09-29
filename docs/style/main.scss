@@ -242,6 +242,9 @@ body {
     position: absolute;
     top: 0;
     left: 0;
+    .nav-bar {
+        margin-bottom: 10px;
+    }
     mark {
         background: $green !important;
         color: $yellow !important;
@@ -251,12 +254,7 @@ body {
         margin-right: 5px;
         margin-top: 0px;
         margin-bottom: 0px;
-        font-size: 18px;
-    }
-    h1 {
-        margin-top: 10px;
-        margin-bottom: 10px;
-        font-size: 20px;
+        font-size: 19px;
     }
     &.is-open {
       transform: translateY(-101%);
@@ -404,6 +402,7 @@ body {
             background-color: transparent;
             display: flex;
             align-items: center;
+            font-size: 22px;
             border-bottom: $greenborder_style;
             padding-left: 2px;
             padding-right: 2px;
