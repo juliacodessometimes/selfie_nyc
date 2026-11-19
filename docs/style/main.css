@@ -2,52 +2,46 @@
   font-family: pixelfont;
   src: url(pixelfont.woff);
 }
-@-webkit-keyframes blinkFlash {
+@keyframes flash {
   0% {
-    opacity: 1;
-  }
-  15% {
-    opacity: 0.5;
-  }
-  45% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 0;
-  }
-  55% {
-    opacity: 0;
-  }
-  85% {
-    opacity: 0.5;
+    opacity: 0.9;
   }
   100% {
-    opacity: 1;
+    opacity: 0;
   }
 }
-@keyframes blinkFlash {
-  0% {
-    opacity: 1;
-  }
-  15% {
-    opacity: 0.5;
-  }
-  45% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 0;
-  }
-  55% {
-    opacity: 0;
-  }
-  85% {
-    opacity: 0.5;
-  }
-  100% {
-    opacity: 1;
-  }
+@view-transition {
+  navigation: auto;
 }
+html, body, p, h1, h2, h3, h4, h5, h6, ul, ol, li, figure {
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+button {
+  margin: 0;
+  font-family: inherit;
+}
+
+img {
+  height: auto;
+  max-width: 100%;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+       text-size-adjust: 100%;
+}
+
 *:focus {
   box-shadow: none;
 }
@@ -60,6 +54,7 @@ html {
   overflow: hidden;
   width: 100%;
   height: 100%;
+  overscroll-behavior: none;
 }
 
 p {
@@ -113,9 +108,12 @@ body {
   font-family: pixelfont;
   color: rgb(255, 255, 3);
   font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
   width: 100%;
   height: 100%;
   overflow: hidden;
+  overscroll-behavior: none;
   border: 6px solid rgb(0, 150, 136);
   background-color: white;
   position: absolute;
@@ -123,6 +121,32 @@ body {
   right: 0;
   left: 0;
   bottom: 0;
+}
+
+button,
+#logo,
+.header-index,
+.wrapper-index .slider,
+.wrapper-faq,
+.wrapper-about,
+.wrapper-edit {
+  image-rendering: pixelated;
+}
+
+button,
+img {
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+       user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.nav-bar a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 6px;
 }
 
 .nav-bar {
@@ -145,11 +169,12 @@ body {
   overflow: hidden;
   width: 100%;
   height: auto;
-  transition: transform 0.7s ease-out;
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
   z-index: 2;
   position: absolute;
   top: 0;
   left: 0;
+  padding-top: env(safe-area-inset-top, 0px);
 }
 .header-index .nav-bar {
   margin-bottom: 10px;
@@ -193,15 +218,13 @@ body {
   overflow: hidden;
   display: grid;
   grid-template-rows: 100vh 0vh;
+  grid-template-rows: 100dvh 0vh;
   grid-template-areas: "map" "slider";
-}
-.wrapper-index.clicked {
-  -webkit-animation: blinkFlash 0.5s ease-in-out;
-          animation: blinkFlash 0.5s ease-in-out;
 }
 .wrapper-index .map-class {
   grid-area: map;
   height: 95%;
+  height: calc(95% - env(safe-area-inset-bottom, 0px));
   width: 100%;
   position: absolute;
   overflow: hidden;
@@ -241,8 +264,7 @@ body {
   background-size: 100%;
   background-position: 100%;
   background-repeat: no-repeat;
-  -webkit-animation: none !important;
-          animation: none !important;
+  animation: none !important;
   background-image: url(../assets/geolocate_toggle.png) !important;
 }
 .wrapper-index .map-class #map button.mapboxgl-ctrl-geolocate:disabled {
@@ -254,8 +276,7 @@ body {
   background-size: 100%;
   background-position: 100%;
   background-repeat: no-repeat;
-  -webkit-animation: none !important;
-          animation: none !important;
+  animation: none !important;
   background-image: url(../assets/geolocate_toggledisabled.png) !important;
   opacity: 0.5 !important;
 }
@@ -265,8 +286,7 @@ body {
   background-size: 100%;
   background-position: 100%;
   background-repeat: no-repeat;
-  -webkit-animation: none !important;
-          animation: none !important;
+  animation: none !important;
   background-image: url(../assets/geolocate_togglepressed.png) !important;
   opacity: 1 !important;
 }
@@ -276,8 +296,7 @@ body {
   background-size: 100%;
   background-position: 100%;
   background-repeat: no-repeat;
-  -webkit-animation: none !important;
-          animation: none !important;
+  animation: none !important;
   background-image: url(../assets/geolocate_toggle.png) !important;
   opacity: 1 !important;
 }
@@ -290,19 +309,29 @@ body {
   box-shadow: rgb(56, 44, 56) 0px 6px 13px 0px;
   width: 100%;
   height: 100vh;
+  height: 100dvh;
   z-index: 2;
   overflow: auto;
-  transition: transform 0.7s ease-out;
+  overscroll-behavior: contain;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1), padding-top 0.9s cubic-bezier(0.22, 1, 0.36, 1);
   display: grid;
   grid-template-rows: auto auto auto 1fr;
   grid-template-areas: "title" "camera" "functions";
 }
 .wrapper-index .slider.is-open {
   transform: translateY(-85vh);
+  transform: translateY(-85dvh);
 }
 .wrapper-index .slider.clicked {
   transform: translateY(-100vh);
+  transform: translateY(-100dvh);
   height: 100vh;
+  height: 100dvh;
+  padding-top: env(safe-area-inset-top, 0px);
+}
+.wrapper-index .slider.clicked .slider-cam::after {
+  animation: flash 0.35s ease-out;
 }
 .wrapper-index .slider .slider-title {
   grid-area: title;
@@ -330,9 +359,9 @@ body {
 }
 .wrapper-index .slider .slider-title .slider-toggle {
   flex: 0 0 58px;
-  background-image: url(../assets/toggle.png);
+  background-image: url(../assets/toggle.png), url(../assets/toggle_clicked.png);
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: 100%, 0 0;
   background-color: transparent;
   border: none;
   width: 58px;
@@ -341,6 +370,7 @@ body {
 }
 .wrapper-index .slider .slider-title .slider-toggle:active {
   background-image: url(../assets/toggle_clicked.png);
+  background-size: 100%;
 }
 .wrapper-index .slider .slider-cam {
   grid-area: camera;
@@ -350,6 +380,15 @@ body {
   max-height: 100%;
   width: 100%;
   z-index: 3;
+  position: relative;
+}
+.wrapper-index .slider .slider-cam::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: white;
+  opacity: 0;
+  pointer-events: none;
 }
 .wrapper-index .slider .slider-cam #camFeed {
   display: block;
@@ -361,72 +400,77 @@ body {
   background-color: rgb(56, 44, 56);
   border: 10px solid rgb(56, 44, 56);
   z-index: 3;
+  image-rendering: auto;
 }
 .wrapper-index .slider .slider-functions {
   grid-area: functions;
   height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: 100%;
   z-index: 1;
 }
-.wrapper-index .slider .slider-functions .slider-text {
-  flex: initial;
+.wrapper-index .slider .slider-functions .slider-text,
+.wrapper-index .slider .slider-functions .slider-buttons {
+  grid-area: 1/1;
+  align-self: center;
   width: 100%;
-  height: 100%;
+  background-color: transparent;
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.wrapper-index .slider .slider-functions .slider-text {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: transparent;
-  opacity: 1;
   text-align: center;
-  transition: transform 0.7s ease-in-out, opacity 0.7s ease-in-out;
+  opacity: 1;
 }
 .wrapper-index .slider .slider-functions .slider-text.clicked {
-  transform: translateY(-116px);
-  height: 116px;
+  transform: translateY(-12px);
   opacity: 0;
+  pointer-events: none;
 }
 .wrapper-index .slider .slider-functions .slider-text .take-selfie {
-  background: url(../assets/selfie.png);
+  background-image: url(../assets/selfie.png), url(../assets/selfie_pressed.png);
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: 100%, 0 0;
+  background-color: transparent;
   border: none;
-  height: 116px;
-  width: 288px;
+  width: min(288px, 80vw);
+  height: auto;
+  aspect-ratio: 288/116;
   cursor: pointer;
 }
 .wrapper-index .slider .slider-functions .slider-text .take-selfie:active {
-  background: url(../assets/selfie_pressed.png);
+  background-image: url(../assets/selfie_pressed.png);
+  background-size: 100%;
 }
 .wrapper-index .slider .slider-functions .slider-buttons {
-  flex: initial;
-  background-color: transparent;
-  width: 100%;
-  height: 0px;
   display: grid;
   grid-template-rows: auto auto;
   grid-template-areas: "delete" "save";
   z-index: 3;
   opacity: 0;
-  transition: transform 0.7s ease-in-out, opacity 0.7s ease-in-out;
+  transform: translateY(12px);
+  pointer-events: none;
 }
 .wrapper-index .slider .slider-functions .slider-buttons.clicked {
-  transform: translateY(-116px);
+  transform: none;
   opacity: 1;
-  height: 100%;
+  pointer-events: auto;
 }
 .wrapper-index .slider .slider-functions .slider-buttons .save-it {
-  grid-area: "save";
-  height: 116px;
-  width: 288px;
+  grid-area: save;
+  width: min(288px, 80vw);
+  height: auto;
+  aspect-ratio: 288/116;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: url(../assets/save.png);
+  background-image: url(../assets/save.png), url(../assets/save_pressed.png);
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: 100%, 0 0;
+  background-color: transparent;
   padding-left: 10px;
   padding-right: 10px;
   margin: auto;
@@ -434,18 +478,21 @@ body {
   cursor: pointer;
 }
 .wrapper-index .slider .slider-functions .slider-buttons .save-it:active {
-  background: url(../assets/save_pressed.png);
+  background-image: url(../assets/save_pressed.png);
+  background-size: 100%;
 }
 .wrapper-index .slider .slider-functions .slider-buttons .delete-it {
-  grid-area: "delete";
-  height: 116px;
-  width: 288px;
+  grid-area: delete;
+  width: min(288px, 80vw);
+  height: auto;
+  aspect-ratio: 288/116;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: url(../assets/delete.png);
+  background-image: url(../assets/delete.png), url(../assets/delete_pressed.png);
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: 100%, 0 0;
+  background-color: transparent;
   padding-left: 10px;
   padding-right: 10px;
   margin: auto;
@@ -453,20 +500,15 @@ body {
   cursor: pointer;
 }
 .wrapper-index .slider .slider-functions .slider-buttons .delete-it:active {
-  background: url(../assets/delete_pressed.png);
+  background-image: url(../assets/delete_pressed.png);
+  background-size: 100%;
 }
 .wrapper-index .slider .slider-functions .slider-spacer {
-  flex: initial;
-  flex-wrap: wrap;
-  height: 100%;
+  grid-area: 2/1;
   width: 100%;
   background-color: transparent;
   z-index: 1;
   overflow-y: auto;
-  transition: transform 0.7s ease-in-out;
-}
-.wrapper-index .slider .slider-functions .slider-spacer.clicked {
-  transform: translateY(-116px);
 }
 
 .footer-index {
@@ -475,8 +517,10 @@ body {
   color: rgb(255, 255, 3);
   width: 100%;
   height: 5%;
+  height: calc(5% + env(safe-area-inset-bottom, 0px));
   padding: 3px;
-  transition: transform 0.7s ease-in-out;
+  padding-bottom: calc(3px + env(safe-area-inset-bottom, 0px));
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
   z-index: 2;
   position: absolute;
   bottom: 0;
@@ -504,6 +548,7 @@ body {
   height: auto;
   z-index: 3;
   padding: 3px;
+  padding-top: calc(3px + env(safe-area-inset-top, 0px));
 }
 .wrapper-faq .header mark {
   background: rgb(223, 79, 207) !important;
@@ -565,6 +610,7 @@ body {
   height: auto;
   z-index: 3;
   padding: 3px;
+  padding-top: calc(3px + env(safe-area-inset-top, 0px));
 }
 .wrapper-about .header mark {
   background: rgb(0, 175, 255) !important;
@@ -612,7 +658,7 @@ body {
   overflow-y: auto;
 }
 .wrapper-edit .header {
-  padding: text_padding;
+  padding: 3px;
   overflow: hidden;
   width: 100%;
   outline: none;
@@ -630,4 +676,13 @@ body {
 }
 .wrapper-edit canvas {
   border: 6px solid rgb(0, 150, 136);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01s !important;
+    animation: none !important;
+  }
 }/*# sourceMappingURL=main.css.map */

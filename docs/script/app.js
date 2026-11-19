@@ -5,8 +5,12 @@ var map = new mapboxgl.Map({
     style: 'mapbox://styles/jcakes33/cksmb94hl0zk218qjo6mcfawn',
     center: [-73.985130, 40.758896], // starting position
     zoom: 14,
-    scrollZoom: false
+    scrollZoom: false,
+    // keep the map flat: no accidental tilt or rotate on touch
+    dragRotate: false,
+    touchPitch: false
 });
+map.touchZoomRotate.disableRotation();
 var geoLocate = new mapboxgl.GeolocateControl({
     positionOptions: {
         enableHighAccuracy: true
@@ -22,9 +26,7 @@ var sliderTextCSS = document.querySelector('.slider-text');
 var sliderButtonsCSS = document.querySelector('.slider-buttons');
 var headerCSS = document.querySelector('.header-index');
 var footerCSS = document.querySelector('.footer-index');
-var wrapperCSS = document.querySelector('.wrapper-index');
 var mapCSS = document.querySelector('.map-class');
-var spacerCSS = document.querySelector('.slider-spacer');
 // elements
 var cameraFeed = document.getElementById('camFeed');
 var cameraLocation = document.getElementById('location');
@@ -160,15 +162,14 @@ function toggleBtn() {
     if (map.getSource('selected-data')) {
         map.removeSource('selected-data');
     }
-    // toggle slider and header css
-    headerCSS.classList.toggle('is-open');
-    footerCSS.classList.toggle('is-open');
+    // close slider and bring header/footer back
+    headerCSS.classList.remove('is-open');
+    footerCSS.classList.remove('is-open');
     sliderCSS.classList.remove('is-open');
     sliderTextCSS.classList.remove('clicked');
     sliderButtonsCSS.classList.remove('clicked');
     sliderCSS.classList.remove('clicked');
-    spacerCSS.classList.remove('clicked');
-    
+
     // clear feed interval
     clearInterval(camInterval);
     // zoom out from last-clicked camera
@@ -179,12 +180,10 @@ function selfieBtn() {
     selfiePath = cameraFeed.getAttribute('src');
     clearInterval(camInterval);
     camFeed.src = selfiePath;
-    // CSS animations
+    // CSS animations (.clicked on the slider also plays the camera flash)
     sliderCSS.classList.add('clicked');
     sliderTextCSS.classList.add('clicked');
     sliderButtonsCSS.classList.add('clicked');
-    wrapperCSS.classList.add('clicked');
-    spacerCSS.classList.add('clicked');
 }
 function downloadBtn() {
     alert("Sorry! This function isn't available on the testing site");
@@ -194,8 +193,6 @@ function deleteBtn() {
     sliderCSS.classList.remove('clicked');
     sliderTextCSS.classList.remove('clicked');
     sliderButtonsCSS.classList.remove('clicked');
-    wrapperCSS.classList.remove('clicked');
-    spacerCSS.classList.remove('clicked');
     // pre-load camera feed image
     cameraFeed.src = clickedMarker.properties.url + Math.random();
     clearInterval(camInterval);

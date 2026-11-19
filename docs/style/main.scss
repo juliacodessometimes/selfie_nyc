@@ -3,16 +3,19 @@
     font-family: pixelfont;
     src: url(pixelfont.woff);
 }
-@keyframes blinkFlash {
-    0% {opacity: 1;}
-    15% {opacity: 0.5;}
-    45%{opacity: 0;}
-    50%{opacity: 0;}
-    55%{opacity: 0;}
-    85% {opacity: 0.5;}
-    100%{opacity: 1;}
+// camera flash over the selfie image
+@keyframes flash {
+    0% {opacity: .9;}
+    100% {opacity: 0;}
 }
-$blinkanimation: blinkFlash .5s ease-in-out;
+$flashanimation: flash .35s ease-out;
+// shared motion: quick start, soft landing
+$ease: cubic-bezier(.22, 1, .36, 1);
+$dur: .9s;
+// crossfade between pages (browsers without support ignore this)
+@view-transition {
+    navigation: auto;
+}
 // colors
 $yellow: rgb(255, 255, 3);
 $blue: rgb(0, 175, 255);
@@ -135,9 +138,15 @@ $selfiebutton_height: 116px;
 $selfiebutton_width: 288px;;
 $buttons_height: 116px;
 $buttons_width: 150px;
+// vh = fallback for older browsers; dvh = the height you can actually see on a phone
 $height_slider_open: 85vh;
 $height_slider_total: 100vh;
+$height_slider_open_d: 85dvh;
+$height_slider_total_d: 100dvh;
 $height_slider_closed: 0vh;
+// notch / home-bar insets (0 on devices without them)
+$safe_top: env(safe-area-inset-top, 0px);
+$safe_bottom: env(safe-area-inset-bottom, 0px);
 $height_preview_open: 1fr;
 $toggle_buttons: 58px;
 // borders
@@ -151,6 +160,29 @@ $skinnyyellowborder_style: 2px solid $yellow;
 $skinnyblueborder_style: 3px solid $darkblue;
 $text_padding: 3px;
 
+// small reset (replaces the one Bulma used to provide)
+html, body, p, h1, h2, h3, h4, h5, h6, ul, ol, li, figure {
+    margin: 0;
+    padding: 0;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+}
+ul, ol {
+    list-style: none;
+}
+button {
+    margin: 0;
+    font-family: inherit;
+}
+img {
+    height: auto;
+    max-width: 100%;
+}
+html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
 *:focus {
     box-shadow: none;
 }
@@ -161,6 +193,8 @@ html {
     overflow: hidden;
     width: 100%;
     height: 100%;
+    // no pull-to-refresh / bounce
+    overscroll-behavior: none;
 }
 p {
     font-size: 16px;
@@ -207,9 +241,12 @@ body {
     font-family: pixelfont;
     color: $yellow;
     font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
     width: 100%;
     height: 100%;
     overflow: hidden;
+    overscroll-behavior: none;
     border: $greenborder_style;
     background-color: white;
     position: absolute;
@@ -217,6 +254,31 @@ body {
     right: 0;
     left: 0;
     bottom: 0;
+}
+// pixel art stays crisp when scaled on high-res screens
+button,
+#logo,
+.header-index,
+.wrapper-index .slider,
+.wrapper-faq,
+.wrapper-about,
+.wrapper-edit {
+    image-rendering: pixelated;
+}
+// buttons and images behave like app controls, not web page content
+button,
+img {
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+}
+// 44px-tall tap areas for nav links on every page
+.nav-bar a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 6px;
 }
 .nav-bar {
     height: 100%;
@@ -237,11 +299,12 @@ body {
     overflow: hidden;
     width: 100%;
     height: auto;
-    transition: transform .7s ease-out;
+    transition: transform $dur $ease;
     z-index: 2;
     position: absolute;
     top: 0;
     left: 0;
+    padding-top: $safe_top;
     .nav-bar {
         margin-bottom: 10px;
     }
@@ -283,15 +346,14 @@ body {
     overflow: hidden;
     display: grid;
     grid-template-rows: 100vh $height_slider_closed;
+    grid-template-rows: 100dvh $height_slider_closed;
     grid-template-areas:
     'map'
     'slider';
-    &.clicked {
-        animation: $blinkanimation;
-    }
     .map-class {
         grid-area: map;
         height: 95%;
+        height: calc(95% - #{$safe_bottom});
         width: 100%;
         position: absolute;
         overflow: hidden;
@@ -380,9 +442,12 @@ body {
         box-shadow: $black 0px 6px 13px 0px;
         width: 100%;
         height: $height_slider_total;
+        height: $height_slider_total_d;
         z-index: 2;
         overflow: auto;
-        transition: transform .7s ease-out;
+        overscroll-behavior: contain;
+        padding-bottom: $safe_bottom;
+        transition: transform $dur $ease, padding-top $dur $ease;
         display: grid;
         grid-template-rows: auto auto auto 1fr;
         grid-template-areas:
@@ -391,10 +456,18 @@ body {
         'functions';
         &.is-open {
             transform: translateY(-$height_slider_open);
+            transform: translateY(-$height_slider_open_d);
         }
         &.clicked {
             transform: translateY(-$height_slider_total);
-            height: 100vh;
+            transform: translateY(-$height_slider_total_d);
+            height: $height_slider_total;
+            height: $height_slider_total_d;
+            // slider reaches the top of the screen here, so clear the notch
+            padding-top: $safe_top;
+            .slider-cam::after {
+                animation: $flashanimation;
+            }
         }
         .slider-title {
             grid-area: title;
@@ -421,9 +494,10 @@ body {
             }
             .slider-toggle {
                 flex: 0 0 $toggle_buttons;
-                background-image: url(../assets/toggle.png);
+                // second image is hidden; it just preloads the pressed state
+                background-image: url(../assets/toggle.png), url(../assets/toggle_clicked.png);
                 background-repeat: no-repeat;
-                background-size: 100%;
+                background-size: 100%, 0 0;
                 background-color: transparent;
                 border: none;
                 width: $toggle_buttons;
@@ -432,6 +506,7 @@ body {
             }
             .slider-toggle:active {
                 background-image: url(../assets/toggle_clicked.png);
+                background-size: 100%;
             }
         }
         .slider-cam {
@@ -442,6 +517,16 @@ body {
             max-height: 100%;
             width: 100%;
             z-index: 3;
+            position: relative;
+            // white flash layer, played when .slider gets .clicked
+            &::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: white;
+                opacity: 0;
+                pointer-events: none;
+            }
             #camFeed {
                 display: block;
                 height: auto;
@@ -452,50 +537,55 @@ body {
                 background-color: $black;
                 border: $blackborder_style;
                 z-index: 3;
+                image-rendering: auto;
             }
         }
         .slider-functions {
             grid-area: functions;
             height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
+            // selfie button and save/delete share one cell and crossfade;
+            // help text sits underneath and never moves
+            display: grid;
+            grid-template-rows: auto 1fr;
+            grid-template-columns: 100%;
             z-index: 1;
-            .slider-text {
-                flex: initial;
+            .slider-text,
+            .slider-buttons {
+                grid-area: 1 / 1;
+                align-self: center;
                 width: 100%;
-                height: 100%;
+                background-color: transparent;
+                transition: transform $dur $ease, opacity $dur $ease;
+            }
+            .slider-text {
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                background-color: transparent;
-                opacity: 1;
                 text-align: center;
-                transition: transform .7s ease-in-out, opacity .7s ease-in-out;
+                opacity: 1;
                 &.clicked {
-                    transform: translateY(-$selfiebutton_height);
-                    height: $selfiebutton_height;
+                    transform: translateY(-12px);
                     opacity: 0;
+                    pointer-events: none;
                 }
                 .take-selfie {
-                    background: url(../assets/selfie.png);
+                    background-image: url(../assets/selfie.png), url(../assets/selfie_pressed.png);
                     background-repeat: no-repeat;
-                    background-size: 100%;
+                    background-size: 100%, 0 0;
+                    background-color: transparent;
                     border: none;
-                    height: $selfiebutton_height;
-                    width: $selfiebutton_width;
+                    // shrinks on narrow phones, keeps the art's proportions
+                    width: min(#{$selfiebutton_width}, 80vw);
+                    height: auto;
+                    aspect-ratio: 288 / 116;
                     cursor: pointer;
                 }
                 .take-selfie:active {
-                    background: url(../assets/selfie_pressed.png);
+                    background-image: url(../assets/selfie_pressed.png);
+                    background-size: 100%;
                 }
             }
             .slider-buttons {
-                flex: initial;
-                background-color: transparent;
-                width: 100%;
-                height: 0px;
                 display: grid;
                 grid-template-rows: auto auto;
                 grid-template-areas:
@@ -503,22 +593,26 @@ body {
                 'save';
                 z-index: 3;
                 opacity: 0;
-                transition: transform .7s ease-in-out, opacity .7s ease-in-out;
+                transform: translateY(12px);
+                pointer-events: none;
                 &.clicked {
-                    transform: translateY(-$selfiebutton_height);
+                    transform: none;
                     opacity: 1;
-                    height: 100%;
+                    pointer-events: auto;
                 }
                 .save-it {
-                    grid-area: 'save';
-                    height: $selfiebutton_height;
-                    width: $selfiebutton_width;
+                    grid-area: save;
+                    // shrinks on narrow phones, keeps the art's proportions
+                    width: min(#{$selfiebutton_width}, 80vw);
+                    height: auto;
+                    aspect-ratio: 288 / 116;
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    background: url(../assets/save.png);
+                    background-image: url(../assets/save.png), url(../assets/save_pressed.png);
                     background-repeat: no-repeat;
-                    background-size: 100%;
+                    background-size: 100%, 0 0;
+                    background-color: transparent;
                     padding-left: 10px;
                     padding-right: 10px;
                     margin: auto;
@@ -526,18 +620,22 @@ body {
                     cursor: pointer;
                 }
                 .save-it:active {
-                    background: url(../assets/save_pressed.png);
+                    background-image: url(../assets/save_pressed.png);
+                    background-size: 100%;
                 }
                 .delete-it {
-                    grid-area: 'delete';
-                    height: $selfiebutton_height;
-                    width: $selfiebutton_width;
+                    grid-area: delete;
+                    // shrinks on narrow phones, keeps the art's proportions
+                    width: min(#{$selfiebutton_width}, 80vw);
+                    height: auto;
+                    aspect-ratio: 288 / 116;
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    background: url(../assets/delete.png);
+                    background-image: url(../assets/delete.png), url(../assets/delete_pressed.png);
                     background-repeat: no-repeat;
-                    background-size: 100%;
+                    background-size: 100%, 0 0;
+                    background-color: transparent;
                     padding-left: 10px;
                     padding-right: 10px;
                     margin: auto;
@@ -545,21 +643,16 @@ body {
                     cursor: pointer;
                 }
                 .delete-it:active {
-                    background: url(../assets/delete_pressed.png);
+                    background-image: url(../assets/delete_pressed.png);
+                    background-size: 100%;
                 }
             }
             .slider-spacer {
-                flex: initial;
-                flex-wrap:wrap;
-                height: 100%;
+                grid-area: 2 / 1;
                 width: 100%;
                 background-color: transparent;
                 z-index: 1;
                 overflow-y: auto;
-                transition: transform .7s ease-in-out;
-                &.clicked {
-                    transform: translateY(-$selfiebutton_height);
-                }
             }
         }
     }
@@ -570,8 +663,10 @@ body {
     color: $yellow;
     width: 100%;
     height: 5%;
+    height: calc(5% + #{$safe_bottom});
     padding: $text_padding;
-    transition: transform .7s ease-in-out;
+    padding-bottom: calc(#{$text_padding} + #{$safe_bottom});
+    transition: transform $dur $ease;
     z-index: 2;
     position: absolute;
     bottom: 0;
@@ -597,6 +692,8 @@ body {
         height: auto;
         z-index: 3;
         padding: $text_padding;
+        // clear the notch
+        padding-top: calc(#{$text_padding} + #{$safe_top});
         mark {
             background: $pink !important;
             color: $yellow !important;
@@ -657,6 +754,8 @@ body {
         height: auto;
         z-index: 3;
         padding: $text_padding;
+        // clear the notch
+        padding-top: calc(#{$text_padding} + #{$safe_top});
         mark {
             background: $blue !important;
             color: $yellow !important;
@@ -703,7 +802,7 @@ body {
     z-index: 1;
     overflow-y: auto;
     .header {
-        padding: text_padding;
+        padding: $text_padding;
         overflow: hidden;
         width: 100%;
         outline: none;
@@ -722,5 +821,14 @@ body {
     canvas {
         //background-color: transparent;
         border: $greenborder_style;
+    }
+}
+// people who turn on "reduce motion" get instant changes, no flash
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        transition-duration: .01s !important;
+        animation: none !important;
     }
 }
