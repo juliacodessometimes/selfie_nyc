@@ -3,15 +3,74 @@
     font-family: pixelfont;
     src: url(pixelfont.woff);
 }
-// camera flash over the selfie image
-@keyframes flash {
-    0% {opacity: .9;}
-    100% {opacity: 0;}
-}
-$flashanimation: flash .35s ease-out;
 // shared motion: quick start, soft landing
 $ease: cubic-bezier(.22, 1, .36, 1);
-$dur: .9s;
+// exits: slow start, then speed away
+$ease_out: cubic-bezier(.55, 0, .75, .2);
+// slider, header and footer speed (was .7s originally; now 1.25x faster than .9s)
+$dur: .72s;
+// snap sequence timings (keep in sync with SNAP in app.js)
+$print_dur: .72s;
+$slide_dur: .48s;
+$flash_dur: .28s;
+$iris_close_dur: .4s;
+$iris_open_dur: .48s;
+// camera flash over the selfie image
+// (replaces the old blinkFlash, which faded the whole page)
+@keyframes flash {
+    0% {opacity: .95;}
+    100% {opacity: 0;}
+}
+// delete/save slide in from the sides and back out (see .slider-buttons)
+@keyframes slideInLeft {
+    from {transform: translateX(-100vw);}
+    to {transform: none;}
+}
+@keyframes slideInRight {
+    from {transform: translateX(100vw);}
+    to {transform: none;}
+}
+@keyframes slideOutLeft {
+    from {transform: none;}
+    to {transform: translateX(-100vw);}
+}
+@keyframes slideOutRight {
+    from {transform: none;}
+    to {transform: translateX(100vw);}
+}
+// blinking dot on the "● 2/4" counter while photos are being taken
+@keyframes recBlink {
+    50% {opacity: 0;}
+}
+// camera iris: a twisting six-sided opening (no blades drawn).
+// --iris-r is set from JS so the open shape always covers the whole frame.
+@keyframes irisClose {
+    0% { clip-path: polygon(calc(50% + var(--iris-r) * 1.0000) calc(50% + var(--iris-r) * 0.0000), calc(50% + var(--iris-r) * 0.5000) calc(50% + var(--iris-r) * 0.8660), calc(50% + var(--iris-r) * -0.5000) calc(50% + var(--iris-r) * 0.8660), calc(50% + var(--iris-r) * -1.0000) calc(50% + var(--iris-r) * 0.0000), calc(50% + var(--iris-r) * -0.5000) calc(50% + var(--iris-r) * -0.8660), calc(50% + var(--iris-r) * 0.5000) calc(50% + var(--iris-r) * -0.8660)); }
+    10% { clip-path: polygon(calc(50% + var(--iris-r) * 0.8750) calc(50% + var(--iris-r) * 0.1386), calc(50% + var(--iris-r) * 0.3175) calc(50% + var(--iris-r) * 0.8270), calc(50% + var(--iris-r) * -0.5575) calc(50% + var(--iris-r) * 0.6885), calc(50% + var(--iris-r) * -0.8750) calc(50% + var(--iris-r) * -0.1386), calc(50% + var(--iris-r) * -0.3175) calc(50% + var(--iris-r) * -0.8270), calc(50% + var(--iris-r) * 0.5575) calc(50% + var(--iris-r) * -0.6885)); }
+    20% { clip-path: polygon(calc(50% + var(--iris-r) * 0.7358) calc(50% + var(--iris-r) * 0.2391), calc(50% + var(--iris-r) * 0.1609) calc(50% + var(--iris-r) * 0.7568), calc(50% + var(--iris-r) * -0.5749) calc(50% + var(--iris-r) * 0.5177), calc(50% + var(--iris-r) * -0.7358) calc(50% + var(--iris-r) * -0.2391), calc(50% + var(--iris-r) * -0.1609) calc(50% + var(--iris-r) * -0.7568), calc(50% + var(--iris-r) * 0.5749) calc(50% + var(--iris-r) * -0.5177)); }
+    30% { clip-path: polygon(calc(50% + var(--iris-r) * 0.5912) calc(50% + var(--iris-r) * 0.3012), calc(50% + var(--iris-r) * 0.0347) calc(50% + var(--iris-r) * 0.6626), calc(50% + var(--iris-r) * -0.5565) calc(50% + var(--iris-r) * 0.3614), calc(50% + var(--iris-r) * -0.5912) calc(50% + var(--iris-r) * -0.3012), calc(50% + var(--iris-r) * -0.0347) calc(50% + var(--iris-r) * -0.6626), calc(50% + var(--iris-r) * 0.5565) calc(50% + var(--iris-r) * -0.3614)); }
+    40% { clip-path: polygon(calc(50% + var(--iris-r) * 0.4496) calc(50% + var(--iris-r) * 0.3267), calc(50% + var(--iris-r) * -0.0581) calc(50% + var(--iris-r) * 0.5527), calc(50% + var(--iris-r) * -0.5077) calc(50% + var(--iris-r) * 0.2260), calc(50% + var(--iris-r) * -0.4496) calc(50% + var(--iris-r) * -0.3267), calc(50% + var(--iris-r) * 0.0581) calc(50% + var(--iris-r) * -0.5527), calc(50% + var(--iris-r) * 0.5077) calc(50% + var(--iris-r) * -0.2260)); }
+    50% { clip-path: polygon(calc(50% + var(--iris-r) * 0.3186) calc(50% + var(--iris-r) * 0.3186), calc(50% + var(--iris-r) * -0.1166) calc(50% + var(--iris-r) * 0.4353), calc(50% + var(--iris-r) * -0.4353) calc(50% + var(--iris-r) * 0.1166), calc(50% + var(--iris-r) * -0.3186) calc(50% + var(--iris-r) * -0.3186), calc(50% + var(--iris-r) * 0.1166) calc(50% + var(--iris-r) * -0.4353), calc(50% + var(--iris-r) * 0.4353) calc(50% + var(--iris-r) * -0.1166)); }
+    60% { clip-path: polygon(calc(50% + var(--iris-r) * 0.2049) calc(50% + var(--iris-r) * 0.2821), calc(50% + var(--iris-r) * -0.1418) calc(50% + var(--iris-r) * 0.3185), calc(50% + var(--iris-r) * -0.3467) calc(50% + var(--iris-r) * 0.0364), calc(50% + var(--iris-r) * -0.2049) calc(50% + var(--iris-r) * -0.2821), calc(50% + var(--iris-r) * 0.1418) calc(50% + var(--iris-r) * -0.3185), calc(50% + var(--iris-r) * 0.3467) calc(50% + var(--iris-r) * -0.0364)); }
+    70% { clip-path: polygon(calc(50% + var(--iris-r) * 0.1137) calc(50% + var(--iris-r) * 0.2231), calc(50% + var(--iris-r) * -0.1364) calc(50% + var(--iris-r) * 0.2100), calc(50% + var(--iris-r) * -0.2501) calc(50% + var(--iris-r) * -0.0131), calc(50% + var(--iris-r) * -0.1137) calc(50% + var(--iris-r) * -0.2231), calc(50% + var(--iris-r) * 0.1364) calc(50% + var(--iris-r) * -0.2100), calc(50% + var(--iris-r) * 0.2501) calc(50% + var(--iris-r) * 0.0131)); }
+    80% { clip-path: polygon(calc(50% + var(--iris-r) * 0.0485) calc(50% + var(--iris-r) * 0.1494), calc(50% + var(--iris-r) * -0.1051) calc(50% + var(--iris-r) * 0.1168), calc(50% + var(--iris-r) * -0.1537) calc(50% + var(--iris-r) * -0.0327), calc(50% + var(--iris-r) * -0.0485) calc(50% + var(--iris-r) * -0.1494), calc(50% + var(--iris-r) * 0.1051) calc(50% + var(--iris-r) * -0.1168), calc(50% + var(--iris-r) * 0.1537) calc(50% + var(--iris-r) * 0.0327)); }
+    90% { clip-path: polygon(calc(50% + var(--iris-r) * 0.0111) calc(50% + var(--iris-r) * 0.0699), calc(50% + var(--iris-r) * -0.0550) calc(50% + var(--iris-r) * 0.0446), calc(50% + var(--iris-r) * -0.0661) calc(50% + var(--iris-r) * -0.0254), calc(50% + var(--iris-r) * -0.0111) calc(50% + var(--iris-r) * -0.0699), calc(50% + var(--iris-r) * 0.0550) calc(50% + var(--iris-r) * -0.0446), calc(50% + var(--iris-r) * 0.0661) calc(50% + var(--iris-r) * 0.0254)); }
+    100% { clip-path: polygon(calc(50% + var(--iris-r) * 0.0000) calc(50% + var(--iris-r) * 0.0000), calc(50% + var(--iris-r) * -0.0000) calc(50% + var(--iris-r) * 0.0000), calc(50% + var(--iris-r) * -0.0000) calc(50% + var(--iris-r) * -0.0000), calc(50% + var(--iris-r) * -0.0000) calc(50% + var(--iris-r) * -0.0000), calc(50% + var(--iris-r) * 0.0000) calc(50% + var(--iris-r) * -0.0000), calc(50% + var(--iris-r) * 0.0000) calc(50% + var(--iris-r) * 0.0000)); }
+}
+@keyframes irisOpen {
+    0% { clip-path: polygon(calc(50% + var(--iris-r) * 0.0000) calc(50% + var(--iris-r) * 0.0000), calc(50% + var(--iris-r) * -0.0000) calc(50% + var(--iris-r) * 0.0000), calc(50% + var(--iris-r) * -0.0000) calc(50% + var(--iris-r) * -0.0000), calc(50% + var(--iris-r) * -0.0000) calc(50% + var(--iris-r) * -0.0000), calc(50% + var(--iris-r) * 0.0000) calc(50% + var(--iris-r) * -0.0000), calc(50% + var(--iris-r) * 0.0000) calc(50% + var(--iris-r) * 0.0000)); }
+    10% { clip-path: polygon(calc(50% + var(--iris-r) * 0.0111) calc(50% + var(--iris-r) * 0.0699), calc(50% + var(--iris-r) * -0.0550) calc(50% + var(--iris-r) * 0.0446), calc(50% + var(--iris-r) * -0.0661) calc(50% + var(--iris-r) * -0.0254), calc(50% + var(--iris-r) * -0.0111) calc(50% + var(--iris-r) * -0.0699), calc(50% + var(--iris-r) * 0.0550) calc(50% + var(--iris-r) * -0.0446), calc(50% + var(--iris-r) * 0.0661) calc(50% + var(--iris-r) * 0.0254)); }
+    20% { clip-path: polygon(calc(50% + var(--iris-r) * 0.0485) calc(50% + var(--iris-r) * 0.1494), calc(50% + var(--iris-r) * -0.1051) calc(50% + var(--iris-r) * 0.1168), calc(50% + var(--iris-r) * -0.1537) calc(50% + var(--iris-r) * -0.0327), calc(50% + var(--iris-r) * -0.0485) calc(50% + var(--iris-r) * -0.1494), calc(50% + var(--iris-r) * 0.1051) calc(50% + var(--iris-r) * -0.1168), calc(50% + var(--iris-r) * 0.1537) calc(50% + var(--iris-r) * 0.0327)); }
+    30% { clip-path: polygon(calc(50% + var(--iris-r) * 0.1137) calc(50% + var(--iris-r) * 0.2231), calc(50% + var(--iris-r) * -0.1364) calc(50% + var(--iris-r) * 0.2100), calc(50% + var(--iris-r) * -0.2501) calc(50% + var(--iris-r) * -0.0131), calc(50% + var(--iris-r) * -0.1137) calc(50% + var(--iris-r) * -0.2231), calc(50% + var(--iris-r) * 0.1364) calc(50% + var(--iris-r) * -0.2100), calc(50% + var(--iris-r) * 0.2501) calc(50% + var(--iris-r) * 0.0131)); }
+    40% { clip-path: polygon(calc(50% + var(--iris-r) * 0.2049) calc(50% + var(--iris-r) * 0.2821), calc(50% + var(--iris-r) * -0.1418) calc(50% + var(--iris-r) * 0.3185), calc(50% + var(--iris-r) * -0.3467) calc(50% + var(--iris-r) * 0.0364), calc(50% + var(--iris-r) * -0.2049) calc(50% + var(--iris-r) * -0.2821), calc(50% + var(--iris-r) * 0.1418) calc(50% + var(--iris-r) * -0.3185), calc(50% + var(--iris-r) * 0.3467) calc(50% + var(--iris-r) * -0.0364)); }
+    50% { clip-path: polygon(calc(50% + var(--iris-r) * 0.3186) calc(50% + var(--iris-r) * 0.3186), calc(50% + var(--iris-r) * -0.1166) calc(50% + var(--iris-r) * 0.4353), calc(50% + var(--iris-r) * -0.4353) calc(50% + var(--iris-r) * 0.1166), calc(50% + var(--iris-r) * -0.3186) calc(50% + var(--iris-r) * -0.3186), calc(50% + var(--iris-r) * 0.1166) calc(50% + var(--iris-r) * -0.4353), calc(50% + var(--iris-r) * 0.4353) calc(50% + var(--iris-r) * -0.1166)); }
+    60% { clip-path: polygon(calc(50% + var(--iris-r) * 0.4496) calc(50% + var(--iris-r) * 0.3267), calc(50% + var(--iris-r) * -0.0581) calc(50% + var(--iris-r) * 0.5527), calc(50% + var(--iris-r) * -0.5077) calc(50% + var(--iris-r) * 0.2260), calc(50% + var(--iris-r) * -0.4496) calc(50% + var(--iris-r) * -0.3267), calc(50% + var(--iris-r) * 0.0581) calc(50% + var(--iris-r) * -0.5527), calc(50% + var(--iris-r) * 0.5077) calc(50% + var(--iris-r) * -0.2260)); }
+    70% { clip-path: polygon(calc(50% + var(--iris-r) * 0.5912) calc(50% + var(--iris-r) * 0.3012), calc(50% + var(--iris-r) * 0.0347) calc(50% + var(--iris-r) * 0.6626), calc(50% + var(--iris-r) * -0.5565) calc(50% + var(--iris-r) * 0.3614), calc(50% + var(--iris-r) * -0.5912) calc(50% + var(--iris-r) * -0.3012), calc(50% + var(--iris-r) * -0.0347) calc(50% + var(--iris-r) * -0.6626), calc(50% + var(--iris-r) * 0.5565) calc(50% + var(--iris-r) * -0.3614)); }
+    80% { clip-path: polygon(calc(50% + var(--iris-r) * 0.7358) calc(50% + var(--iris-r) * 0.2391), calc(50% + var(--iris-r) * 0.1609) calc(50% + var(--iris-r) * 0.7568), calc(50% + var(--iris-r) * -0.5749) calc(50% + var(--iris-r) * 0.5177), calc(50% + var(--iris-r) * -0.7358) calc(50% + var(--iris-r) * -0.2391), calc(50% + var(--iris-r) * -0.1609) calc(50% + var(--iris-r) * -0.7568), calc(50% + var(--iris-r) * 0.5749) calc(50% + var(--iris-r) * -0.5177)); }
+    90% { clip-path: polygon(calc(50% + var(--iris-r) * 0.8750) calc(50% + var(--iris-r) * 0.1386), calc(50% + var(--iris-r) * 0.3175) calc(50% + var(--iris-r) * 0.8270), calc(50% + var(--iris-r) * -0.5575) calc(50% + var(--iris-r) * 0.6885), calc(50% + var(--iris-r) * -0.8750) calc(50% + var(--iris-r) * -0.1386), calc(50% + var(--iris-r) * -0.3175) calc(50% + var(--iris-r) * -0.8270), calc(50% + var(--iris-r) * 0.5575) calc(50% + var(--iris-r) * -0.6885)); }
+    100% { clip-path: polygon(calc(50% + var(--iris-r) * 1.0000) calc(50% + var(--iris-r) * 0.0000), calc(50% + var(--iris-r) * 0.5000) calc(50% + var(--iris-r) * 0.8660), calc(50% + var(--iris-r) * -0.5000) calc(50% + var(--iris-r) * 0.8660), calc(50% + var(--iris-r) * -1.0000) calc(50% + var(--iris-r) * 0.0000), calc(50% + var(--iris-r) * -0.5000) calc(50% + var(--iris-r) * -0.8660), calc(50% + var(--iris-r) * 0.5000) calc(50% + var(--iris-r) * -0.8660)); }
+}
+
 // crossfade between pages (browsers without support ignore this)
 @view-transition {
     navigation: auto;
@@ -135,12 +194,14 @@ $darkblue_gradient: linear-gradient(
 $selfiewidth: 352px;
 $selfieheight: 240px;
 $selfiebutton_height: 116px;
-$selfiebutton_width: 288px;;
+// new button art is 232 x 116 (was 288 wide)
+$selfiebutton_width: 232px;
 $buttons_height: 116px;
 $buttons_width: 150px;
 // vh = fallback for older browsers; dvh = the height you can actually see on a phone
 $height_slider_open: 85vh;
 $height_slider_total: 100vh;
+// same sizes in dvh; each is written after its vh line so browsers that know dvh use it
 $height_slider_open_d: 85dvh;
 $height_slider_total_d: 100dvh;
 $height_slider_closed: 0vh;
@@ -241,11 +302,13 @@ body {
     font-family: pixelfont;
     color: $yellow;
     font-weight: 500;
+    // base text size and line spacing (Bulma used to set these)
     font-size: 16px;
     line-height: 1.5;
     width: 100%;
     height: 100%;
     overflow: hidden;
+    // no pull-to-refresh / bounce when swiping the page
     overscroll-behavior: none;
     border: $greenborder_style;
     background-color: white;
@@ -299,11 +362,13 @@ img {
     overflow: hidden;
     width: 100%;
     height: auto;
+    // slides up/out of the way when the slider opens
     transition: transform $dur $ease;
     z-index: 2;
     position: absolute;
     top: 0;
     left: 0;
+    // keep the header content below the notch
     padding-top: $safe_top;
     .nav-bar {
         margin-bottom: 10px;
@@ -346,6 +411,7 @@ img {
     overflow: hidden;
     display: grid;
     grid-template-rows: 100vh $height_slider_closed;
+    // dvh: the screen height actually visible on phones (address bar excluded)
     grid-template-rows: 100dvh $height_slider_closed;
     grid-template-areas:
     'map'
@@ -353,6 +419,7 @@ img {
     .map-class {
         grid-area: map;
         height: 95%;
+        // leave room above the phone's home bar
         height: calc(95% - #{$safe_bottom});
         width: 100%;
         position: absolute;
@@ -442,32 +509,29 @@ img {
         box-shadow: $black 0px 6px 13px 0px;
         width: 100%;
         height: $height_slider_total;
+        // full visible screen height on phones
         height: $height_slider_total_d;
         z-index: 2;
-        overflow: auto;
+        // prints slide off the bottom: clip them instead of scrolling
+        overflow: hidden;
+        // swipes inside the slider don't move the page behind it
         overscroll-behavior: contain;
-        padding-bottom: $safe_bottom;
-        transition: transform $dur $ease, padding-top $dur $ease;
+        // slide up/down speed when opening/closing
+        transition: transform $dur $ease;
         display: grid;
+        // rows: title, camera box, print slot, everything below
         grid-template-rows: auto auto auto 1fr;
+        // keeps every row exactly the slider's width
+        grid-template-columns: 100%;
         grid-template-areas:
         'title'
         'camera'
+        'slot'
         'functions';
         &.is-open {
             transform: translateY(-$height_slider_open);
+            // open position measured against the visible screen height
             transform: translateY(-$height_slider_open_d);
-        }
-        &.clicked {
-            transform: translateY(-$height_slider_total);
-            transform: translateY(-$height_slider_total_d);
-            height: $height_slider_total;
-            height: $height_slider_total_d;
-            // slider reaches the top of the screen here, so clear the notch
-            padding-top: $safe_top;
-            .slider-cam::after {
-                animation: $flashanimation;
-            }
         }
         .slider-title {
             grid-area: title;
@@ -476,7 +540,7 @@ img {
             display: flex;
             align-items: center;
             font-size: 22px;
-            border-bottom: $greenborder_style;
+            // (no bottom border any more: the title sits right on the camera box)
             padding-left: 2px;
             padding-right: 2px;
             text-shadow: -1px 0 $darkblue, 0 1px $darkblue, 1px 0 $darkblue, 0 -1px $darkblue;
@@ -506,153 +570,333 @@ img {
             }
             .slider-toggle:active {
                 background-image: url(../assets/toggle_clicked.png);
+                // show the pressed image at full size
                 background-size: 100%;
             }
         }
+        // camera area: fixed 352:240 box so every camera takes the same space
         .slider-cam {
             grid-area: camera;
-            display: block;
-            margin: auto;
-            height: auto;
-            max-height: 100%;
-            width: 100%;
-            z-index: 3;
             position: relative;
-            // white flash layer, played when .slider gets .clicked
-            &::after {
-                content: "";
+            width: 100%;
+            aspect-ratio: 352 / 240; // $selfiewidth / $selfieheight
+            // lets the save/delete buttons size themselves to this box
+            container-type: inline-size;
+            z-index: 3;
+            // the live feed's dark frame; the iris animations clip this whole box
+            .cam-frame {
                 position: absolute;
                 inset: 0;
-                background: white;
-                opacity: 0;
-                pointer-events: none;
+                overflow: hidden;
+                background-color: $black;
+                border: $blackborder_style;
+                // iris size; app.js sets the exact value for the frame
+                --iris-r: 400px;
+                // added by app.js after the last photo: iris shuts
+                &.iris-close {
+                    animation: irisClose $iris_close_dur ease-in both;
+                }
+                // added by app.js on delete: iris opens again
+                &.iris-open {
+                    animation: irisOpen $iris_open_dur ease-out both;
+                }
             }
             #camFeed {
                 display: block;
-                height: auto;
-                max-height: 100%;
                 width: 100%;
-                background-size: contain;
-                background-repeat: no-repeat;
-                background-color: $black;
-                border: $blackborder_style;
-                z-index: 3;
+                height: 100%;
+                // whole image always visible; leftover space shows the dark frame
+                object-fit: contain;
                 image-rendering: auto;
             }
-        }
-        .slider-functions {
-            grid-area: functions;
-            height: 100%;
-            // selfie button and save/delete share one cell and crossfade;
-            // help text sits underneath and never moves
-            display: grid;
-            grid-template-rows: auto 1fr;
-            grid-template-columns: 100%;
-            z-index: 1;
-            .slider-text,
-            .slider-buttons {
-                grid-area: 1 / 1;
-                align-self: center;
-                width: 100%;
-                background-color: transparent;
-                transition: transform $dur $ease, opacity $dur $ease;
-            }
-            .slider-text {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                text-align: center;
-                opacity: 1;
-                &.clicked {
-                    transform: translateY(-12px);
-                    opacity: 0;
-                    pointer-events: none;
-                }
-                .take-selfie {
-                    background-image: url(../assets/selfie.png), url(../assets/selfie_pressed.png);
-                    background-repeat: no-repeat;
-                    background-size: 100%, 0 0;
-                    background-color: transparent;
-                    border: none;
-                    // shrinks on narrow phones, keeps the art's proportions
-                    width: min(#{$selfiebutton_width}, 80vw);
-                    height: auto;
-                    aspect-ratio: 288 / 116;
-                    cursor: pointer;
-                }
-                .take-selfie:active {
-                    background-image: url(../assets/selfie_pressed.png);
-                    background-size: 100%;
+            // "● 2/4" counter over the feed; app.js shows it during the sequence
+            .shot-counter {
+                position: absolute;
+                top: 2px;
+                left: 8px;
+                margin: 0;
+                font-size: 19px;
+                text-align: left;
+                color: $yellow;
+                text-shadow: 1px 1px $black;
+                display: none;
+                .rec {
+                    color: $pink;
+                    animation: recBlink 1s steps(1) infinite;
                 }
             }
-            .slider-buttons {
-                display: grid;
-                grid-template-rows: auto auto;
-                grid-template-areas:
-                'delete'
-                'save';
-                z-index: 3;
-                opacity: 0;
-                transform: translateY(12px);
+            // white flash layer app.js adds over the feed for each photo
+            .flash {
+                position: absolute;
+                inset: 0;
+                background: white;
                 pointer-events: none;
-                &.clicked {
-                    transform: none;
-                    opacity: 1;
-                    pointer-events: auto;
+                animation: flash $flash_dur ease-out both;
+            }
+            // delete/save appear where the live feed was
+            .slider-buttons {
+                position: absolute;
+                inset: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 4px;
+                // hidden and untappable until the sequence finishes
+                visibility: hidden;
+                pointer-events: none;
+                &.in,
+                &.out {
+                    visibility: visible;
                 }
-                .save-it {
-                    grid-area: save;
-                    // shrinks on narrow phones, keeps the art's proportions
-                    width: min(#{$selfiebutton_width}, 80vw);
-                    height: auto;
-                    aspect-ratio: 288 / 116;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    background-image: url(../assets/save.png), url(../assets/save_pressed.png);
+                // .in (added by app.js): delete from the left, save from the right, slightly after
+                &.in {
+                    pointer-events: auto;
+                    .delete-it {
+                        animation: slideInLeft $slide_dur $ease both;
+                    }
+                    .save-it {
+                        animation: slideInRight $slide_dur $ease .1s both;
+                    }
+                }
+                // .out (on delete): each slides back out the way it came
+                &.out {
+                    .delete-it {
+                        animation: slideOutLeft $slide_dur $ease_out both;
+                    }
+                    .save-it {
+                        animation: slideOutRight $slide_dur $ease_out both;
+                    }
+                }
+                .save-it,
+                .delete-it {
+                    // fits two stacked buttons inside the camera box on small phones
+                    // (box height = 240/352 of its width, so half of it = 34.09cqw)
+                    height: min(#{$selfiebutton_height}, calc(34.09cqw - 6px));
+                    width: auto;
+                    aspect-ratio: 232 / 116; // button art size
                     background-repeat: no-repeat;
-                    background-size: 100%, 0 0;
                     background-color: transparent;
-                    padding-left: 10px;
-                    padding-right: 10px;
-                    margin: auto;
                     border: none;
+                    padding: 0;
                     cursor: pointer;
+                }
+                // second image is hidden; it just preloads the pressed state
+                .save-it {
+                    background-image: url(../assets/save.png), url(../assets/save_pressed.png);
+                    background-size: 100%, 0 0;
                 }
                 .save-it:active {
                     background-image: url(../assets/save_pressed.png);
                     background-size: 100%;
                 }
+                // second image is hidden; it just preloads the pressed state
                 .delete-it {
-                    grid-area: delete;
-                    // shrinks on narrow phones, keeps the art's proportions
-                    width: min(#{$selfiebutton_width}, 80vw);
-                    height: auto;
-                    aspect-ratio: 288 / 116;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
                     background-image: url(../assets/delete.png), url(../assets/delete_pressed.png);
-                    background-repeat: no-repeat;
                     background-size: 100%, 0 0;
-                    background-color: transparent;
-                    padding-left: 10px;
-                    padding-right: 10px;
-                    margin: auto;
-                    border: none;
-                    cursor: pointer;
                 }
                 .delete-it:active {
                     background-image: url(../assets/delete_pressed.png);
                     background-size: 100%;
                 }
             }
+        }
+        // the slot prints come out of
+        .print-slot {
+            grid-area: slot;
+            height: 8px;
+            margin: 0 15%;
+            background: rgb(30, 22, 30);
+            box-shadow: inset 0 3px 0 black;
+            position: relative;
+            z-index: 4;
+            // closes along with the iris, reopens with it
+            transition: transform $iris_open_dur ease-out;
+            // .closed (added by app.js with the iris): shrinks to nothing from both ends
+            &.closed {
+                transform: scaleX(0);
+                transition: transform $iris_close_dur ease-in;
+            }
+        }
+        // scroll area for the photo strip. It spans from the camera box down to
+        // the bottom of the screen (the slider's lowest 15% is off-screen), so a
+        // finished strip can be scrolled up over the delete/save buttons.
+        // While printing, app.js clips it at the slot.
+        .print-strip {
+            grid-row: 2 / 5;
+            grid-column: 1;
+            position: relative;
+            margin-bottom: calc(#{$height_slider_total - $height_slider_open} + #{$safe_bottom});
+            margin-bottom: calc(#{$height_slider_total_d - $height_slider_open_d} + #{$safe_bottom});
+            // pushes the bottom edge up to the bottom of the visible screen
+            // (overflow: scrolls up and down only)
+            overflow-x: hidden;
+            overflow-y: auto;
+            // scrolling past the ends doesn't drag the page
+            overscroll-behavior: contain;
+            // don't let the browser shift the scroll position when photos are added
+            overflow-anchor: none;
+            // smooth momentum scrolling on older iPhones
+            -webkit-overflow-scrolling: touch;
+            // no visible scrollbar, like an app
+            scrollbar-width: none;
+            &::-webkit-scrollbar {
+                display: none;
+            }
+            // the empty part lets taps through to the buttons; only the strip
+            // itself catches touches (and scrolls this area)
+            pointer-events: none;
+            z-index: 5;
+            // the strip itself (one per sequence, built by app.js). Its top is set
+            // from JS so it starts right under the slot
+            .strip {
+                position: absolute;
+                top: 0;
+                // centered; 2px right of center to leave room for the magenta edge
+                left: calc(50% - 116px);
+                width: 236px;
+                // room to scroll the bottom end fully into view
+                padding-bottom: 16px;
+                // the strip catches touches, so dragging it scrolls the area
+                pointer-events: auto;
+                touch-action: pan-y;
+                // on delete the whole strip speeds up as it slides away
+                &.leaving {
+                    transition: transform $print_dur $ease_out;
+                }
+            }
+            // one piece of the photo strip: pink paper (same as the save/delete
+            // buttons) with a dark blue outline; pieces join edge to edge
+            .print-card {
+                box-sizing: border-box;
+                width: 236px;
+                padding: 8px 9px 0;
+                background: $orange;
+                border-left: 3px solid $darkblue;
+                border-right: 3px solid $darkblue;
+                // magenta edge on the left, like the buttons' 3D side
+                box-shadow: -4px 0 0 $pink;
+                // set from JS: grows out of the slot, pushing the strip down
+                &.printing {
+                    transition: margin-top $print_dur $ease;
+                }
+                // the newest photo is the top end of the strip
+                &:first-child {
+                    border-top: 3px solid $darkblue;
+                }
+                // the photo, same shape as the camera box, with a dark blue border
+                img {
+                    display: block;
+                    width: 100%;
+                    height: auto;
+                    aspect-ratio: 352 / 240; // $selfiewidth / $selfieheight
+                    object-fit: cover;
+                    border: 3px solid $darkblue;
+                    background: $black;
+                }
+                // the first photo is the bottom end of the strip
+                &.strip-end {
+                    padding-bottom: 0;
+                    border-bottom: 3px solid $darkblue;
+                    // magenta edge continues around the bottom-left corner
+                    box-shadow: -4px 0 0 $pink, -4px 4px 0 $pink;
+                }
+                // footer at the bottom end: camera name on the left, date on the right,
+                // in the site's yellow text with a dark blue outline
+                .strip-footer {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    height: 30px;
+                    margin: 0;
+                    padding: 0 2px;
+                    font-size: 17px;
+                    gap: 8px;
+                    color: $yellow;
+                    text-shadow: -1px 0 $darkblue, 0 1px $darkblue, 1px 0 $darkblue, 0 -1px $darkblue;
+                    // camera name: cut off with "..." if it's too long
+                    .strip-location {
+                        flex: 1;
+                        text-align: left;
+                        min-width: 0;
+                        overflow: hidden;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
+                    }
+                    // the date never shrinks
+                    .strip-date {
+                        flex: none;
+                    }
+                }
+            }
+        }
+        // area under the slot: SNAP button and help text
+        .slider-functions {
+            grid-area: functions;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            // holds the SNAP button near the top of this area
+            .slider-text {
+                position: absolute;
+                top: 14px;
+                left: 0;
+                right: 0;
+                display: flex;
+                justify-content: center;
+                transition: transform $slide_dur $ease;
+                // SNAP leaves to the right...
+                &.out {
+                    transform: translateX(100vw);
+                    transition: transform $slide_dur $ease_out;
+                    pointer-events: none;
+                }
+                // ...and comes back from the left (parked there with no transition first)
+                &.park {
+                    transform: translateX(-100vw);
+                    transition: none;
+                    pointer-events: none;
+                }
+                // second image is hidden; it just preloads the pressed state
+                .take-selfie {
+                    background-image: url(../assets/selfie.png), url(../assets/selfie_pressed.png);
+                    background-repeat: no-repeat;
+                    background-size: 100%, 0 0;
+                    background-color: transparent;
+                    border: none;
+                    padding: 0;
+                    // shrinks on narrow phones, keeps the art's proportions
+                    // (and on very short screens, so it clears the help text)
+                    width: min(#{$selfiebutton_width}, 80vw, 40vh);
+                    width: min(#{$selfiebutton_width}, 80vw, 40dvh);
+                    height: auto;
+                    aspect-ratio: 232 / 116; // button art size
+                    cursor: pointer;
+                }
+                .take-selfie:active {
+                    background-image: url(../assets/selfie_pressed.png);
+                    // show the pressed image at full size
+                    background-size: 100%;
+                }
+            }
+            // help text sits at the bottom of the visible part of the slider
+            // (the slider's lowest 15% is below the screen while it's open)
             .slider-spacer {
-                grid-area: 2 / 1;
-                width: 100%;
-                background-color: transparent;
-                z-index: 1;
-                overflow-y: auto;
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: calc(#{$height_slider_total - $height_slider_open} + 10px + #{$safe_bottom});
+                bottom: calc(#{$height_slider_total_d - $height_slider_open_d} + 10px + #{$safe_bottom});
+                transition: transform $slide_dur $ease;
+                // .out (added by app.js on SNAP): slides down past the bottom of the screen
+                &.out {
+                    transform: translateY(calc(100% + 15vh + 30px));
+                    transform: translateY(calc(100% + 15dvh + 30px));
+                    transition: transform $slide_dur $ease_out;
+                }
+                p {
+                    margin: 0;
+                }
             }
         }
     }
@@ -663,9 +907,11 @@ img {
     color: $yellow;
     width: 100%;
     height: 5%;
+    // taller by the home-bar height, with the text kept above it
     height: calc(5% + #{$safe_bottom});
     padding: $text_padding;
     padding-bottom: calc(#{$text_padding} + #{$safe_bottom});
+    // slides down/out of the way when the slider opens
     transition: transform $dur $ease;
     z-index: 2;
     position: absolute;
@@ -802,6 +1048,7 @@ img {
     z-index: 1;
     overflow-y: auto;
     .header {
+        // fixed: was "text_padding" without the $, which isn't valid CSS
         padding: $text_padding;
         overflow: hidden;
         width: 100%;
@@ -830,5 +1077,9 @@ img {
     *::after {
         transition-duration: .01s !important;
         animation: none !important;
+    }
+    // without the iris animation, just hide the feed
+    .wrapper-index .slider .slider-cam .cam-frame.iris-close {
+        visibility: hidden;
     }
 }

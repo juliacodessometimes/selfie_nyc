@@ -3,10 +3,13 @@
 <head>
     <meta charset="utf-8" />
     <title>selfie_nyc/faq</title>
+    <!-- viewport-fit=cover: use the whole screen on phones with a notch; main.css adds padding to keep content clear of it -->
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes, viewport-fit=cover" />
     <link rel="shortcut icon" type="image/jpg" href="assets/favicon.png"/>
+    <!-- Bulma removed: nothing on the site used it, and main.css now has its own small reset -->
     <link rel="stylesheet" href="style/main.css">
 </head>
+<!-- ontouchstart="" makes iPhones show :active (pressed) button images -->
 <body ontouchstart="" style="border: 6px solid rgb(125, 63, 89);">
 <div class="wrapper-faq">
 <div class="header">

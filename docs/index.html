@@ -3,13 +3,18 @@
 <head>
     <meta charset="utf-8" />
     <title>selfie_nyc</title>
+    <!-- viewport-fit=cover: use the whole screen on phones with a notch; main.css adds padding to keep content clear of it -->
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes, viewport-fit=cover"/>
     <link rel="shortcut icon" type="image/jpg" href="assets/favicon.png"/>
+    <!-- defer: download scripts without blocking the page from showing; they run in order once the HTML is parsed -->
     <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js" defer></script>
     <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css" rel="stylesheet" />
+    <!-- Bulma removed: nothing on the site used it, and main.css now has its own small reset -->
     <link rel="stylesheet" href="style/main.css">
+    <!-- moved here from the end of <body>; defer keeps it running after Mapbox and after the page is parsed -->
     <script src="script/app.js" defer></script>
 </head>
+<!-- ontouchstart="" makes iPhones show :active (pressed) button images -->
 <body ontouchstart="">
 <div class="header-index">
     <img src="assets/logo.png" id="logo"></img>
@@ -30,25 +35,43 @@
         <div id="location">
             <p></p>
         </div>
-        <button class="slider-toggle" onclick="toggleBtn();"></button>
+        <!-- aria-label: image-only buttons need a name for screen readers -->
+        <button class="slider-toggle" onclick="toggleBtn();" aria-label="close camera"></button>
     </div>
+    <!-- camera area: a fixed-size box so every camera takes up the same space -->
     <div class="slider-cam">
-        <img id="camFeed" src="">
+        <!-- the live feed and its dark frame; this is what the iris opens and closes -->
+        <div class="cam-frame">
+            <img id="camFeed" src="" alt="live traffic camera view">
+            <!-- "● 2/4" shown over the feed while the 4 photos are being taken -->
+            <p class="shot-counter"><span class="rec">&#9679;</span> <span id="shotCount">0/4</span></p>
+            <!-- app.js adds a white .flash layer here for each photo -->
+        </div>
+        <!-- delete/save: moved here so they appear where the live feed was, after the iris closes -->
+        <div class="slider-buttons">
+            <button class="delete-it" onclick="deleteBtn();" aria-label="delete"></button>
+            <button class="save-it" onclick="downloadBtn();" aria-label="save"></button>
+        </div>
     </div>
+    <!-- the slot the photo strip prints out of; closes along with the iris -->
+    <div class="print-slot"></div>
     <div class="slider-functions">
         <div class="slider-text">
-            <button class="take-selfie" onclick="selfieBtn();"></button>
+            <!-- SNAP: starts the 4-photo sequence (selfieBtn in app.js) -->
+            <button class="take-selfie" onclick="selfieBtn();" aria-label="snap 4 photos"></button>
         </div>
-        <div class="slider-buttons">
-            <button class="save-it" onclick="downloadBtn();"></button>
-            <button class="delete-it" onclick="deleteBtn();"></button>
-        </div>
+        <!-- help text: slides down out of view during the sequence -->
         <div class="slider-spacer">
             <p>having trouble? <br> check <a href="faq.html">help and troubleshooting</a></p>
         </div>
     </div>
+    <!-- scroll area for the photo strip. It covers the camera box and the area
+         below it, so a finished strip can be scrolled up over delete/save.
+         app.js builds the strip inside it. -->
+    <div class="print-strip"></div>
 </div>
 </div>
+<!-- app.js used to be loaded here; it's now in <head> with defer -->
 <div class="footer-index">
     <p>website by <a href="https://www.juliabloomportfolio.com/">julia bloom</a></p>
 </div>
