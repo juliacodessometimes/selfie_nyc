@@ -543,11 +543,20 @@ img {
             // (no bottom border any more: the title sits right on the camera box)
             padding-left: 2px;
             padding-right: 2px;
-            text-shadow: -1px 0 $darkblue, 0 1px $darkblue, 1px 0 $darkblue, 0 -1px $darkblue;
+            // (dark blue text outline removed)
             z-index: 2;
             #location {
                 background-color: transparent;
-                font-size: 19px;
+                // starting size; app.js (fitTitle) resizes it to fill the space
+                font-size: 30px;
+                line-height: 1.1;
+                // one line, unless even the smallest size doesn't fit (app.js decides)
+                white-space: nowrap;
+                &.wrap {
+                    white-space: normal;
+                }
+                overflow: hidden;
+                padding: 4px 0;
                 -webkit-font-smoothing: antialiased;
                 font-family: pixelfont;
                 font-weight: 500;
@@ -555,6 +564,9 @@ img {
                 text-align: center;
                 flex-wrap: wrap;
                 flex: 2;
+                // stay within the space next to the close button (so app.js can
+                // tell when the text is too wide)
+                min-width: 0;
             }
             .slider-toggle {
                 flex: 0 0 $toggle_buttons;
@@ -612,7 +624,8 @@ img {
             // "● 2/4" counter over the feed; app.js shows it during the sequence
             .shot-counter {
                 position: absolute;
-                top: 2px;
+                // bottom-left corner of the camera image
+                bottom: 2px;
                 left: 8px;
                 margin: 0;
                 font-size: 19px;
@@ -718,118 +731,6 @@ img {
                 transition: transform $iris_close_dur ease-in;
             }
         }
-        // scroll area for the photo strip. It spans from the camera box down to
-        // the bottom of the screen (the slider's lowest 15% is off-screen), so a
-        // finished strip can be scrolled up over the delete/save buttons.
-        // While printing, app.js clips it at the slot.
-        .print-strip {
-            grid-row: 2 / 5;
-            grid-column: 1;
-            position: relative;
-            margin-bottom: calc(#{$height_slider_total - $height_slider_open} + #{$safe_bottom});
-            margin-bottom: calc(#{$height_slider_total_d - $height_slider_open_d} + #{$safe_bottom});
-            // pushes the bottom edge up to the bottom of the visible screen
-            // (overflow: scrolls up and down only)
-            overflow-x: hidden;
-            overflow-y: auto;
-            // scrolling past the ends doesn't drag the page
-            overscroll-behavior: contain;
-            // don't let the browser shift the scroll position when photos are added
-            overflow-anchor: none;
-            // smooth momentum scrolling on older iPhones
-            -webkit-overflow-scrolling: touch;
-            // no visible scrollbar, like an app
-            scrollbar-width: none;
-            &::-webkit-scrollbar {
-                display: none;
-            }
-            // the empty part lets taps through to the buttons; only the strip
-            // itself catches touches (and scrolls this area)
-            pointer-events: none;
-            z-index: 5;
-            // the strip itself (one per sequence, built by app.js). Its top is set
-            // from JS so it starts right under the slot
-            .strip {
-                position: absolute;
-                top: 0;
-                // centered; 2px right of center to leave room for the magenta edge
-                left: calc(50% - 116px);
-                width: 236px;
-                // room to scroll the bottom end fully into view
-                padding-bottom: 16px;
-                // the strip catches touches, so dragging it scrolls the area
-                pointer-events: auto;
-                touch-action: pan-y;
-                // on delete the whole strip speeds up as it slides away
-                &.leaving {
-                    transition: transform $print_dur $ease_out;
-                }
-            }
-            // one piece of the photo strip: pink paper (same as the save/delete
-            // buttons) with a dark blue outline; pieces join edge to edge
-            .print-card {
-                box-sizing: border-box;
-                width: 236px;
-                padding: 8px 9px 0;
-                background: $orange;
-                border-left: 3px solid $darkblue;
-                border-right: 3px solid $darkblue;
-                // magenta edge on the left, like the buttons' 3D side
-                box-shadow: -4px 0 0 $pink;
-                // set from JS: grows out of the slot, pushing the strip down
-                &.printing {
-                    transition: margin-top $print_dur $ease;
-                }
-                // the newest photo is the top end of the strip
-                &:first-child {
-                    border-top: 3px solid $darkblue;
-                }
-                // the photo, same shape as the camera box, with a dark blue border
-                img {
-                    display: block;
-                    width: 100%;
-                    height: auto;
-                    aspect-ratio: 352 / 240; // $selfiewidth / $selfieheight
-                    object-fit: cover;
-                    border: 3px solid $darkblue;
-                    background: $black;
-                }
-                // the first photo is the bottom end of the strip
-                &.strip-end {
-                    padding-bottom: 0;
-                    border-bottom: 3px solid $darkblue;
-                    // magenta edge continues around the bottom-left corner
-                    box-shadow: -4px 0 0 $pink, -4px 4px 0 $pink;
-                }
-                // footer at the bottom end: camera name on the left, date on the right,
-                // in the site's yellow text with a dark blue outline
-                .strip-footer {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    height: 30px;
-                    margin: 0;
-                    padding: 0 2px;
-                    font-size: 17px;
-                    gap: 8px;
-                    color: $yellow;
-                    text-shadow: -1px 0 $darkblue, 0 1px $darkblue, 1px 0 $darkblue, 0 -1px $darkblue;
-                    // camera name: cut off with "..." if it's too long
-                    .strip-location {
-                        flex: 1;
-                        text-align: left;
-                        min-width: 0;
-                        overflow: hidden;
-                        white-space: nowrap;
-                        text-overflow: ellipsis;
-                    }
-                    // the date never shrinks
-                    .strip-date {
-                        flex: none;
-                    }
-                }
-            }
-        }
         // area under the slot: SNAP button and help text
         .slider-functions {
             grid-area: functions;
@@ -879,24 +780,163 @@ img {
                     background-size: 100%;
                 }
             }
-            // help text sits at the bottom of the visible part of the slider
-            // (the slider's lowest 15% is below the screen while it's open)
+            // help text area: from the bottom of the SNAP button (SNAP's top 14px +
+            // its height, half its width, same min() as .take-selfie) down to the
+            // bottom of the screen (the slider's lowest 15% is off-screen).
+            // The text is centered halfway between the two.
             .slider-spacer {
                 position: absolute;
                 left: 0;
                 right: 0;
-                bottom: calc(#{$height_slider_total - $height_slider_open} + 10px + #{$safe_bottom});
-                bottom: calc(#{$height_slider_total_d - $height_slider_open_d} + 10px + #{$safe_bottom});
+                top: calc(14px + min(#{$selfiebutton_height}, 40vw, 20vh));
+                top: calc(14px + min(#{$selfiebutton_height}, 40vw, 20dvh));
+                // (+12px: the page's 6px green border top and bottom; the slider is a
+                // full screen tall, so it reaches 12px past the inside of the border)
+                bottom: calc(#{$height_slider_total - $height_slider_open} + 12px + #{$safe_bottom});
+                bottom: calc(#{$height_slider_total_d - $height_slider_open_d} + 12px + #{$safe_bottom});
+                display: flex;
+                align-items: center;
                 transition: transform $slide_dur $ease;
                 // .out (added by app.js on SNAP): slides down past the bottom of the screen
                 &.out {
-                    transform: translateY(calc(100% + 15vh + 30px));
-                    transform: translateY(calc(100% + 15dvh + 30px));
+                    transform: translateY(100vh);
+                    transform: translateY(100dvh);
                     transition: transform $slide_dur $ease_out;
                 }
                 p {
                     margin: 0;
+                    // app.js (fitHelp) sets the font size to fill the width,
+                    // leaving this much room at each side
+                    padding: 0 12px;
+                    width: 100%;
+                    line-height: 1.2;
+                    // lines only break at the <br>, unless even the smallest
+                    // size doesn't fit (app.js adds .wrap)
+                    white-space: nowrap;
+                    overflow: hidden;
+                    &.wrap {
+                        white-space: normal;
+                    }
                 }
+            }
+        }
+    }
+}
+// full-screen layer for the photo strip, on top of everything on the page
+// (header, map, slider, footer). While printing, app.js clips it at the slot so
+// photos look like they come out of it; once done, the strip can be scrolled
+// up over everything.
+.print-strip {
+    position: fixed;
+    inset: 0;
+    // scrolls up and down only
+    overflow-x: hidden;
+    overflow-y: auto;
+    // scrolling past the ends doesn't drag the page
+    overscroll-behavior: contain;
+    // don't let the browser shift the scroll position when photos are added
+    overflow-anchor: none;
+    // smooth momentum scrolling on older iPhones
+    -webkit-overflow-scrolling: touch;
+    // no visible scrollbar, like an app
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    // the empty part lets taps through to the buttons; only the strip
+    // itself catches touches (and scrolls this area)
+    pointer-events: none;
+    // above the header, slider and footer (all z-index 2)
+    z-index: 50;
+    // invisible spacer (built by app.js) that makes this layer tall enough to
+    // scroll the strip all the way to the top of the screen
+    .strip-spacer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 1px;
+        visibility: hidden;
+        pointer-events: none;
+    }
+    // the strip itself (one per sequence, built by app.js). Its top is set
+    // from JS so it starts right under the slot
+    .strip {
+        position: absolute;
+        top: 0;
+        // centered; 2px right of center to leave room for the magenta edge
+        left: calc(50% - 116px);
+        width: 236px;
+        // room to scroll the bottom end fully into view
+        padding-bottom: 16px;
+        // the strip catches touches, so dragging it scrolls the area
+        pointer-events: auto;
+        touch-action: pan-y;
+        // on delete the whole strip speeds up as it slides away
+        &.leaving {
+            transition: transform $print_dur $ease_out;
+        }
+    }
+    // one piece of the photo strip: pink paper (same as the save/delete
+    // buttons) with a dark blue outline; pieces join edge to edge
+    .print-card {
+        box-sizing: border-box;
+        width: 236px;
+        padding: 8px 9px 0;
+        background: $orange;
+        border-left: 3px solid $darkblue;
+        border-right: 3px solid $darkblue;
+        // magenta edge on the left, like the buttons' 3D side
+        box-shadow: -4px 0 0 $pink;
+        // set from JS: grows out of the slot, pushing the strip down
+        &.printing {
+            transition: margin-top $print_dur $ease;
+        }
+        // the newest photo is the top end of the strip
+        &:first-child {
+            border-top: 3px solid $darkblue;
+        }
+        // the photo, same shape as the camera box, with a dark blue border
+        img {
+            display: block;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 352 / 240; // $selfiewidth / $selfieheight
+            object-fit: cover;
+            border: 3px solid $darkblue;
+            background: $black;
+        }
+        // the first photo is the bottom end of the strip
+        &.strip-end {
+            padding-bottom: 0;
+            border-bottom: 3px solid $darkblue;
+            // magenta edge continues around the bottom-left corner
+            box-shadow: -4px 0 0 $pink, -4px 4px 0 $pink;
+        }
+        // footer at the bottom end: camera name on the left, date on the right,
+        // in the site's yellow text
+        .strip-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 30px;
+            margin: 0;
+            padding: 0 2px;
+            font-size: 17px;
+            gap: 8px;
+            color: $yellow;
+            // (dark blue text outline removed)
+            // camera name: cut off with "..." if it's too long
+            .strip-location {
+                flex: 1;
+                text-align: left;
+                min-width: 0;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+            // the date never shrinks
+            .strip-date {
+                flex: none;
             }
         }
     }
@@ -937,9 +977,10 @@ img {
         width: 100%;
         height: auto;
         z-index: 3;
-        padding: $text_padding;
-        // clear the notch
-        padding-top: calc(#{$text_padding} + #{$safe_top});
+        // no side/bottom padding, so the logo and nav line up exactly with the
+        // index page's header; only clear the notch at the top
+        padding: 0;
+        padding-top: $safe_top;
         mark {
             background: $pink !important;
             color: $yellow !important;
@@ -999,9 +1040,10 @@ img {
         width: 100%;
         height: auto;
         z-index: 3;
-        padding: $text_padding;
-        // clear the notch
-        padding-top: calc(#{$text_padding} + #{$safe_top});
+        // no side/bottom padding, so the logo and nav line up exactly with the
+        // index page's header; only clear the notch at the top
+        padding: 0;
+        padding-top: $safe_top;
         mark {
             background: $blue !important;
             color: $yellow !important;

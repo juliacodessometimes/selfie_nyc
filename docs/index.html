@@ -65,12 +65,13 @@
             <p>having trouble? <br> check <a href="faq.html">help and troubleshooting</a></p>
         </div>
     </div>
-    <!-- scroll area for the photo strip. It covers the camera box and the area
-         below it, so a finished strip can be scrolled up over delete/save.
-         app.js builds the strip inside it. -->
-    <div class="print-strip"></div>
 </div>
 </div>
+<!-- full-screen layer for the photo strip, above everything else on the page.
+     While printing, app.js clips it at the slot; once finished, the strip can be
+     scrolled up over the slider, header and map. Empty areas let taps through.
+     app.js builds the strip inside it. -->
+<div class="print-strip"></div>
 <!-- app.js used to be loaded here; it's now in <head> with defer -->
 <div class="footer-index">
     <p>website by <a href="https://www.juliabloomportfolio.com/">julia bloom</a></p>

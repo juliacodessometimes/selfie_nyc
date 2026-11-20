@@ -29,7 +29,7 @@ var sliderButtonsCSS = document.querySelector('.slider-buttons');
 var spacerCSS = document.querySelector('.slider-spacer');       // "having trouble?" help text
 var camFrameCSS = document.querySelector('.cam-frame');         // live feed + dark frame (the iris clips this)
 var printSlot = document.querySelector('.print-slot');          // slot the strip prints out of
-var printStrip = document.querySelector('.print-strip');        // scroll area that holds the strip
+var printStrip = document.querySelector('.print-strip');        // full-screen layer that holds the strip
 var shotCounter = document.querySelector('.shot-counter');      // "● 2/4" over the feed
 var shotCount = document.getElementById('shotCount');           // the "2/4" text inside it
 var headerCSS = document.querySelector('.header-index');
@@ -144,6 +144,46 @@ function openSlider() {
     headerCSS.classList.add('is-open');
     footerCSS.classList.add('is-open');
 }
+// make text as big as fits: tries sizes from max down to min and keeps the first
+// one where fits() is true. If even min doesn't fit, adds .wrap (CSS then lets
+// the text wrap onto more lines).
+function fitText(el, max, min, fits) {
+    el.classList.remove('wrap');
+    for (var size = max; size >= min; size--) {
+        el.style.fontSize = size + 'px';
+        if (fits()) return;
+    }
+    el.classList.add('wrap');
+}
+// camera title: as big as fits on one line next to the close button
+var TITLE_MAX = 34, TITLE_MIN = 18;
+function fitTitle() {
+    fitText(cameraLocation, TITLE_MAX, TITLE_MIN, function() {
+        return cameraLocation.scrollWidth <= cameraLocation.clientWidth;
+    });
+}
+// help text ("having trouble? ..."), centered between SNAP and the bottom of
+// the screen: as big as fits across the slider and within that space (with
+// HELP_GAP to spare above and below). Sizes are measured without the slide
+// animations, so this works any time, even while the text is slid away.
+var HELP_MAX = 30, HELP_MIN = 16, HELP_GAP = 8;
+var helpText = spacerCSS.querySelector('p');
+function fitHelp() {
+    fitText(helpText, HELP_MAX, HELP_MIN, function() {
+        return helpText.scrollWidth <= helpText.clientWidth &&
+            helpText.offsetHeight <= spacerCSS.clientHeight - 2 * HELP_GAP;
+    });
+}
+function fitAllText() {
+    fitTitle();
+    fitHelp();
+}
+// refit when the screen size changes (e.g. phone rotated) and once the pixel
+// font has loaded (its letters are a different width from the fallback font)
+window.addEventListener('resize', fitAllText);
+if (document.fonts) {
+    document.fonts.ready.then(fitAllText);
+}
 // (re)start the live feed. Moved into its own function because setHTML and
 // deleteBtn both need it
 function startFeed() {
@@ -158,6 +198,8 @@ function setHTML(clickedMarker) {
     resetSnap();
     // set heading text to cross-street
     cameraLocation.innerHTML = clickedMarker.properties.name;
+    // make it as big as fits next to the close button (and size the help text)
+    fitAllText();
     // pre-load camera feed image
     cameraFeed.src = "assets/loading.png";
     startFeed();
@@ -215,6 +257,15 @@ function newStrip() {
     var slotTop = Math.round(printSlot.getBoundingClientRect().bottom - printStrip.getBoundingClientRect().top);
     strip.style.top = slotTop + 'px';
     printStrip.style.clipPath = 'inset(' + slotTop + 'px 0 0 0)';
+    // spacer: one screen taller than the slot position, so the strip can be
+    // scrolled up until its top reaches the top of the screen
+    var spacer = printStrip.querySelector('.strip-spacer');
+    if (!spacer) {
+        spacer = document.createElement('div');
+        spacer.className = 'strip-spacer';
+        printStrip.appendChild(spacer);
+    }
+    spacer.style.height = (printStrip.clientHeight + slotTop) + 'px';
     printStrip.appendChild(strip);
     return strip;
 }
@@ -346,7 +397,7 @@ function selfieBtn() {
     later(function() {
         snapState = 'done';
         sliderButtonsCSS.classList.add('in');
-        // printing is over: the strip may now be scrolled up over the buttons
+        // printing is over: the strip may now be scrolled up over everything
         printStrip.style.clipPath = '';
     }, lastShot + SNAP.printMs);
 }
@@ -380,7 +431,9 @@ function deleteBtn() {
     // started meanwhile is untouched
     later(function() {
         leaving.remove();
+        // nothing new started meanwhile: empty the layer completely
         if (!currentStrip) {
+            printStrip.innerHTML = '';
             printStrip.style.clipPath = '';
             printStrip.scrollTop = 0;
         }
@@ -389,6 +442,7 @@ function deleteBtn() {
     later(function() {
         sliderButtonsCSS.classList.remove('out');
         spacerCSS.classList.remove('out');
+        fitHelp();
         sliderTextCSS.classList.remove('out');
         // jump SNAP off the left edge with no animation...
         sliderTextCSS.classList.add('park');
