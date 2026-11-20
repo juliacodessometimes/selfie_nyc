@@ -3,29 +3,30 @@
 <head>
     <meta charset="utf-8" />
     <title>selfie_nyc/faq</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes, viewport-fit=cover" />
     <link rel="shortcut icon" type="image/jpg" href="{{url_for('static', filename='favicon.png')}}"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
     <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
+    <script src="{{url_for('static', filename='device-notice.js')}}" defer></script>
 </head>
-<body style="border: 6px solid rgb(125, 63, 89);">
+<body ontouchstart="" style="border: 6px solid rgb(125, 63, 89);">
 <div class="wrapper-faq">
 <div class="header">
     <img src="{{url_for('static', filename='logo_faq.png')}}" id="logo"></img>
-    <h1>FAQ and troubleshooting</h1>
-    <h5><a href="{{url_for('about')}}">about page</a></h5>
-    <h5><a href="{{url_for('index')}}">back to selfie_nyc</a></h5>
+    <div class="nav-bar">
+        <h5><mark><a href="{{url_for('index')}}">home</a></mark></h5>
+        <h5><mark><a href="{{url_for('about')}}">about</a></mark></h5>
+        <h5><mark><a href="{{url_for('faq')}}">help</a></mark></h5>
+    </div>
+    <h1><mark>help and troubleshooting</mark></h1>
 </div>
 <div class="main-text">
-    <h4>Q: The location of the camera on the map doesn't appear correct! What should I do?</h4>
+    <h4>Q: The location of the camera on the map doesn't appear correct!</h4>
     <br>
     <p>A: Some of the camera locations are not exact. Try matching the camera feed with what you see on the street, or going to the intersection that appears above the camera feed</p>
     <br>
-    <p>If you find that a camera is nowhere near its shown location (i.e., at a different street or address), please note the camera and send an email to selfienycwebsite@gmail.com</p>
+    <h4>Q: The camera feed isn't changing.</h4>
     <br>
-    <h4>Q: The camera feed isn't changing! Is the camera broken?</h4>
-    <br>
-    <p>A: Be patient! Images are refreshed every second, but sometimes loading times can be slow. Wait a few seconds, and if the image does not change, try refreshing the page. If you can, try connecting to WiFi.</p>
+    <p>A: Be patient! Images are refreshed every second, but sometimes loading times can be slow. Wait a few seconds, and if the image does not change, try refreshing the page.</p>
     <br>
     <p>If the image still does not change, try checking back another day. Cameras go in and out of service regularly, but this website only updates every few days.</p>
     <br>
