@@ -876,13 +876,13 @@ img {
             transition: transform $print_dur $ease_out;
         }
     }
-    // one piece of the photo strip: pink paper (same as the save/delete
-    // buttons) with a dark blue outline; pieces join edge to edge
+    // one piece of the photo strip: light pink paper (to match the map's
+    // pink) with a dark blue outline; pieces join edge to edge
     .print-card {
         box-sizing: border-box;
         width: 236px;
         padding: 8px 9px 0;
-        background: $orange;
+        background: $light_pink;
         border-left: 3px solid $darkblue;
         border-right: 3px solid $darkblue;
         // magenta edge on the left, like the buttons' 3D side
@@ -912,8 +912,7 @@ img {
             // magenta edge continues around the bottom-left corner
             box-shadow: -4px 0 0 $pink, -4px 4px 0 $pink;
         }
-        // footer at the bottom end: camera name on the left, date on the right,
-        // in the site's yellow text
+        // footer at the bottom end: camera name on the left, date on the right
         .strip-footer {
             display: flex;
             justify-content: space-between;
@@ -923,7 +922,8 @@ img {
             padding: 0 2px;
             font-size: 17px;
             gap: 8px;
-            color: $yellow;
+            // dark blue to match the strip's outline (readable on the light pink)
+            color: $darkblue;
             // (dark blue text outline removed)
             // camera name: cut off with "..." if it's too long
             .strip-location {
