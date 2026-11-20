@@ -3,13 +3,11 @@
 <head>
     <meta charset="utf-8" />
     <title>selfie_nyc/faq</title>
-    <!-- viewport-fit=cover: use the whole screen on phones with a notch; main.css adds padding to keep content clear of it -->
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes, viewport-fit=cover" />
     <link rel="shortcut icon" type="image/jpg" href="assets/favicon.png"/>
-    <!-- Bulma removed: nothing on the site used it, and main.css now has its own small reset -->
     <link rel="stylesheet" href="style/main.css">
+    <script src="script/device-notice.js" defer></script>
 </head>
-<!-- ontouchstart="" makes iPhones show :active (pressed) button images -->
 <body ontouchstart="" style="border: 6px solid rgb(125, 63, 89);">
 <div class="wrapper-faq">
 <div class="header">
@@ -22,15 +20,13 @@
     <h1><mark>help and troubleshooting</mark></h1>
 </div>
 <div class="main-text">
-    <h4>Q: The location of the camera on the map doesn't appear correct! What should I do?</h4>
+    <h4>Q: The location of the camera on the map doesn't seem right!</h4>
     <br>
     <p>A: Some of the camera locations are not exact. Try matching the camera feed with what you see on the street, or going to the intersection that appears above the camera feed</p>
     <br>
-    <p>If you find that a camera is nowhere near its shown location (i.e., at a different street or address), please note the camera and send an email to selfienycwebsite@gmail.com</p>
+    <h4>Q: The camera feed isn't changing.</h4>
     <br>
-    <h4>Q: The camera feed isn't changing! Is the camera broken?</h4>
-    <br>
-    <p>A: Be patient! Images are refreshed every second, but sometimes loading times can be slow. Wait a few seconds, and if the image does not change, try refreshing the page. If you can, try connecting to WiFi.</p>
+    <p>A: Be patient! Images are refreshed every second, but sometimes loading times can be slow. Wait a few seconds, and if the image does not change, try refreshing the page.</p>
     <br>
     <p>If the image still does not change, try checking back another day. Cameras go in and out of service regularly, but this website only updates every few days.</p>
     <br>
@@ -38,7 +34,7 @@
     <img src="assets/cctv.png" id="example"></img>
     <p>A: Sometimes this image appears when the camera feed url cannot be reached. Wait a few seconds for the feed to refresh again, and the actual camera feed should appear.</p>
     <br>
-    <p>If the image is not replaced with a view of the street within 10 seconds, the camera feed may be down for that day. Check back again at a later date to see if it's been updated!</p>
+    <p>If the image is not replaced with a view of the street within ~10 seconds, the camera feed may be down for that day. Check back again at a later date to see if it's been updated!</p>
     <br>
 </div>
 <div class="footer">

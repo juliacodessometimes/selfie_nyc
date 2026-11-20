@@ -3,16 +3,14 @@
 <head>
     <meta charset="utf-8" />
     <title>selfie_nyc</title>
-    <!-- viewport-fit=cover: use the whole screen on phones with a notch; main.css adds padding to keep content clear of it -->
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes, viewport-fit=cover"/>
     <link rel="shortcut icon" type="image/jpg" href="assets/favicon.png"/>
-    <!-- defer: download scripts without blocking the page from showing; they run in order once the HTML is parsed -->
     <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js" defer></script>
     <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css" rel="stylesheet" />
-    <!-- Bulma removed: nothing on the site used it, and main.css now has its own small reset -->
     <link rel="stylesheet" href="style/main.css">
     <!-- moved here from the end of <body>; defer keeps it running after Mapbox and after the page is parsed -->
     <script src="script/app.js" defer></script>
+    <script src="script/device-notice.js" defer></script>
 </head>
 <!-- ontouchstart="" makes iPhones show :active (pressed) button images -->
 <body ontouchstart="">
