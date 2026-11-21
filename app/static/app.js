@@ -35,7 +35,6 @@ var shotCount = document.getElementById('shotCount');           // the "2/4" tex
 var headerCSS = document.querySelector('.header-index');
 var footerCSS = document.querySelector('.footer-index');
 var mapCSS = document.querySelector('.map-class');
-// (wrapperCSS removed: the page-wide blink it was used for is gone)
 // elements
 var cameraFeed = document.getElementById('camFeed');
 var cameraLocation = document.getElementById('location');
@@ -140,9 +139,7 @@ function openSlider() {
     headerCSS.classList.add('is-open');
     footerCSS.classList.add('is-open');
 }
-// make text as big as fits: tries sizes from max down to min and keeps the first
-// one where fits() is true. If even min doesn't fit, adds .wrap (CSS then lets
-// the text wrap onto more lines).
+
 function fitText(el, max, min, fits) {
     el.classList.remove('wrap');
     for (var size = max; size >= min; size--) {
@@ -158,10 +155,7 @@ function fitTitle() {
         return cameraLocation.scrollWidth <= cameraLocation.clientWidth;
     });
 }
-// help text ("having trouble? ..."), centered between SNAP and the bottom of
-// the screen: as big as fits across the slider and within that space (with
-// HELP_GAP to spare above and below). Sizes are measured without the slide
-// animations, so this works any time, even while the text is slid away.
+
 var HELP_MAX = 30, HELP_MIN = 16, HELP_GAP = 8;
 var helpText = spacerCSS.querySelector('p');
 function fitHelp() {
@@ -271,8 +265,6 @@ function newStrip() {
     return strip;
 }
 // --- server side (Flask version) -------------------------------------------
-// Each photo is also saved on the server through /selfie. The server downloads
-// the camera image and answers with the saved file's path (e.g.
 // "static/my_selfie<id>.jpg"); it deletes saved files after 10 minutes.
 // Saved copies come from this site, so they can be combined into the strip
 // image that SAVE downloads (images from the camera servers can't be).
@@ -467,8 +459,8 @@ function downloadBtn() {
             canvas.toBlob(function(blob) {
                 var link = document.createElement('a');
                 link.href = URL.createObjectURL(blob);
-                link.download = 'selfie_nyc_' + strip.takenAt.getFullYear() + '-' +
-                    pad(strip.takenAt.getMonth() + 1) + '-' + pad(strip.takenAt.getDate()) + '.png';
+                // file name with the date and time the strip was taken
+                link.download = stripFileName(strip.takenAt);
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
@@ -481,6 +473,11 @@ function downloadBtn() {
             savingStrip = false;
             alert("Sorry! Your photo strip couldn't be saved. Please try again.");
         });
+}
+// download name for a strip, from when it was taken (to the second)
+function stripFileName(t) {
+    return 'selfie_nyc_' + t.getFullYear() + '-' + pad(t.getMonth() + 1) + '-' + pad(t.getDate()) +
+        '_' + pad(t.getHours()) + '-' + pad(t.getMinutes()) + '-' + pad(t.getSeconds()) + '.png';
 }
 // load a saved photo from the server; null (couldn't be saved) stays null
 function loadImage(path) {
