@@ -44,10 +44,43 @@ var clickedMarker;
 var camInterval;
 // loading map
 map.addControl(geoLocate, 'bottom-right');
+// camera data comes from the NYC DOT camera API: a list of cameras like
+// {"id", "name", "latitude", "longitude", "area", "isOnline": "true", "imageUrl"}
+var CAMERA_API = 'https://webcams.nyctmc.org/api/cameras';
+// used if the API can't be reached: the old scraped data file
+var CAMERA_BACKUP = 'https://raw.githubusercontent.com/juliacodessometimes/selfie_nyc/main/app/data.geojson';
+// turn the API's camera list into the GeoJSON the map uses: one point per
+// online camera, with its name and image address
+function camerasToGeoJSON(cameras) {
+    var features = cameras
+        // isOnline is the text "true" (not true/false), so compare as text
+        .filter(function(cam) { return String(cam.isOnline).toLowerCase() === 'true' && cam.imageUrl; })
+        .map(function(cam) {
+            return {
+                type: 'Feature',
+                geometry: { type: 'Point', coordinates: [Number(cam.longitude), Number(cam.latitude)] },
+                properties: {
+                    name: cam.name,
+                    // a random number is added to the end of this on every
+                    // refresh, so it gets a fresh image: ".../image?t=0.123"
+                    url: cam.imageUrl + '?t='
+                }
+            };
+        });
+    if (!features.length) throw new Error('no online cameras in the API response');
+    return { type: 'FeatureCollection', features: features };
+}
+function loadCameras() {
+    return fetch(CAMERA_API)
+        .then(response => response.json())
+        .then(camerasToGeoJSON)
+        .catch(function(error) {
+            console.warn('camera API unavailable, using backup data:', error);
+            return fetch(CAMERA_BACKUP).then(response => response.json());
+        });
+}
 map.on('load', () => {
-    fetch('https://raw.githubusercontent.com/juliacodessometimes/selfie_nyc/main/app/data.geojson')
-    // fetching scraped data file
-    .then(response => response.json())
+    loadCameras()
     .then((data) => {
         // add data source
         map.addSource('source_id', {
@@ -196,8 +229,12 @@ function startFeed() {
 function setHTML(clickedMarker) {
     // a new camera cancels any snap sequence that's running
     resetSnap();
-    // set heading text to cross-street
-    cameraLocation.innerHTML = clickedMarker.properties.name;
+    // set heading text to cross-street, inside a <mark> highlight
+    // (textContent shows the name as plain text)
+    var titleMark = document.createElement('mark');
+    titleMark.textContent = clickedMarker.properties.name;
+    cameraLocation.innerHTML = '';
+    cameraLocation.appendChild(titleMark);
     // make it as big as fits next to the close button (and size the help text)
     fitAllText();
     // pre-load camera feed image

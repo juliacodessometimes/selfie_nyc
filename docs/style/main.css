@@ -456,7 +456,15 @@ img {
   -webkit-font-smoothing: antialiased;
   font-family: pixelfont;
   font-weight: 500;
+}
+.wrapper-index .slider .slider-title #location mark {
+  background: rgb(48, 213, 95);
   color: rgb(40, 53, 147);
+  padding: 0 4px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.wrapper-index .slider .slider-title #location {
   text-align: center;
   flex-wrap: wrap;
   flex: 2;
@@ -665,6 +673,16 @@ img {
   line-height: 1.2;
   white-space: nowrap;
   overflow: hidden;
+}
+.wrapper-index .slider .slider-functions .slider-spacer p mark {
+  background: rgb(48, 213, 95);
+  color: rgb(40, 53, 147);
+  padding: 0 4px;
+}
+.wrapper-index .slider .slider-functions .slider-spacer p mark a {
+  background: rgb(48, 213, 95);
+  color: rgb(40, 53, 147);
+  padding: 0 4px;
 }
 .wrapper-index .slider .slider-functions .slider-spacer p.wrap {
   white-space: normal;

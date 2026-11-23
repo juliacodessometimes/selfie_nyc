@@ -558,7 +558,13 @@ img {
                 -webkit-font-smoothing: antialiased;
                 font-family: pixelfont;
                 font-weight: 500;
-                color: $darkblue;
+                mark {
+                    background: $green;   // highlight color
+                    color: $darkblue;           // text color on the highlight
+                    padding: 0 4px;           // a little room at each end of the bar
+                    -webkit-box-decoration-break: clone;
+                    box-decoration-break: clone;
+                    }
                 text-align: center;
                 flex-wrap: wrap;
                 flex: 2;
@@ -812,6 +818,16 @@ img {
                     // size doesn't fit (app.js adds .wrap)
                     white-space: nowrap;
                     overflow: hidden;
+                    mark {
+                        background:$green;
+                        color:$darkblue;
+                        padding: 0 4px;
+                        a {
+                            background:$green;
+                            color:$darkblue;
+                            padding: 0 4px;
+                        }
+                    }
                     &.wrap {
                         white-space: normal;
                     }
