@@ -8,6 +8,7 @@ import geojson
 import os, time
 
 # import geojson data from file
+
 with open('data.geojson') as g:
     geo_data = geojson.load(g)
 

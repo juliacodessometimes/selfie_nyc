@@ -542,10 +542,8 @@ img {
             display: flex;
             align-items: center;
             font-size: 22px;
-            // (no bottom border any more: the title sits right on the camera box)
             padding-left: 2px;
             padding-right: 2px;
-            // (dark blue text outline removed)
             z-index: 2;
             #location {
                 background-color: transparent;
@@ -562,7 +560,7 @@ img {
                 -webkit-font-smoothing: antialiased;
                 font-family: pixelfont;
                 font-weight: 500;
-                color: $yellow;
+                color: $darkblue;
                 text-align: center;
                 flex-wrap: wrap;
                 flex: 2;
