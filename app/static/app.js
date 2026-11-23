@@ -35,6 +35,7 @@ var shotCount = document.getElementById('shotCount');           // the "2/4" tex
 var headerCSS = document.querySelector('.header-index');
 var footerCSS = document.querySelector('.footer-index');
 var mapCSS = document.querySelector('.map-class');
+// (wrapperCSS removed: the page-wide blink it was used for is gone)
 // elements
 var cameraFeed = document.getElementById('camFeed');
 var cameraLocation = document.getElementById('location');
@@ -124,6 +125,8 @@ var SNAP = {
     slideMs: 480,      // $slide_dur
     flashMs: 280,      // $flash_dur
     irisOpenMs: 480,   // $iris_open_dur
+    revealDelay: 400,  // earliest the iris opens after the slider starts opening (ms)
+    revealMaxWait: 8000, // if the first camera image takes longer than this, open anyway (ms)
 };
 // where the sequence is: idle (SNAP showing) | shooting (photos being taken)
 // | done (delete/save showing) | clearing (delete was tapped, animating out)
@@ -133,13 +136,19 @@ var snapTimers = [];
 var currentStrip = null; // the photo strip being printed / shown
 
 // functions
+// true when the slider was closed: the next camera shown opens with the iris
+var revealNext = false;
 function openSlider() {
+    // only when the slider wasn't already open (not when switching cameras)
+    revealNext = !sliderCSS.classList.contains('is-open');
     // open slider and hide header/footer
     sliderCSS.classList.add('is-open');
     headerCSS.classList.add('is-open');
     footerCSS.classList.add('is-open');
 }
-
+// make text as big as fits: tries sizes from max down to min and keeps the first
+// one where fits() is true. If even min doesn't fit, adds .wrap (CSS then lets
+// the text wrap onto more lines).
 function fitText(el, max, min, fits) {
     el.classList.remove('wrap');
     for (var size = max; size >= min; size--) {
@@ -155,7 +164,10 @@ function fitTitle() {
         return cameraLocation.scrollWidth <= cameraLocation.clientWidth;
     });
 }
-
+// help text ("having trouble? ..."), centered between SNAP and the bottom of
+// the screen: as big as fits across the slider and within that space (with
+// HELP_GAP to spare above and below). Sizes are measured without the slide
+// animations, so this works any time, even while the text is slid away.
 var HELP_MAX = 30, HELP_MIN = 16, HELP_GAP = 8;
 var helpText = spacerCSS.querySelector('p');
 function fitHelp() {
@@ -179,20 +191,69 @@ if (document.fonts) {
 function startFeed() {
     // refresh the camera image every 1.5 seconds
     clearInterval(camInterval);
-    camInterval = setInterval(function() {
-        cameraFeed.src = clickedMarker.properties.url + Math.random();
-    }, 1500);
+    camInterval = setInterval(refreshFeed, 1500);
+}
+// load the next camera image in the background and only swap it in once it
+// has fully arrived, so the picture never goes blank and a slow camera still
+// updates (at its own pace). One image loads at a time; one that fails or
+// takes longer than FEED_TIMEOUT is skipped and the current picture stays.
+var FEED_TIMEOUT = 10000;
+var feedGen = 0;          // goes up when the camera changes or the slider closes
+var feedLoading = null;   // the image currently loading, if any
+function refreshFeed() {
+    if (feedLoading) return;
+    var gen = feedGen;
+    var next = new Image();
+    feedLoading = next;
+    function done() {
+        if (feedLoading === next) feedLoading = null;
+    }
+    next.onload = function() {
+        done();
+        // ignore it if the camera changed or the slider closed meanwhile
+        if (gen === feedGen) cameraFeed.src = next.src;
+    };
+    next.onerror = done;
+    setTimeout(function() {
+        if (feedLoading === next) {
+            next.src = '';  // give up on it
+            done();
+        }
+    }, FEED_TIMEOUT);
+    next.src = clickedMarker.properties.url + Math.random();
+}
+// forget any image still loading for the previous camera
+function resetFeed() {
+    feedGen++;
+    if (feedLoading) feedLoading.src = '';
+    feedLoading = null;
 }
 function setHTML(clickedMarker) {
-    // a new camera cancels any snap sequence that's running
+    // a new camera cancels any snap sequence that's running, and any image
+    // still loading for the previous camera
     resetSnap();
-    // set heading text to cross-street
-    cameraLocation.innerHTML = clickedMarker.properties.name;
+    resetFeed();
+    // set heading text to cross-street, inside a <mark> highlight
+    // (textContent shows the name as plain text)
+    var titleMark = document.createElement('mark');
+    titleMark.textContent = clickedMarker.properties.name;
+    cameraLocation.innerHTML = '';
+    cameraLocation.appendChild(titleMark);
     // make it as big as fits next to the close button (and size the help text)
     fitAllText();
     // pre-load camera feed image
     cameraFeed.src = "/static/loading.png";
-    startFeed();
+    if (revealNext) {
+        // slider just opened: start with the camera shut, ask for the first
+        // camera image right away, and open the iris once it has loaded. The
+        // regular refresh starts after that, so it can't cut the first image
+        // off while it's still loading.
+        revealNext = false;
+        revealFeed(startFeed);
+        cameraFeed.src = clickedMarker.properties.url + Math.random();
+    } else {
+        startFeed();
+    }
 }
 function flyToCamera(clickedMarker) {
     var height = mapCSS.offsetHeight;
@@ -265,6 +326,8 @@ function newStrip() {
     return strip;
 }
 // --- server side (Flask version) -------------------------------------------
+// Each photo is also saved on the server through /selfie. The server downloads
+// the camera image and answers with the saved file's path (e.g.
 // "static/my_selfie<id>.jpg"); it deletes saved files after 10 minutes.
 // Saved copies come from this site, so they can be combined into the strip
 // image that SAVE downloads (images from the camera servers can't be).
@@ -344,9 +407,69 @@ function takeShot(i) {
     // ask for a fresh camera image right away, so the next photo is a new frame
     // (not after the last one: the feed is about to close)
     if (i < SNAP.shots - 1) {
-        cameraFeed.src = clickedMarker.properties.url + Math.random();
+        refreshFeed();
     }
 }
+// when the slider opens: the camera box starts shut (only the dark background
+// shows) and the slot is closed. The iris opens once the first camera image
+// has loaded (not the loading image), but no sooner than SNAP.revealDelay, so
+// the slider is nearly in place. If the image fails or takes longer than
+// SNAP.revealMaxWait, it opens anyway. Uses its own timers, so starting a snap
+// doesn't cancel it.
+var revealTimers = [];
+var revealListener = null;
+// whenFeedReady: run once the first image has loaded (or failed / timed out)
+function revealFeed(whenFeedReady) {
+    cancelReveal();
+    setIrisSize();
+    camFrameCSS.classList.add('iris-shut');
+    printSlot.classList.add('closed');
+    var earliest = Date.now() + SNAP.revealDelay;
+    var opened = false;
+    function open() {
+        if (opened) return;
+        opened = true;
+        stopListening();
+        if (whenFeedReady) whenFeedReady();
+        // wait out the rest of revealDelay if the image came quickly
+        revealTimers.push(setTimeout(function() {
+            camFrameCSS.classList.remove('iris-shut');
+            camFrameCSS.classList.add('iris-reveal');
+            printSlot.classList.remove('closed');
+            // remove the class after the iris finishes so nothing stays clipped
+            revealTimers.push(setTimeout(function() {
+                camFrameCSS.classList.remove('iris-reveal');
+            }, SNAP.irisOpenMs + 50));
+        }, Math.max(0, earliest - Date.now())));
+    }
+    // open when a real camera image finishes loading (or fails)
+    revealListener = function() {
+        if (cameraFeed.getAttribute('src').indexOf('loading.png') === -1) open();
+    };
+    cameraFeed.addEventListener('load', revealListener);
+    cameraFeed.addEventListener('error', revealListener);
+    // ...or after revealMaxWait, whatever happens
+    revealTimers.push(setTimeout(open, SNAP.revealMaxWait));
+}
+function stopListening() {
+    if (revealListener) {
+        cameraFeed.removeEventListener('load', revealListener);
+        cameraFeed.removeEventListener('error', revealListener);
+        revealListener = null;
+    }
+}
+// true while the iris is shut waiting for the camera, or still opening
+function revealing() {
+    return camFrameCSS.classList.contains('iris-shut') || camFrameCSS.classList.contains('iris-reveal');
+}
+// stop an iris opening that's in progress and show the feed normally
+function cancelReveal() {
+    revealTimers.forEach(clearTimeout);
+    revealTimers = [];
+    stopListening();
+    camFrameCSS.classList.remove('iris-shut', 'iris-reveal');
+}
+
 // cancel any running sequence and put everything back to the starting state,
 // instantly. Used when the slider closes or another camera is picked.
 function resetSnap() {
@@ -389,16 +512,20 @@ function toggleBtn() {
     sliderCSS.classList.remove('is-open');
     // stop any snap sequence and clear the strip (replaces removing the old 'clicked' classes)
     resetSnap();
-    // clear feed interval
+    // and any iris opening still in progress
+    cancelReveal();
+    // clear feed interval and forget any image still loading
     clearInterval(camInterval);
+    resetFeed();
     // zoom out from last-clicked camera
     flyFromCamera();
 }
 // SNAP: take 4 photos (SNAP.delay apart) and print them onto one strip.
 // Replaces the old single-photo version, which froze the feed and moved the slider up.
 function selfieBtn() {
-    // ignore extra taps while a sequence is already running
-    if (snapState !== 'idle') return;
+    // ignore extra taps while a sequence is already running, or while the
+    // camera is still opening
+    if (snapState !== 'idle' || revealing()) return;
     snapState = 'shooting';
     // size the iris to the camera box before it's needed
     setIrisSize();
@@ -459,7 +586,8 @@ function downloadBtn() {
             canvas.toBlob(function(blob) {
                 var link = document.createElement('a');
                 link.href = URL.createObjectURL(blob);
-                // file name with the date and time the strip was taken
+                // file name with the date and time the strip was taken, so every
+                // strip gets its own name: selfie_nyc_2026-11-21_00-52-07.png
                 link.download = stripFileName(strip.takenAt);
                 document.body.appendChild(link);
                 link.click();
@@ -577,7 +705,7 @@ function deleteBtn() {
     leaving.classList.add('leaving');
     leaving.style.transform = 'translateY(' + (printStrip.clientHeight + printStrip.scrollTop + 20) + 'px)';
     // load a fresh frame and restart the 1.5s refresh
-    cameraFeed.src = clickedMarker.properties.url + Math.random();
+    refreshFeed();
     startFeed();
     // open the iris and the slot once the buttons are mostly gone
     later(function() {

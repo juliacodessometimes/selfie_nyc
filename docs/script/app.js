@@ -44,43 +44,12 @@ var clickedMarker;
 var camInterval;
 // loading map
 map.addControl(geoLocate, 'bottom-right');
-// camera data comes from the NYC DOT camera API: a list of cameras like
-// {"id", "name", "latitude", "longitude", "area", "isOnline": "true", "imageUrl"}
-var CAMERA_API = 'https://webcams.nyctmc.org/api/cameras';
-// used if the API can't be reached: the old scraped data file
-var CAMERA_BACKUP = 'https://raw.githubusercontent.com/juliacodessometimes/selfie_nyc/main/app/data.geojson';
-// turn the API's camera list into the GeoJSON the map uses: one point per
-// online camera, with its name and image address
-function camerasToGeoJSON(cameras) {
-    var features = cameras
-        // isOnline is the text "true" (not true/false), so compare as text
-        .filter(function(cam) { return String(cam.isOnline).toLowerCase() === 'true' && cam.imageUrl; })
-        .map(function(cam) {
-            return {
-                type: 'Feature',
-                geometry: { type: 'Point', coordinates: [Number(cam.longitude), Number(cam.latitude)] },
-                properties: {
-                    name: cam.name,
-                    // a random number is added to the end of this on every
-                    // refresh, so it gets a fresh image: ".../image?t=0.123"
-                    url: cam.imageUrl + '?t='
-                }
-            };
-        });
-    if (!features.length) throw new Error('no online cameras in the API response');
-    return { type: 'FeatureCollection', features: features };
-}
-function loadCameras() {
-    return fetch(CAMERA_API)
-        .then(response => response.json())
-        .then(camerasToGeoJSON)
-        .catch(function(error) {
-            console.warn('camera API unavailable, using backup data:', error);
-            return fetch(CAMERA_BACKUP).then(response => response.json());
-        });
-}
+// camera data: the data.geojson file in the GitHub repo
+// (update it with update_cameras.py, then push it)
+var CAMERA_DATA = 'https://raw.githubusercontent.com/juliacodessometimes/selfie_nyc/main/app/data.geojson';
 map.on('load', () => {
-    loadCameras()
+    fetch(CAMERA_DATA)
+    .then(response => response.json())
     .then((data) => {
         // add data source
         map.addSource('source_id', {
@@ -162,6 +131,8 @@ var SNAP = {
     slideMs: 480,      // $slide_dur
     flashMs: 280,      // $flash_dur
     irisOpenMs: 480,   // $iris_open_dur
+    revealDelay: 400,  // earliest the iris opens after the slider starts opening (ms)
+    revealMaxWait: 8000, // if the first camera image takes longer than this, open anyway (ms)
 };
 // where the sequence is: idle (SNAP showing) | shooting (photos being taken)
 // | done (delete/save showing) | clearing (delete was tapped, animating out)
@@ -171,7 +142,11 @@ var snapTimers = [];
 var currentStrip = null; // the photo strip being printed / shown
 
 // functions
+// true when the slider was closed: the next camera shown opens with the iris
+var revealNext = false;
 function openSlider() {
+    // only when the slider wasn't already open (not when switching cameras)
+    revealNext = !sliderCSS.classList.contains('is-open');
     // open slider and hide header/footer
     sliderCSS.classList.add('is-open');
     headerCSS.classList.add('is-open');
@@ -222,13 +197,48 @@ if (document.fonts) {
 function startFeed() {
     // refresh the camera image every 1.5 seconds
     clearInterval(camInterval);
-    camInterval = setInterval(function() {
-        cameraFeed.src = clickedMarker.properties.url + Math.random();
-    }, 1500);
+    camInterval = setInterval(refreshFeed, 1500);
+}
+// load the next camera image in the background and only swap it in once it
+// has fully arrived, so the picture never goes blank and a slow camera still
+// updates (at its own pace). One image loads at a time; one that fails or
+// takes longer than FEED_TIMEOUT is skipped and the current picture stays.
+var FEED_TIMEOUT = 10000;
+var feedGen = 0;          // goes up when the camera changes or the slider closes
+var feedLoading = null;   // the image currently loading, if any
+function refreshFeed() {
+    if (feedLoading) return;
+    var gen = feedGen;
+    var next = new Image();
+    feedLoading = next;
+    function done() {
+        if (feedLoading === next) feedLoading = null;
+    }
+    next.onload = function() {
+        done();
+        // ignore it if the camera changed or the slider closed meanwhile
+        if (gen === feedGen) cameraFeed.src = next.src;
+    };
+    next.onerror = done;
+    setTimeout(function() {
+        if (feedLoading === next) {
+            next.src = '';  // give up on it
+            done();
+        }
+    }, FEED_TIMEOUT);
+    next.src = clickedMarker.properties.url + Math.random();
+}
+// forget any image still loading for the previous camera
+function resetFeed() {
+    feedGen++;
+    if (feedLoading) feedLoading.src = '';
+    feedLoading = null;
 }
 function setHTML(clickedMarker) {
-    // a new camera cancels any snap sequence that's running
+    // a new camera cancels any snap sequence that's running, and any image
+    // still loading for the previous camera
     resetSnap();
+    resetFeed();
     // set heading text to cross-street, inside a <mark> highlight
     // (textContent shows the name as plain text)
     var titleMark = document.createElement('mark');
@@ -239,7 +249,17 @@ function setHTML(clickedMarker) {
     fitAllText();
     // pre-load camera feed image
     cameraFeed.src = "assets/loading.png";
-    startFeed();
+    if (revealNext) {
+        // slider just opened: start with the camera shut, ask for the first
+        // camera image right away, and open the iris once it has loaded. The
+        // regular refresh starts after that, so it can't cut the first image
+        // off while it's still loading.
+        revealNext = false;
+        revealFeed(startFeed);
+        cameraFeed.src = clickedMarker.properties.url + Math.random();
+    } else {
+        startFeed();
+    }
 }
 function flyToCamera(clickedMarker) {
     var height = mapCSS.offsetHeight;
@@ -351,9 +371,69 @@ function takeShot(i) {
     // ask for a fresh camera image right away, so the next photo is a new frame
     // (not after the last one: the feed is about to close)
     if (i < SNAP.shots - 1) {
-        cameraFeed.src = clickedMarker.properties.url + Math.random();
+        refreshFeed();
     }
 }
+// when the slider opens: the camera box starts shut (only the dark background
+// shows) and the slot is closed. The iris opens once the first camera image
+// has loaded (not the loading image), but no sooner than SNAP.revealDelay, so
+// the slider is nearly in place. If the image fails or takes longer than
+// SNAP.revealMaxWait, it opens anyway. Uses its own timers, so starting a snap
+// doesn't cancel it.
+var revealTimers = [];
+var revealListener = null;
+// whenFeedReady: run once the first image has loaded (or failed / timed out)
+function revealFeed(whenFeedReady) {
+    cancelReveal();
+    setIrisSize();
+    camFrameCSS.classList.add('iris-shut');
+    printSlot.classList.add('closed');
+    var earliest = Date.now() + SNAP.revealDelay;
+    var opened = false;
+    function open() {
+        if (opened) return;
+        opened = true;
+        stopListening();
+        if (whenFeedReady) whenFeedReady();
+        // wait out the rest of revealDelay if the image came quickly
+        revealTimers.push(setTimeout(function() {
+            camFrameCSS.classList.remove('iris-shut');
+            camFrameCSS.classList.add('iris-reveal');
+            printSlot.classList.remove('closed');
+            // remove the class after the iris finishes so nothing stays clipped
+            revealTimers.push(setTimeout(function() {
+                camFrameCSS.classList.remove('iris-reveal');
+            }, SNAP.irisOpenMs + 50));
+        }, Math.max(0, earliest - Date.now())));
+    }
+    // open when a real camera image finishes loading (or fails)
+    revealListener = function() {
+        if (cameraFeed.getAttribute('src').indexOf('loading.png') === -1) open();
+    };
+    cameraFeed.addEventListener('load', revealListener);
+    cameraFeed.addEventListener('error', revealListener);
+    // ...or after revealMaxWait, whatever happens
+    revealTimers.push(setTimeout(open, SNAP.revealMaxWait));
+}
+function stopListening() {
+    if (revealListener) {
+        cameraFeed.removeEventListener('load', revealListener);
+        cameraFeed.removeEventListener('error', revealListener);
+        revealListener = null;
+    }
+}
+// true while the iris is shut waiting for the camera, or still opening
+function revealing() {
+    return camFrameCSS.classList.contains('iris-shut') || camFrameCSS.classList.contains('iris-reveal');
+}
+// stop an iris opening that's in progress and show the feed normally
+function cancelReveal() {
+    revealTimers.forEach(clearTimeout);
+    revealTimers = [];
+    stopListening();
+    camFrameCSS.classList.remove('iris-shut', 'iris-reveal');
+}
+
 // cancel any running sequence and put everything back to the starting state,
 // instantly. Used when the slider closes or another camera is picked.
 function resetSnap() {
@@ -392,16 +472,20 @@ function toggleBtn() {
     sliderCSS.classList.remove('is-open');
     // stop any snap sequence and clear the strip (replaces removing the old 'clicked' classes)
     resetSnap();
-    // clear feed interval
+    // and any iris opening still in progress
+    cancelReveal();
+    // clear feed interval and forget any image still loading
     clearInterval(camInterval);
+    resetFeed();
     // zoom out from last-clicked camera
     flyFromCamera();
 }
 // SNAP: take 4 photos (SNAP.delay apart) and print them onto one strip.
 // Replaces the old single-photo version, which froze the feed and moved the slider up.
 function selfieBtn() {
-    // ignore extra taps while a sequence is already running
-    if (snapState !== 'idle') return;
+    // ignore extra taps while a sequence is already running, or while the
+    // camera is still opening
+    if (snapState !== 'idle' || revealing()) return;
     snapState = 'shooting';
     // size the iris to the camera box before it's needed
     setIrisSize();
@@ -456,7 +540,7 @@ function deleteBtn() {
     leaving.classList.add('leaving');
     leaving.style.transform = 'translateY(' + (printStrip.clientHeight + printStrip.scrollTop + 20) + 'px)';
     // load a fresh frame and restart the 1.5s refresh
-    cameraFeed.src = clickedMarker.properties.url + Math.random();
+    refreshFeed();
     startFeed();
     // open the iris and the slot once the buttons are mostly gone
     later(function() {

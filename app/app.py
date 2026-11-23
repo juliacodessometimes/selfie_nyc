@@ -7,19 +7,29 @@ import urllib.parse
 import geojson
 import os, time
 
-# import geojson data from file
+# the folder this file is in. Files (data.geojson, static/) are found from here,
+# so the app works no matter which folder it's started from
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+def here(*parts):
+    return os.path.join(BASE_DIR, *parts)
 
-with open('data.geojson') as g:
+# identify ourselves when downloading camera images (some servers refuse
+# requests that don't)
+HEADERS = {'User-Agent': 'selfie_nyc'}
+
+# camera data from data.geojson (update it with update_cameras.py, then
+# restart the app so it's read again)
+with open(here('data.geojson')) as g:
     geo_data = geojson.load(g)
 
-# camera image addresses from the data file. /selfie only downloads these, so
-# nobody can make the server fetch other web addresses or local files
+# camera image addresses. /selfie only downloads these, so nobody can make the
+# server fetch other web addresses or local files
 camera_urls = [f['properties']['url'] for f in geo_data['features']
                if f.get('properties', {}).get('url')]
 
 def is_camera_url(url):
     # must be a normal web address (no file:// etc.) that starts with one of the
-    # camera addresses (the site adds a random number to the end of them)
+    # camera addresses (the site adds a random number to the end of them)...
     parsed = urllib.parse.urlparse(url)
     if parsed.scheme not in ('http', 'https'):
         return False
@@ -40,7 +50,7 @@ sched = BackgroundScheduler(daemon=True)
 # check and delete image job
 def delete_job():
     current_time = time.time()
-    selfie_list = os.scandir('static')
+    selfie_list = os.scandir(here('static'))
     # loop through static directory
     for i in selfie_list:
         # jpgs older than 10 minutes get deleted
@@ -77,13 +87,16 @@ def image_grab():
     # download the image (giving up after 10 seconds, and refusing anything
     # too big), then save it to the static folder
     try:
-        with urllib.request.urlopen(selfie_url, timeout=10) as r:
+        request_ = urllib.request.Request(selfie_url, headers=HEADERS)
+        with urllib.request.urlopen(request_, timeout=10) as r:
             data = r.read(MAX_IMAGE_BYTES + 1)
     except Exception:
         return jsonify('camera could not be reached'), 502
     if len(data) > MAX_IMAGE_BYTES:
         return jsonify('image too large'), 400
-    with open(local_selfie, 'wb') as f:
+    # (the file goes in this app's static folder; the page gets the
+    # "static/..." path, which is also its web address)
+    with open(here(local_selfie), 'wb') as f:
         f.write(data)
     return jsonify(local_selfie)
 
@@ -97,8 +110,8 @@ def image_delete():
     if not SELFIE_PATH.fullmatch(selfie_id):
         return ('', 400)
     # check if image file exists and delete
-    if os.path.exists(selfie_id):
-        os.remove(selfie_id)
+    if os.path.exists(here(selfie_id)):
+        os.remove(here(selfie_id))
     return ('', 204)
 
 @app.route('/about')

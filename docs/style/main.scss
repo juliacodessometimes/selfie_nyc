@@ -540,8 +540,10 @@ img {
             display: flex;
             align-items: center;
             font-size: 22px;
+            // (no bottom border any more: the title sits right on the camera box)
             padding-left: 2px;
             padding-right: 2px;
+            // (dark blue text outline removed)
             z-index: 2;
             #location {
                 background-color: transparent;
@@ -598,6 +600,9 @@ img {
             aspect-ratio: 352 / 240; // $selfiewidth / $selfieheight
             // lets the save/delete buttons size themselves to this box
             container-type: inline-size;
+            // dark background behind the camera image: shows around the iris
+            // while it opens/closes, and behind the delete/save buttons
+            background-color: $black;
             z-index: 3;
             // the live feed's dark frame; the iris animations clip this whole box
             .cam-frame {
@@ -614,6 +619,14 @@ img {
                 }
                 // added by app.js on delete: iris opens again
                 &.iris-open {
+                    animation: irisOpen $iris_open_dur ease-out both;
+                }
+                // added by app.js when the slider opens: camera box starts shut...
+                &.iris-shut {
+                    clip-path: polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%, 50% 50%, 50% 50%);
+                }
+                // ...then the iris opens
+                &.iris-reveal {
                     animation: irisOpen $iris_open_dur ease-out both;
                 }
             }

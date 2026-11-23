@@ -456,7 +456,15 @@ img {
   -webkit-font-smoothing: antialiased;
   font-family: pixelfont;
   font-weight: 500;
+}
+.wrapper-index .slider .slider-title #location mark {
+  background: rgb(48, 213, 95);
   color: rgb(40, 53, 147);
+  padding: 0 4px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.wrapper-index .slider .slider-title #location {
   text-align: center;
   flex-wrap: wrap;
   flex: 2;
@@ -483,6 +491,7 @@ img {
   width: 100%;
   aspect-ratio: 352/240;
   container-type: inline-size;
+  background-color: rgb(56, 44, 56);
   z-index: 3;
 }
 .wrapper-index .slider .slider-cam .cam-frame {
@@ -497,6 +506,12 @@ img {
   animation: irisClose 0.4s ease-in both;
 }
 .wrapper-index .slider .slider-cam .cam-frame.iris-open {
+  animation: irisOpen 0.48s ease-out both;
+}
+.wrapper-index .slider .slider-cam .cam-frame.iris-shut {
+  clip-path: polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%, 50% 50%, 50% 50%);
+}
+.wrapper-index .slider .slider-cam .cam-frame.iris-reveal {
   animation: irisOpen 0.48s ease-out both;
 }
 .wrapper-index .slider .slider-cam #camFeed {
@@ -666,8 +681,15 @@ img {
   white-space: nowrap;
   overflow: hidden;
 }
-.wrapper-index .slider .slider-functions .slider-spacer p.wrap {
-  white-space: normal;
+.wrapper-index .slider .slider-functions .slider-spacer p mark {
+  background: rgb(48, 213, 95);
+  color: rgb(40, 53, 147);
+  padding: 0 4px;
+}
+.wrapper-index .slider .slider-functions .slider-spacer p mark a {
+  background: rgb(48, 213, 95);
+  color: rgb(40, 53, 147);
+  padding: 0 4px;
 }
 
 .print-strip {
