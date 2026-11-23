@@ -20,6 +20,6 @@
 
     // wait until the page has loaded, so it shows behind the alert
     window.addEventListener('load', function() {
-        alert("Heads up! selfie_nyc is designed to be used on a phone. On a computer or tablet, some things may not look or work right.");
+        alert("hello! selfie_nyc is designed to be used on a phone. on a computer or tablet, some things may not look or work right.");
     });
 })();
